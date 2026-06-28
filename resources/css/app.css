@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    --color-bg: #F8FAFC;
+    --color-surface: #FFFFFF;
+    --color-navbar: rgba(255, 255, 255, 0.8);
+    --color-primary: #9F1239; /* Premium Maroon */
+    --color-hover: #BE185D;
+    --color-text: #1F2937;
+    --color-text-secondary: #4B5563;
+    --color-border: #E5E7EB;
+  }
+
+  .dark {
+    --color-bg: #111827; /* Navy */
+    --color-surface: #1F2937;
+    --color-navbar: rgba(15, 23, 42, 0.8); /* Semi-transparent for blur */
+    --color-primary: #BE185D;
+    --color-hover: #9F1239;
+    --color-text: #F9FAFB;
+    --color-text-secondary: #CBD5E1;
+    --color-border: rgba(255, 255, 255, 0.08);
+  }
+  
+  body {
+    @apply bg-theme-bg text-theme-text transition-colors duration-200;
+  }
+}
