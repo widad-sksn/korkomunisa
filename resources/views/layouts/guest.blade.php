@@ -25,7 +25,7 @@
                 
                 <div class="relative z-10 text-center flex flex-col items-center">
                     <a href="/" class="block hover:scale-105 transition-transform duration-300">
-                        <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo IMM" style="width: 200px; height: auto;" class="drop-shadow-2xl">
+                        <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo IMM" style="width: 350px; height: auto;" class="drop-shadow-2xl">
                     </a>
                     <div class="mt-8">
                         <h2 class="text-3xl font-extrabold text-white tracking-tight drop-shadow-md">KORKOM UNISA</h2>
