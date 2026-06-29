@@ -21,6 +21,8 @@ RUN apt-get update && apt-get install -y \
     php8.3-zip \
     php8.3-bcmath \
     php8.3-intl \
+    certbot \
+    python3-certbot-nginx \
     && curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
     && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \

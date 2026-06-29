@@ -26,5 +26,16 @@ php artisan view:cache
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
+# Start Nginx temporarily for Certbot validation
+nginx -g "daemon on;"
+sleep 2
+
+# Auto-configure SSL
+certbot --nginx -d immkorkom.unisayogya.ac.id --non-interactive --agree-tos -m immkorkom@unisayogya.ac.id --redirect || echo "Certbot process finished."
+
+# Stop temporary Nginx so Supervisor can take over
+nginx -s stop
+sleep 1
+
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf

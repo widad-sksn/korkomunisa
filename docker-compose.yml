@@ -10,10 +10,13 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - app_storage:/var/www/html/storage
       - app_database:/var/www/html/database
+      - letsencrypt:/etc/letsencrypt
 
 volumes:
   app_storage:
   app_database:
+  letsencrypt:
