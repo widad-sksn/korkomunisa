@@ -21,7 +21,7 @@
             </p>
             
             <!-- CTA Button with Vercel Style -->
-            <a href="#tulisan-kader" 
+            <a href="{{ route('articles.public_index') }}" 
                class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-gradient-to-r from-[#EA580C] to-[#F97316] rounded-full hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 shadow-[0_0_30px_rgba(249,115,22,0.35)]">
                 <span class="mr-2">{{ __('Jelajahi Artikel') }}</span>
                 <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -137,6 +137,12 @@
                         </a>
                     @endforeach
                 </div>
+                <div class="mt-12 text-center">
+                    <a href="{{ route('articles.public_index') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-theme-primary hover:bg-theme-hover transition-colors">
+                        {{ __('Lihat Semua Tulisan') }}
+                        <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
             @endif
         </div>
     </div>
@@ -174,6 +180,12 @@
                             </div>
                         </a>
                     @endforeach
+                </div>
+                <div class="mt-12 text-center">
+                    <a href="{{ route('portfolios.public_index') }}" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-theme-primary hover:bg-theme-hover transition-colors">
+                        {{ __('Lihat Semua Kegiatan') }}
+                        <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
                 </div>
             @endif
         </div>

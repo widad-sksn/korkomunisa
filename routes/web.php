@@ -4,8 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $articles = \App\Models\Article::where('status', 'published')->latest()->take(6)->get();
-    $portfolios = \App\Models\Portfolio::where('status', 'published')->latest()->take(6)->get();
+    $articles = \App\Models\Article::where('status', 'published')->latest()->take(3)->get();
+    $portfolios = \App\Models\Portfolio::where('status', 'published')->latest()->take(4)->get();
     
     $userCount = \App\Models\User::count();
     $articleCount = \App\Models\Article::where('status', 'published')->count();
@@ -16,9 +16,11 @@ Route::get('/', function () {
 
 // Public article viewing route
 Route::get('/kabar/{article}', [\App\Http\Controllers\ArticleController::class, 'show'])->name('articles.show_public');
+Route::get('/tulisan-kader', [\App\Http\Controllers\ArticleController::class, 'publicIndex'])->name('articles.public_index');
 
 // Public portfolio viewing route
 Route::get('/kegiatan/{portfolio}', [\App\Http\Controllers\PortfolioController::class, 'show'])->name('portfolios.show_public');
+Route::get('/kegiatan', [\App\Http\Controllers\PortfolioController::class, 'publicIndex'])->name('portfolios.public_index');
 
 Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['id', 'en', 'ar'])) {

@@ -44,8 +44,8 @@
                     
                     <a href="{{ route('about') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Tentang IMM') }}</a>
 
-                    <a href="{{ url('/#tulisan-kader') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Tulisan Kader') }}</a>
-                    <a href="{{ url('/#portofolio') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Kegiatan') }}</a>
+                    <a href="{{ route('articles.public_index') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Tulisan Kader') }}</a>
+                    <a href="{{ route('portfolios.public_index') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Kegiatan') }}</a>
 
                     <div class="h-6 w-px bg-theme-border mx-2"></div>
 
@@ -106,8 +106,8 @@
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="{{ url('/') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Beranda') }}</a>
                 <a href="{{ route('about') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Tentang IMM') }}</a>
-                <a href="{{ url('/#tulisan-kader') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Tulisan Kader') }}</a>
-                <a href="{{ url('/#portofolio') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Kegiatan') }}</a>
+                <a href="{{ route('articles.public_index') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Tulisan Kader') }}</a>
+                <a href="{{ route('portfolios.public_index') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Kegiatan') }}</a>
                 @if (Route::has('login'))
                     @auth
                         <a href="{{ url('/dashboard') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Dashboard') }}</a>

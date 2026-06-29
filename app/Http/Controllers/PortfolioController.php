@@ -9,6 +9,15 @@ use Illuminate\Support\Facades\Storage;
 class PortfolioController extends Controller
 {
     /**
+     * Display public listing of portfolios.
+     */
+    public function publicIndex()
+    {
+        $portfolios = Portfolio::where('status', 'published')->latest()->paginate(12);
+        return view('portfolios.public_index', compact('portfolios'));
+    }
+
+    /**
      * Display a listing of the resource.
      */
     public function index()

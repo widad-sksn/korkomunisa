@@ -18,6 +18,15 @@ class ArticleController extends Controller
     }
 
     /**
+     * Display public listing of articles.
+     */
+    public function publicIndex()
+    {
+        $articles = Article::where('status', 'published')->latest()->paginate(9);
+        return view('articles.public_index', compact('articles'));
+    }
+
+    /**
      * Display the specified resource.
      */
     public function show(Article $article)
