@@ -41,8 +41,10 @@ RUN mkdir -p storage/framework/cache/data \
     storage/logs \
     bootstrap/cache
 
-# Install PHP dependencies
-RUN composer install --no-interaction --no-dev --optimize-autoloader
+# Install PHP dependencies with retry logic for network stability
+RUN composer install --no-interaction --no-dev --optimize-autoloader || \
+    (sleep 5 && composer install --no-interaction --no-dev --optimize-autoloader) || \
+    (sleep 5 && composer install --no-interaction --no-dev --optimize-autoloader --prefer-source)
 
 # Install Node dependencies and build assets
 RUN npm install && npm run build
