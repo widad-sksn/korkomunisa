@@ -2,27 +2,25 @@
 
 @section('content')
     <!-- Premium Hero Section -->
-    <div class="relative text-white py-32 md:py-48 text-center transition-colors duration-300 overflow-hidden flex flex-col items-center justify-center min-h-[90vh]"
-         style="background: radial-gradient(circle at top left, #111827 0%, transparent 40%), linear-gradient(135deg, #111827 0%, #5C1026 50%, #9B1238 100%);">
+    <div class="relative py-32 md:py-48 text-center transition-colors duration-300 overflow-hidden flex flex-col items-center justify-center min-h-[90vh] bg-theme-bg">
         
         <!-- Abstract Campus Overlay -->
-        <div class="absolute inset-0 z-0 opacity-[0.06] pointer-events-none mix-blend-overlay bg-cover bg-center" style="background-image: url('{{ asset('images/campus_bg.png') }}');"></div>
+        <div class="absolute inset-0 z-0 opacity-5 dark:opacity-[0.03] pointer-events-none mix-blend-multiply dark:mix-blend-screen bg-cover bg-center" style="background-image: url('{{ asset('images/campus_bg.png') }}');"></div>
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center relative z-10">
-            <!-- Glow Logo -->
-            <div class="relative mb-6">
-                <div class="absolute inset-0 bg-white/20 blur-2xl rounded-full scale-150"></div>
-                <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo IMM" class="relative drop-shadow-2xl opacity-100" style="width: 160px; height: auto;">
+            <!-- Logo -->
+            <div class="relative mb-8">
+                <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo IMM" class="relative drop-shadow-lg" style="width: 180px; height: auto;">
             </div>
             
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-xl">KORKOM UNISA</h1>
-            <p class="text-lg md:text-2xl italic font-light mb-12 text-white/90 drop-shadow-md leading-relaxed">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight text-theme-text drop-shadow-sm">KORKOM UNISA</h1>
+            <p class="text-lg md:text-2xl italic font-light mb-12 text-theme-secondary drop-shadow-sm leading-relaxed">
                 {{ __('"Anggun dalam Moral, Unggul dalam Intelektual"') }}
             </p>
             
-            <!-- CTA Button with Vercel Style -->
+            <!-- CTA Button -->
             <a href="{{ route('articles.public_index') }}" 
-               class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-gradient-to-r from-[#EA580C] to-[#F97316] rounded-full hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 shadow-[0_0_30px_rgba(249,115,22,0.35)]">
+               class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-theme-primary rounded-full hover:bg-theme-hover hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-theme-primary shadow-lg">
                 <span class="mr-2">{{ __('Jelajahi Artikel') }}</span>
                 <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
