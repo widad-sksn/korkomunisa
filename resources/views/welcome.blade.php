@@ -10,7 +10,7 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center relative z-10">
             <!-- Logo -->
             <div class="relative mb-8">
-                <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo IMM" class="relative drop-shadow-lg w-48 md:w-64 lg:w-72 h-auto">
+                <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo IMM" class="relative drop-shadow-lg w-64 md:w-80 lg:w-96 xl:w-[450px] h-auto">
             </div>
             
             <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight text-theme-text drop-shadow-sm">KORKOM UNISA</h1>
