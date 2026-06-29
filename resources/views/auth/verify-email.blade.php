@@ -9,26 +9,27 @@
         </div>
     @endif
 
-    <div class="mt-8 flex flex-col space-y-4 sm:space-y-0 sm:flex-row sm:items-center sm:justify-between w-full">
-        <form method="POST" action="{{ route('verification.send') }}" id="resend-form" class="w-full sm:w-auto">
+    <div class="mt-6 flex flex-col gap-3">
+        {{-- Tombol utama: Kirim Ulang Email --}}
+        <form method="POST" action="{{ route('verification.send') }}" id="resend-form">
             @csrf
-            <x-primary-button id="resend-button" class="w-full sm:w-auto justify-center px-6 py-2.5">
-                {{ __('Kirim Ulang Email') }} <span id="countdown" class="ml-1 hidden"></span>
+            <x-primary-button id="resend-button" class="w-full justify-center px-6 py-3 text-sm tracking-wide">
+                {{ __('Kirim Ulang Email Verifikasi') }} <span id="countdown" class="ml-1 hidden"></span>
             </x-primary-button>
         </form>
 
-        <div class="flex items-center justify-between sm:justify-end gap-6 w-full sm:w-auto mt-4 sm:mt-0">
-            <a href="{{ route('dashboard') }}" class="text-sm font-bold text-[#8C1515] hover:text-[#5f0e0e] transition-colors duration-200 underline decoration-2 underline-offset-4">
-                {{ __('Lanjutkan ke Dasbor') }}
-            </a>
+        {{-- Tombol sekunder: Lanjutkan ke Dasbor --}}
+        <a href="{{ route('dashboard') }}" class="w-full inline-flex justify-center items-center px-6 py-3 border-2 border-[#8C1515] text-sm font-semibold text-[#8C1515] rounded-md hover:bg-[#8C1515] hover:text-white transition-all duration-200 tracking-wide">
+            {{ __('Sudah Verifikasi? Lanjutkan ke Dasbor →') }}
+        </a>
 
-            <form method="POST" action="{{ route('logout') }}" class="inline-flex">
-                @csrf
-                <button type="submit" class="text-sm font-medium text-gray-400 hover:text-gray-700 transition-colors duration-200">
-                    {{ __('Keluar') }}
-                </button>
-            </form>
-        </div>
+        {{-- Tombol tersier: Keluar --}}
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="w-full text-center text-sm text-gray-400 hover:text-gray-600 transition-colors duration-200 py-2">
+                {{ __('Keluar dari Akun') }}
+            </button>
+        </form>
     </div>
 
     <script>
