@@ -159,7 +159,7 @@
                         immkorkom@unisayogya.ac.id
                     </a>
                 </p>
-                <p class="text-theme-secondary text-sm font-medium">&copy; {{ date('Y') }} Ikatan Mahasiswa Muhammadiyah Korkom UNISA. All rights reserved.</p>
+                <p class="text-theme-secondary text-sm font-medium">&copy; {{ date('Y') }} {{ __('Ikatan Mahasiswa Muhammadiyah Korkom UNISA. Hak Cipta Dilindungi.') }}</p>
             </div>
         </div>
     </footer>

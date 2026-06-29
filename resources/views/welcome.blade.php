@@ -17,7 +17,7 @@
             
             <h1 class="text-4xl md:text-6xl font-extrabold mb-4 tracking-tight drop-shadow-xl">KORKOM UNISA</h1>
             <p class="text-lg md:text-2xl italic font-light mb-12 text-white/90 drop-shadow-md leading-relaxed">
-                "Anggun dalam Moral, Unggul dalam Intelektual"
+                {{ __('"Anggun dalam Moral, Unggul dalam Intelektual"') }}
             </p>
             
             <!-- CTA Button with Vercel Style -->
@@ -43,17 +43,17 @@
                 <div class="flex flex-col items-center justify-center p-2">
                     <span class="text-3xl mb-1">👥</span>
                     <h3 class="text-2xl font-extrabold text-theme-text tracking-tight">{{ $userCount }}</h3>
-                    <p class="text-theme-secondary text-sm font-medium">Anggota Aktif</p>
+                    <p class="text-theme-secondary text-sm font-medium">{{ __('Anggota Aktif') }}</p>
                 </div>
                 <div class="flex flex-col items-center justify-center p-2">
                     <span class="text-3xl mb-1">📰</span>
                     <h3 class="text-2xl font-extrabold text-theme-text tracking-tight">{{ $articleCount }}</h3>
-                    <p class="text-theme-secondary text-sm font-medium">Artikel Diterbitkan</p>
+                    <p class="text-theme-secondary text-sm font-medium">{{ __('Artikel Diterbitkan') }}</p>
                 </div>
                 <div class="flex flex-col items-center justify-center p-2">
                     <span class="text-3xl mb-1">🎉</span>
                     <h3 class="text-2xl font-extrabold text-theme-text tracking-tight">{{ $portfolioCount }}</h3>
-                    <p class="text-theme-secondary text-sm font-medium">Kegiatan</p>
+                    <p class="text-theme-secondary text-sm font-medium">{{ __('Kegiatan') }}</p>
                 </div>
             </div>
         </div>
@@ -70,24 +70,24 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                 <!-- IMM FST -->
                 <div class="bg-theme-surface border border-theme-border rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group">
-                    <div class="w-24 h-24 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <img src="{{ asset('images/IMM-FST.png') }}" alt="Logo IMM FST" class="max-w-full max-h-full object-contain drop-shadow-md">
+                    <div class="h-20 w-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <img src="{{ asset('images/IMM-FST.png') }}" alt="Logo IMM FST" class="h-full w-auto object-contain drop-shadow-md">
                     </div>
                     <h3 class="text-xl font-bold text-theme-text">IMM FST</h3>
                 </div>
 
                 <!-- IMM Rosyad Sholeh -->
                 <div class="bg-theme-surface border border-theme-border rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group">
-                    <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-6 border border-gray-200 dark:border-gray-700 group-hover:border-theme-primary transition-colors">
-                        <svg class="w-10 h-10 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                    <div class="h-20 w-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <img src="{{ asset('images/rosyad sholeh.png') }}" alt="Logo IMM Rosyad Sholeh" class="h-full w-auto object-contain drop-shadow-md">
                     </div>
                     <h3 class="text-xl font-bold text-theme-text">IMM Rosyad Sholeh</h3>
                 </div>
 
                 <!-- IMM Fikes -->
                 <div class="bg-theme-surface border border-theme-border rounded-2xl p-8 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group">
-                    <div class="w-24 h-24 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-6 border border-gray-200 dark:border-gray-700 group-hover:border-theme-primary transition-colors">
-                        <svg class="w-10 h-10 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                    <div class="h-20 w-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                        <img src="{{ asset('images/fikes.png') }}" alt="Logo IMM Fikes" class="h-full w-auto object-contain drop-shadow-md">
                     </div>
                     <h3 class="text-xl font-bold text-theme-text">IMM Fikes</h3>
                 </div>
@@ -105,7 +105,7 @@
             </div>
 
             @if($articles->isEmpty())
-                <p class="text-center text-theme-secondary text-lg">Belum ada tulisan kader yang dipublikasikan.</p>
+                <p class="text-center text-theme-secondary text-lg">{{ __('Belum ada tulisan kader yang dipublikasikan.') }}</p>
             @else
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     @foreach($articles as $article)
@@ -123,14 +123,14 @@
                                 @endif
                             @else
                                 <div class="w-full h-60 bg-theme-surface flex items-center justify-center border-b border-theme-border">
-                                    <span class="text-theme-secondary italic">Tanpa Media</span>
+                                    <span class="text-theme-secondary italic">{{ __('Tanpa Media') }}</span>
                                 </div>
                             @endif
                             <div class="p-8">
                                 <h3 class="font-extrabold text-xl mb-4 text-theme-text line-clamp-2 group-hover:text-theme-primary transition-colors">{{ $article->title }}</h3>
                                 <p class="text-theme-secondary text-base mb-6 line-clamp-3 leading-relaxed">{{ strip_tags($article->content) }}</p>
                                 <div class="flex justify-between items-center text-sm text-theme-secondary pt-6 border-t border-theme-border">
-                                    <span class="font-semibold text-theme-text">Oleh: {{ optional($article->user)->name ?? 'Anonim' }}</span>
+                                    <span class="font-semibold text-theme-text">{{ __('Oleh:') }} {{ optional($article->user)->name ?? __('Anonim') }}</span>
                                     <span>{{ $article->created_at->format('d M Y') }}</span>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
             </div>
 
             @if($portfolios->isEmpty())
-                <p class="text-center text-theme-secondary text-lg">Belum ada kegiatan yang ditampilkan.</p>
+                <p class="text-center text-theme-secondary text-lg">{{ __('Belum ada kegiatan yang ditampilkan.') }}</p>
             @else
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                     @foreach($portfolios as $portfolio)

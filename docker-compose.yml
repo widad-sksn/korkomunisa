@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: korkomunisa-app
+    container_name: korkomunisa_app
+    restart: unless-stopped
+    ports:
+      - "1964:80"
+    volumes:
+      - app_storage:/var/www/html/storage
+      - app_database:/var/www/html/database
+
+volumes:
+  app_storage:
+  app_database:

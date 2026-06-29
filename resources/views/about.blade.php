@@ -11,26 +11,26 @@
             
             <div class="prose prose-lg dark:prose-invert mx-auto text-theme-text">
                 <p class="text-lg leading-relaxed text-justify mb-8">
-                    <strong>Ikatan Mahasiswa Muhammadiyah (IMM)</strong> adalah gerakan mahasiswa Islam dan salah satu organisasi otonom Muhammadiyah yang lahir di Yogyakarta pada <strong>14 Maret 1964 M</strong> atau bertepatan dengan <strong>29 Syawal 1384 H</strong>.
+                    {!! __('about_p1') !!}
                 </p>
                 
-                <h3 class="text-2xl font-bold mt-10 mb-6 tracking-tight">Latar Belakang Berdirinya IMM</h3>
+                <h3 class="text-2xl font-bold mt-10 mb-6 tracking-tight">{{ __('Latar Belakang Berdirinya IMM') }}</h3>
                 <p class="text-justify mb-6">
-                    Kelahiran IMM didorong oleh kebutuhan yang mendesak untuk membina kader Muhammadiyah di tingkat perguruan tinggi. Pada masa itu, terdapat keinginan kuat untuk mencetak "Muslim Intelektual" yang mampu menyebarkan dakwah Muhammadiyah secara efektif di kalangan kampus. Selain itu, kondisi bangsa Indonesia yang tidak stabil dan maraknya persaingan ideologi pada masa 1950-1964 membuat Muhammadiyah memandang perlu adanya wadah khusus untuk membentengi mahasiswa dari paham-paham yang bertentangan dengan ajaran Islam.
+                    {!! __('about_p2') !!}
                 </p>
                 <p class="text-justify mb-8">
-                    Tokoh pelopor yang berperan sangat penting dalam pendirian IMM antara lain adalah <strong>Djazman Al-Kindi</strong>, Rosyad Sholeh, Sudibyo Markus, Amien Rais, dan beberapa tokoh mahasiswa Muhammadiyah lainnya yang mengusulkan pembentukan organisasi ini kepada Pimpinan Pusat Muhammadiyah.
+                    {!! __('about_p3') !!}
                 </p>
 
-                <h3 class="text-2xl font-bold mt-10 mb-6 tracking-tight">Enam Penegasan IMM</h3>
-                <p class="mb-6">Dalam peresmiannya, dideklarasikan "Enam Penegasan IMM" yang menjadi landasan utama perjuangan organisasi:</p>
+                <h3 class="text-2xl font-bold mt-10 mb-6 tracking-tight">{{ __('Enam Penegasan IMM') }}</h3>
+                <p class="mb-6">{{ __('Dalam peresmiannya, dideklarasikan "Enam Penegasan IMM" yang menjadi landasan utama perjuangan organisasi:') }}</p>
                 <ol class="list-decimal pl-6 mb-8 space-y-4">
-                    <li>Menegaskan bahwa IMM adalah gerakan mahasiswa Islam.</li>
-                    <li>Menegaskan bahwa kepribadian Muhammadiyah adalah landasan perjuangan IMM.</li>
-                    <li>Menegaskan bahwa fungsi IMM adalah eksponen mahasiswa dalam Muhammadiyah.</li>
-                    <li>Menegaskan bahwa IMM adalah organisasi yang sah dengan mengindahkan segala hukum, undang-undang, peraturan, serta dasar dan falsafah negara.</li>
-                    <li>Menegaskan bahwa ilmu adalah amaliah dan amal adalah ilmiah.</li>
-                    <li>Menegaskan bahwa amal IMM adalah <em>lillahi ta'ala</em> dan senantiasa diabadikan untuk kepentingan rakyat.</li>
+                    <li>{{ __('Menegaskan bahwa IMM adalah gerakan mahasiswa Islam.') }}</li>
+                    <li>{{ __('Menegaskan bahwa kepribadian Muhammadiyah adalah landasan perjuangan IMM.') }}</li>
+                    <li>{{ __('Menegaskan bahwa fungsi IMM adalah eksponen mahasiswa dalam Muhammadiyah.') }}</li>
+                    <li>{{ __('Menegaskan bahwa IMM adalah organisasi yang sah dengan mengindahkan segala hukum, undang-undang, peraturan, serta dasar dan falsafah negara.') }}</li>
+                    <li>{{ __('Menegaskan bahwa ilmu adalah amaliah dan amal adalah ilmiah.') }}</li>
+                    <li>{{ __('Menegaskan bahwa amal IMM adalah lillahi ta\'ala dan senantiasa diabadikan untuk kepentingan rakyat.') }}</li>
                 </ol>
             </div>
         </div>
