@@ -31,10 +31,10 @@
     <!-- Navbar (Solid) -->
     <nav class="bg-theme-navbar shadow-sm border-b border-theme-border/20 transition-colors duration-300 sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
+            <div class="flex justify-between h-20 items-center">
                 <div class="flex items-center">
                     <a href="{{ url('/') }}">
-                        <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo" class="mr-3" style="height: 48px; width: auto;">
+                        <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo" class="mr-3" style="height: 64px; width: auto;">
                     </a>
                 </div>
                 
