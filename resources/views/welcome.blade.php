@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Premium Hero Section -->
-    <div class="relative py-32 md:py-48 text-center transition-colors duration-300 overflow-hidden flex flex-col items-center justify-center min-h-[90vh] bg-theme-bg">
+    <div class="relative py-16 md:py-24 text-center transition-colors duration-300 overflow-hidden flex flex-col items-center justify-center min-h-[50vh] bg-theme-bg">
         
         <!-- Abstract Campus Overlay -->
         <div class="absolute inset-0 z-0 opacity-5 dark:opacity-[0.03] pointer-events-none mix-blend-multiply dark:mix-blend-screen bg-cover bg-center" style="background-image: url('{{ asset('images/campus_bg.png') }}');"></div>
