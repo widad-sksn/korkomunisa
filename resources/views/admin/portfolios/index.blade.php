@@ -37,7 +37,7 @@
                                             <td class="py-3 px-4">{{ optional($portfolio->user)->name ?? 'Admin / Anonim' }}</td>
                                             <td class="py-3 px-4">{{ $portfolio->created_at->format('d M Y') }}</td>
                                             <td class="py-3 px-4 flex flex-wrap gap-2 items-center">
-                                                <a href="{{ route('portfolios.show_public', $portfolio) }}" target="_blank" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 font-medium">Baca Detail</a>
+                                                <a href="{{ route('portfolios.show_public', $portfolio) }}" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 font-medium">Baca Detail</a>
                                                 <form action="{{ route('admin.portfolios.approve', $portfolio) }}" method="POST" class="inline">
                                                     @csrf
                                                     @method('PATCH')

@@ -39,7 +39,7 @@
                                             </td>
                                             <td class="py-3 px-4">{{ $article->created_at->format('d M Y') }}</td>
                                             <td class="py-3 px-4 flex flex-wrap gap-2 items-center">
-                                                <a href="{{ route('articles.show_public', $article) }}" target="_blank" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 font-medium">Lihat Halaman</a>
+                                                <a href="{{ route('articles.show_public', $article) }}" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 font-medium">Lihat Halaman</a>
                                                 <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus tulisan ini selamanya?');">
                                                     @csrf
                                                     @method('DELETE')
