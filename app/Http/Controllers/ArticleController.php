@@ -80,7 +80,7 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        if ($article->user_id !== auth()->id()) {
+        if ($article->user_id !== auth()->id() && auth()->user()->role !== 'admin') {
             abort(403);
         }
         
@@ -92,7 +92,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, Article $article)
     {
-        if ($article->user_id !== auth()->id()) {
+        if ($article->user_id !== auth()->id() && auth()->user()->role !== 'admin') {
             abort(403);
         }
 
@@ -110,12 +110,21 @@ class ArticleController extends Controller
             $mediaPath = $request->file('media')->store('articles_media', 'public');
         }
 
+        $newStatus = $article->status;
+        if (auth()->user()->role !== 'admin') {
+            $newStatus = 'pending';
+        }
+
         $article->update([
             'title' => $request->title,
             'content' => $request->content,
             'media_path' => $mediaPath,
-            'status' => 'pending', // Re-evaluate by admin if updated
+            'status' => $newStatus,
         ]);
+
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('dashboard')->with('success', 'Tulisan berhasil diperbarui oleh Admin.');
+        }
 
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil diperbarui dan kembali menunggu persetujuan.');
     }

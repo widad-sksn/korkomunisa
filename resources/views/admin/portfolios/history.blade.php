@@ -40,6 +40,7 @@
                                             <td class="py-3 px-4">{{ $portfolio->created_at->format('d M Y') }}</td>
                                             <td class="py-3 px-4 flex flex-wrap gap-2 items-center">
                                                 <a href="{{ route('portfolios.show_public', $portfolio) }}" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 font-medium">Lihat Halaman</a>
+                                                <a href="{{ route('portfolios.edit', $portfolio) }}" class="px-2 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 font-medium">Edit</a>
                                                 <form action="{{ route('portfolios.destroy', $portfolio) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kegiatan ini selamanya?');">
                                                     @csrf
                                                     @method('DELETE')

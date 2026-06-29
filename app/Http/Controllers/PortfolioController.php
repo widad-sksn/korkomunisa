@@ -68,7 +68,7 @@ class PortfolioController extends Controller
 
     public function edit(Portfolio $portfolio)
     {
-        if ($portfolio->user_id !== auth()->id()) {
+        if ($portfolio->user_id !== auth()->id() && auth()->user()->role !== 'admin') {
             abort(403);
         }
         return view('portfolios.edit', compact('portfolio'));
@@ -76,7 +76,7 @@ class PortfolioController extends Controller
 
     public function update(Request $request, Portfolio $portfolio)
     {
-        if ($portfolio->user_id !== auth()->id()) {
+        if ($portfolio->user_id !== auth()->id() && auth()->user()->role !== 'admin') {
             abort(403);
         }
 
@@ -95,13 +95,22 @@ class PortfolioController extends Controller
             $imagePath = $request->file('image')->store('portfolios', 'public');
         }
 
+        $newStatus = $portfolio->status;
+        if (auth()->user()->role !== 'admin') {
+            $newStatus = 'pending';
+        }
+
         $portfolio->update([
             'title' => $request->title,
             'description' => $request->description,
             'image_path' => $imagePath,
             'url' => $request->url,
-            'status' => 'pending',
+            'status' => $newStatus,
         ]);
+
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('dashboard')->with('success', 'Kegiatan berhasil diperbarui oleh Admin.');
+        }
 
         return redirect()->route('portfolios.index')->with('success', 'Kegiatan berhasil diperbarui dan kembali menunggu persetujuan.');
     }
