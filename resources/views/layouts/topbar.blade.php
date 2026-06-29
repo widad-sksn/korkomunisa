@@ -18,6 +18,13 @@
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">
                 
+                <!-- Lihat Website Button -->
+                <a href="{{ url('/') }}" target="_blank" class="inline-flex items-center px-3 py-1.5 border border-theme-primary text-xs leading-4 font-bold rounded text-theme-primary hover:bg-theme-primary hover:text-white focus:outline-none transition ease-in-out duration-150">
+                    <svg class="w-3.5 h-3.5 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                    <span class="hidden sm:inline">{{ __('Lihat Website') }}</span>
+                    <span class="sm:hidden">{{ __('Web') }}</span>
+                </a>
+
                 <!-- Language Switcher -->
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
