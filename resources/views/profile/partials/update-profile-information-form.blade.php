@@ -49,7 +49,7 @@
 
         <div>
             <x-input-label for="komisariat" :value="__('Komisariat')" />
-            <select id="komisariat" name="komisariat" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" required>
+            <select id="komisariat" name="komisariat" class="mt-1 block w-full bg-theme-bg border-theme-border text-theme-text focus:border-theme-primary focus:ring-theme-primary rounded-xl shadow-sm transition-colors duration-200 py-2.5 px-4" required>
                 <option value="" disabled>Pilih Komisariat</option>
                 <option value="IMM FST" {{ old('komisariat', $user->komisariat) == 'IMM FST' ? 'selected' : '' }}>IMM FST</option>
                 <option value="IMM Rosyad Sholeh" {{ old('komisariat', $user->komisariat) == 'IMM Rosyad Sholeh' ? 'selected' : '' }}>IMM Rosyad Sholeh</option>
@@ -62,10 +62,10 @@
             <x-input-label for="avatar" :value="__('Foto Profil')" />
             @if ($user->avatar)
                 <div class="mt-2 mb-4">
-                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="w-20 h-20 rounded-full object-cover">
+                    <img src="{{ asset('storage/' . $user->avatar) }}" alt="Avatar" class="w-20 h-20 rounded-full object-cover shadow">
                 </div>
             @endif
-            <input id="avatar" name="avatar" type="file" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 dark:text-gray-400 dark:file:bg-gray-800 dark:file:text-gray-300" accept="image/*" />
+            <input id="avatar" name="avatar" type="file" class="mt-1 block w-full text-sm text-theme-text file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-theme-primary file:text-white hover:file:opacity-90 transition-opacity cursor-pointer" accept="image/*" />
             <x-input-error class="mt-2" :messages="$errors->get('avatar')" />
         </div>
 
