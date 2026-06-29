@@ -9,11 +9,11 @@
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center relative z-10">
             <!-- Logo -->
-            <div class="relative mb-8">
+            <div class="relative mb-2">
                 <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo IMM" class="relative drop-shadow-lg w-64 md:w-80 lg:w-96 xl:w-[450px] h-auto">
             </div>
             
-            <p class="text-lg md:text-2xl italic font-light mb-12 text-theme-secondary drop-shadow-sm leading-relaxed">
+            <p class="text-lg md:text-2xl italic font-light mb-10 mt-2 text-theme-secondary drop-shadow-sm leading-relaxed">
                 {{ __('"Anggun dalam Moral, Unggul dalam Intelektual"') }}
             </p>
             
