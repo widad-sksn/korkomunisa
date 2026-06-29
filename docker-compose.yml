@@ -15,6 +15,7 @@ services:
       - app_storage:/var/www/html/storage
       - app_database:/var/www/html/database
       - letsencrypt:/etc/letsencrypt
+      - ./.env:/var/www/html/.env
     deploy:
       resources:
         limits:
