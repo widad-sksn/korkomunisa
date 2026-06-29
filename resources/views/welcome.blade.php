@@ -16,13 +16,6 @@
             <p class="text-lg md:text-2xl italic font-light mb-10 -mt-12 md:-mt-20 text-theme-secondary drop-shadow-sm leading-relaxed relative z-20">
                 {{ __('"Anggun dalam Moral, Unggul dalam Intelektual"') }}
             </p>
-            
-            <!-- CTA Button -->
-            <a href="{{ route('articles.public_index') }}" 
-               class="group relative inline-flex items-center justify-center px-8 py-4 font-bold text-white transition-all duration-200 bg-theme-primary rounded-full hover:bg-theme-hover hover:scale-[1.03] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-theme-primary shadow-lg">
-                <span class="mr-2">{{ __('Jelajahi Artikel') }}</span>
-                <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </a>
         </div>
         
         <!-- SVG Shape Divider -->
