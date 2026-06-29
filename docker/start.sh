@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Ensure .env exists
+if [ ! -f /var/www/html/.env ]; then
+    cp /var/www/html/.env.example /var/www/html/.env
+    php artisan key:generate --force
+fi
+
 # Ensure SQLite database exists
 if [ ! -f /var/www/html/database/database.sqlite ]; then
     touch /var/www/html/database/database.sqlite
