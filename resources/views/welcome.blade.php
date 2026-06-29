@@ -109,29 +109,34 @@
             @else
                 <div class="flex flex-wrap justify-center gap-8">
                     @foreach($articles as $article)
-                        <a href="{{ route('articles.show_public', $article) }}" class="w-full max-w-[340px] block group bg-theme-bg border border-theme-border rounded-2xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
+                        <a href="{{ route('articles.show_public', $article) }}" class="w-full max-w-[300px] block group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
                             @if($article->media_path)
                                 @php
                                     $ext = pathinfo($article->media_path, PATHINFO_EXTENSION);
                                 @endphp
                                 @if(in_array(strtolower($ext), ['mp4', 'mov', 'avi']))
-                                    <video src="{{ asset('storage/' . $article->media_path) }}" class="w-full h-40 object-cover shrink-0" controls></video>
+                                    <video src="{{ asset('storage/' . $article->media_path) }}" class="w-full h-44 object-cover shrink-0" controls></video>
                                 @else
-                                    <div class="overflow-hidden h-40 shrink-0">
-                                        <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <div class="overflow-hidden h-44 shrink-0 relative">
+                                        <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                        <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                                     </div>
                                 @endif
                             @else
-                                <div class="w-full h-40 shrink-0 bg-theme-surface flex items-center justify-center border-b border-theme-border">
+                                <div class="w-full h-44 shrink-0 bg-theme-bg flex items-center justify-center border-b border-theme-border">
                                     <span class="text-theme-secondary text-sm italic">{{ __('Tanpa Media') }}</span>
                                 </div>
                             @endif
-                            <div class="p-6 flex-grow flex flex-col">
-                                <h3 class="font-extrabold text-lg mb-3 text-theme-text line-clamp-2 group-hover:text-theme-primary transition-colors">{{ $article->title }}</h3>
+                            <div class="p-5 flex-grow flex flex-col">
+                                <div class="flex items-center text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
+                                    <span>{{ __('Opini') }}</span>
+                                    <span class="mx-2 text-theme-secondary">•</span>
+                                    <span class="text-theme-secondary">{{ $article->created_at->format('d M Y') }}</span>
+                                </div>
+                                <h3 class="font-extrabold text-lg mb-2 text-theme-text line-clamp-2 group-hover:text-theme-primary transition-colors leading-snug">{{ $article->title }}</h3>
                                 <p class="text-theme-secondary text-sm mb-4 line-clamp-3 leading-relaxed flex-grow">{{ strip_tags($article->content) }}</p>
-                                <div class="flex justify-between items-center text-xs text-theme-secondary pt-4 border-t border-theme-border mt-auto">
-                                    <span class="font-semibold text-theme-text line-clamp-1 mr-2">{{ __('Oleh:') }} {{ optional($article->user)->name ?? __('Anonim') }}</span>
-                                    <span class="shrink-0">{{ $article->created_at->format('d M Y') }}</span>
+                                <div class="flex items-center text-xs text-theme-secondary mt-auto pt-4 border-t border-theme-border/50">
+                                    <span class="font-medium text-theme-text">{{ __('Oleh:') }} {{ optional($article->user)->name ?? __('Anonim') }}</span>
                                 </div>
                             </div>
                         </a>
@@ -158,25 +163,31 @@
             @if($portfolios->isEmpty())
                 <p class="text-center text-theme-secondary text-lg">{{ __('Belum ada kegiatan yang ditampilkan.') }}</p>
             @else
-                <div class="flex flex-wrap justify-center gap-6">
+                <div class="flex flex-wrap justify-center gap-8">
                     @foreach($portfolios as $portfolio)
-                        <a href="{{ route('portfolios.show_public', $portfolio) }}" class="w-full max-w-[280px] block group bg-theme-surface border border-theme-border rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col">
+                        <a href="{{ route('portfolios.show_public', $portfolio) }}" class="w-full max-w-[300px] block group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
                             @if($portfolio->image_path)
-                                <div class="overflow-hidden h-36 shrink-0">
-                                    <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="overflow-hidden h-44 shrink-0 relative">
+                                    <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                                 </div>
                             @else
-                                <div class="w-full h-36 shrink-0 bg-theme-bg flex items-center justify-center text-theme-secondary text-sm border-b border-theme-border">No Image</div>
+                                <div class="w-full h-44 shrink-0 bg-theme-bg flex items-center justify-center text-theme-secondary text-sm border-b border-theme-border">No Image</div>
                             @endif
-                            <div class="p-5 text-center flex-grow flex flex-col">
-                                <h4 class="font-extrabold text-theme-text mb-2 text-base group-hover:text-theme-primary transition-colors">{{ $portfolio->title }}</h4>
-                                <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow">{{ Str::limit($portfolio->description, 50) }}</p>
-                                @if($portfolio->url)
-                                    <span class="inline-flex justify-center items-center text-theme-primary hover:text-theme-hover text-xs font-bold transition-colors mt-auto">
-                                        {{ __('Selengkapnya') }} 
+                            <div class="p-5 flex-grow flex flex-col">
+                                <div class="flex items-center text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
+                                    <span>{{ __('Kegiatan') }}</span>
+                                    <span class="mx-2 text-theme-secondary">•</span>
+                                    <span class="text-theme-secondary">{{ $portfolio->created_at ? $portfolio->created_at->format('d M Y') : 'Terbaru' }}</span>
+                                </div>
+                                <h4 class="font-extrabold text-theme-text mb-2 text-lg group-hover:text-theme-primary transition-colors leading-snug">{{ $portfolio->title }}</h4>
+                                <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow">{{ Str::limit($portfolio->description, 80) }}</p>
+                                <div class="mt-auto pt-4 border-t border-theme-border/50">
+                                    <span class="inline-flex items-center text-theme-primary hover:text-theme-hover text-xs font-bold transition-colors">
+                                        {{ __('Baca Selengkapnya') }} 
                                         <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                     </span>
-                                @endif
+                                </div>
                             </div>
                         </a>
                     @endforeach
