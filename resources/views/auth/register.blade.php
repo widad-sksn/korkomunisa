@@ -16,6 +16,18 @@
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
+        <!-- Komisariat -->
+        <div class="mt-4">
+            <x-input-label for="komisariat" :value="__('Komisariat')" />
+            <select id="komisariat" name="komisariat" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" required>
+                <option value="" disabled selected>Pilih Komisariat</option>
+                <option value="IMM FST" {{ old('komisariat') == 'IMM FST' ? 'selected' : '' }}>IMM FST</option>
+                <option value="IMM Rosyad Sholeh" {{ old('komisariat') == 'IMM Rosyad Sholeh' ? 'selected' : '' }}>IMM Rosyad Sholeh</option>
+                <option value="IMM FIKES" {{ old('komisariat') == 'IMM FIKES' ? 'selected' : '' }}>IMM FIKES</option>
+            </select>
+            <x-input-error :messages="$errors->get('komisariat')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

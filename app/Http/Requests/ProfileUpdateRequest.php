@@ -26,6 +26,8 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
+            'komisariat' => ['required', 'string', 'in:IMM FST,IMM Rosyad Sholeh,IMM FIKES'],
+            'avatar' => ['nullable', 'image', 'max:2048'], // max 2MB
         ];
     }
 }

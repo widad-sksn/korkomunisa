@@ -17,13 +17,6 @@
                 {{ __('"Anggun dalam Moral, Unggul dalam Intelektual"') }}
             </p>
         </div>
-        
-        <!-- SVG Shape Divider -->
-        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-20 pointer-events-none">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style="display: block; width: 100%; height: 48px;">
-                <path d="M0,120 L0,120 C300,0 900,0 1200,120 Z" style="fill: var(--color-surface); transition: fill 0.3s;"></path>
-            </svg>
-        </div>
     </div>
 
     <!-- Stats Section -->

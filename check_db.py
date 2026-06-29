@@ -6,12 +6,7 @@ ssh = paramiko.SSHClient()
 ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 ssh.connect('157.66.9.133', username='root', password='r00tunisa@#_')
 
-tinker_code = """
-\\App\\Models\\User::where('role', 'admin')->delete();
-\\App\\Models\\User::create(['name' => 'Admin Korkom', 'email' => 'immkorkom@unisayogya.ac.id', 'password' => bcrypt('immkorkom2024@#'), 'role' => 'admin']);
-"""
-
-cmd = f"docker exec korkomunisa_app php artisan tinker --execute=\"{tinker_code}\""
+cmd = "docker exec korkomunisa_app php artisan tinker --execute=\"print_r(\\App\\Models\\User::all()->toArray());\""
 stdin, stdout, stderr = ssh.exec_command(cmd)
 for line in iter(stdout.readline, ""):
     print(line, end="")

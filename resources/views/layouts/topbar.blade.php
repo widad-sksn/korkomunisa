@@ -56,8 +56,20 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-semibold rounded-md text-theme-text hover:text-theme-primary focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->name }}</div>
-                            <div class="ms-1">
+                            @if(Auth::user()->avatar)
+                                <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar" class="w-6 h-6 rounded-full object-cover mr-2">
+                            @else
+                                <div class="w-6 h-6 rounded-full bg-theme-primary text-white flex items-center justify-center text-xs mr-2">
+                                    {{ substr(Auth::user()->name, 0, 1) }}
+                                </div>
+                            @endif
+                            <div class="flex flex-col items-start leading-tight">
+                                <span>{{ Auth::user()->name }}</span>
+                                @if(Auth::user()->komisariat)
+                                    <span class="text-xs font-normal text-theme-secondary">{{ Auth::user()->komisariat }}</span>
+                                @endif
+                            </div>
+                            <div class="ms-1 flex-shrink-0">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                 </svg>
