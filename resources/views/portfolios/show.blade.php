@@ -35,8 +35,21 @@
                 </div>
                 
                 <div class="flex items-center space-x-6">
-                    <a href="/#portofolio" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Kembali') }}</a>
+                    <a href="/#kegiatan" onclick="if(document.referrer.includes(window.location.hostname)) { history.back(); return false; }" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Kembali') }}</a>
                     
+                    <!-- Language Switcher -->
+                    <div class="relative" x-data="{ openLang: false }">
+                        <button @click="openLang = !openLang" class="text-theme-text hover:text-theme-primary font-medium flex items-center transition-colors">
+                            {{ strtoupper(app()->getLocale()) }}
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-24 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 z-50">
+                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">ID</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">EN</a>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">AR</a>
+                        </div>
+                    </div>
+
                     <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none transition-colors">
                         <svg x-show="!isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                         <svg x-show="isDark" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
@@ -84,9 +97,9 @@
             @endif
             
             <div class="mt-16 pt-8 border-t border-theme-border text-center">
-                <a href="/#portofolio" class="inline-flex items-center px-6 py-3 bg-theme-surface border border-theme-border rounded-full font-bold text-sm text-theme-text hover:bg-theme-bg hover:text-theme-primary transition-colors shadow-sm">
+                <a href="/#kegiatan" onclick="if(document.referrer.includes(window.location.hostname)) { history.back(); return false; }" class="inline-flex items-center px-6 py-3 bg-theme-surface border border-theme-border rounded-full font-bold text-sm text-theme-text hover:bg-theme-bg hover:text-theme-primary transition-colors shadow-sm">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Kembali ke Beranda
+                    Kembali
                 </a>
             </div>
 

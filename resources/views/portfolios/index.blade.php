@@ -57,7 +57,7 @@
                                                 @endif
                                             </td>
                                             <td class="py-3 px-4 flex justify-end space-x-3 items-center">
-                                                <a href="{{ route('portfolios.show_public', $portfolio) }}" target="_blank" class="text-blue-500 hover:underline">Lihat</a>
+                                                <a href="{{ route('portfolios.show_public', $portfolio) }}" class="text-blue-500 hover:underline">Lihat</a>
                                                 <a href="{{ route('portfolios.edit', $portfolio) }}" class="text-yellow-500 hover:underline">Edit</a>
                                                 <form action="{{ route('portfolios.destroy', $portfolio) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus kegiatan ini?')">
                                                     @csrf

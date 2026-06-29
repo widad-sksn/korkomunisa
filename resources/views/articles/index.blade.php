@@ -27,28 +27,46 @@
                             <table class="w-full text-left border-collapse">
                                 <thead>
                                     <tr class="border-b dark:border-gray-700">
+                                        <th class="py-3 px-4 w-24">Gambar</th>
                                         <th class="py-3 px-4">Judul</th>
                                         <th class="py-3 px-4">Status</th>
-                                        <th class="py-3 px-4">Tanggal Dibuat</th>
-                                        <th class="py-3 px-4">Aksi</th>
+                                        <th class="py-3 px-4 text-right">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($articles as $article)
                                         <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            <td class="py-3 px-4">{{ $article->title }}</td>
+                                            <td class="py-3 px-4">
+                                                @if($article->media_path)
+                                                    @php
+                                                        $ext = pathinfo($article->media_path, PATHINFO_EXTENSION);
+                                                    @endphp
+                                                    @if(in_array(strtolower($ext), ['mp4', 'mov', 'avi']))
+                                                        <div class="h-16 w-16 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center text-xs text-gray-500">Video</div>
+                                                    @else
+                                                        <img src="{{ asset('storage/' . $article->media_path) }}" class="h-16 w-16 object-cover rounded">
+                                                    @endif
+                                                @else
+                                                    <div class="h-16 w-16 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center text-xs text-gray-500">No Img</div>
+                                                @endif
+                                            </td>
+                                            <td class="py-3 px-4">
+                                                <div class="font-semibold">{{ $article->title }}</div>
+                                                <div class="text-sm text-gray-500">{{ Str::limit(strip_tags($article->content), 50) }}</div>
+                                                <div class="text-xs text-gray-400 mt-1">{{ $article->created_at->format('d M Y') }}</div>
+                                            </td>
                                             <td class="py-3 px-4">
                                                 @if($article->status == 'published')
-                                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Diterbitkan</span>
+                                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Diterima / Diterbitkan</span>
                                                 @elseif($article->status == 'pending')
                                                     <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Menunggu Persetujuan</span>
                                                 @else
-                                                    <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Draft</span>
+                                                    <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Ditolak / Draft</span>
                                                 @endif
                                             </td>
-                                            <td class="py-3 px-4">{{ $article->created_at->format('d M Y') }}</td>
-                                            <td class="py-3 px-4 flex space-x-2">
-                                                <a href="{{ route('articles.edit', $article) }}" class="text-blue-500 hover:underline">Edit</a>
+                                            <td class="py-3 px-4 flex justify-end space-x-3 items-center">
+                                                <a href="{{ route('articles.show_public', $article) }}" class="text-blue-500 hover:underline">Lihat</a>
+                                                <a href="{{ route('articles.edit', $article) }}" class="text-yellow-500 hover:underline">Edit</a>
                                                 <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
                                                     @csrf
                                                     @method('DELETE')
