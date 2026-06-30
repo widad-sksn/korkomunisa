@@ -21,33 +21,33 @@
 
     <!-- Stats Section -->
     <div class="bg-theme-surface border-b border-theme-border transition-colors duration-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
-            <div class="grid grid-cols-3 gap-2 md:gap-6 divide-x divide-theme-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
+            <div class="grid grid-cols-3 divide-x divide-theme-border/50 items-center">
                 
                 <!-- Anggota Aktif -->
-                <div class="group flex flex-col items-center justify-start text-center p-2 md:p-4">
-                    <div class="bg-theme-primary/10 text-theme-primary p-3 md:p-4 rounded-full mb-3 md:mb-5 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-md transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-7 md:h-7"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <div class="group flex flex-col items-center justify-center text-center py-1 md:py-2">
+                    <div class="bg-theme-primary/10 text-theme-primary p-2 md:p-2.5 rounded-full mb-1.5 md:mb-2.5 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-sm transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
-                    <h3 class="text-2xl md:text-4xl font-black text-theme-text tracking-tight leading-none mb-1 md:mb-2">{{ $userCount }}</h3>
+                    <h3 class="text-xl md:text-3xl font-black text-theme-text tracking-tight leading-none mb-0.5 md:mb-1">{{ $userCount }}</h3>
                     <p class="text-theme-secondary text-[10px] md:text-xs font-bold uppercase tracking-wider">{{ __('Anggota Aktif') }}</p>
                 </div>
 
                 <!-- Artikel Diterbitkan -->
-                <div class="group flex flex-col items-center justify-start text-center p-2 md:p-4">
-                    <div class="bg-theme-primary/10 text-theme-primary p-3 md:p-4 rounded-full mb-3 md:mb-5 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-md transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-7 md:h-7"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
+                <div class="group flex flex-col items-center justify-center text-center py-1 md:py-2">
+                    <div class="bg-theme-primary/10 text-theme-primary p-2 md:p-2.5 rounded-full mb-1.5 md:mb-2.5 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-sm transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
                     </div>
-                    <h3 class="text-2xl md:text-4xl font-black text-theme-text tracking-tight leading-none mb-1 md:mb-2">{{ $articleCount }}</h3>
+                    <h3 class="text-xl md:text-3xl font-black text-theme-text tracking-tight leading-none mb-0.5 md:mb-1">{{ $articleCount }}</h3>
                     <p class="text-theme-secondary text-[10px] md:text-xs font-bold uppercase tracking-wider">{{ __('Artikel Diterbitkan') }}</p>
                 </div>
 
                 <!-- Kegiatan -->
-                <div class="group flex flex-col items-center justify-start text-center p-2 md:p-4">
-                    <div class="bg-theme-primary/10 text-theme-primary p-3 md:p-4 rounded-full mb-3 md:mb-5 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-md transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 md:w-7 md:h-7"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
+                <div class="group flex flex-col items-center justify-center text-center py-1 md:py-2">
+                    <div class="bg-theme-primary/10 text-theme-primary p-2 md:p-2.5 rounded-full mb-1.5 md:mb-2.5 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-sm transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 md:w-5 md:h-5"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
                     </div>
-                    <h3 class="text-2xl md:text-4xl font-black text-theme-text tracking-tight leading-none mb-1 md:mb-2">{{ $portfolioCount }}</h3>
+                    <h3 class="text-xl md:text-3xl font-black text-theme-text tracking-tight leading-none mb-0.5 md:mb-1">{{ $portfolioCount }}</h3>
                     <p class="text-theme-secondary text-[10px] md:text-xs font-bold uppercase tracking-wider">{{ __('Kegiatan') }}</p>
                 </div>
 
