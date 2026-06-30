@@ -182,7 +182,7 @@
                         immkorkom@unisayogya.ac.id
                     </a>
                 </p>
-                <p class="text-theme-secondary text-sm font-medium">&copy; {{ date('Y') }} {{ __('Ikatan Mahasiswa Muhammadiyah Korkom UNISA. Hak Cipta Dilindungi.') }}</p>
+                <p class="text-theme-secondary text-sm font-medium">&copy; {{ date('Y') }} {{ __('Ikatan Mahasiswa Muhammadiyah Korkom UNISA. Hak Cipta Dilindungi.') }} | Developed by <a href="https://github.com/widad-sksn" target="_blank" class="font-bold hover:text-theme-primary transition-colors">widad-sksn</a></p>
             </div>
         </div>
     </footer>

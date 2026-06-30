@@ -126,7 +126,7 @@
                 <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo" class="mr-4 grayscale opacity-60" style="height: 40px; width: auto;">
                 <span class="font-bold text-theme-secondary text-lg tracking-tight">IMM Korkom UNISA</span>
             </div>
-            <p class="text-theme-secondary text-sm font-medium">&copy; {{ date('Y') }} Ikatan Mahasiswa Muhammadiyah Korkom UNISA.</p>
+            <p class="text-theme-secondary text-sm font-medium">&copy; {{ date('Y') }} Ikatan Mahasiswa Muhammadiyah Korkom UNISA. Hak Cipta Dilindungi. | Developed by <a href="https://github.com/widad-sksn" target="_blank" class="font-bold hover:text-theme-primary transition-colors">widad-sksn</a></p>
         </div>
     </footer>
 
