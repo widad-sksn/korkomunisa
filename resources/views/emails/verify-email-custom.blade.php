@@ -105,7 +105,7 @@
         </div>
         
         <div class="footer">
-            &copy; {{ date('Y') }} Ikatan Mahasiswa Muhammadiyah Korkom UNISA. Hak Cipta Dilindungi. | Developed by widad-sksn
+            &copy; {{ date('Y') }} IMM KORKOM UNISA. | developed by widad-sksn
         </div>
     </div>
 </body>
