@@ -29,6 +29,20 @@
             <x-input-error :messages="$errors->get('komisariat')" class="mt-2" />
         </div>
 
+        <!-- Bidang -->
+        <div class="mt-4">
+            <x-input-label for="bidang" :value="__('Bidang (Opsional)')" />
+            <x-text-input id="bidang" class="block mt-1 w-full" type="text" name="bidang" :value="old('bidang')" placeholder="Contoh: Kaderisasi" />
+            <x-input-error :messages="$errors->get('bidang')" class="mt-2" />
+        </div>
+
+        <!-- Jabatan -->
+        <div class="mt-4">
+            <x-input-label for="jabatan" :value="__('Jabatan (Opsional)')" />
+            <x-text-input id="jabatan" class="block mt-1 w-full" type="text" name="jabatan" :value="old('jabatan')" placeholder="Contoh: Ketua Bidang" />
+            <x-input-error :messages="$errors->get('jabatan')" class="mt-2" />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

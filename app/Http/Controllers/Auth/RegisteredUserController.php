@@ -35,6 +35,8 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'komisariat' => ['required', 'string', 'in:IMM FST,IMM Rosyad Sholeh,IMM FIKES,Korkom UNISA'],
+            'bidang' => ['nullable', 'string', 'max:255'],
+            'jabatan' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user = User::create([
@@ -42,6 +44,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'komisariat' => $request->komisariat,
+            'bidang' => $request->bidang,
+            'jabatan' => $request->jabatan,
         ]);
 
         event(new Registered($user));

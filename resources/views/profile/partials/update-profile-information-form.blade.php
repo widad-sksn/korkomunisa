@@ -60,6 +60,18 @@
         </div>
 
         <div>
+            <x-input-label for="bidang" :value="__('Bidang (Opsional)')" />
+            <x-text-input id="bidang" name="bidang" type="text" class="mt-1 block w-full bg-theme-bg border-theme-border text-theme-text focus:border-theme-primary focus:ring-theme-primary rounded-xl shadow-sm transition-colors duration-200 py-2.5 px-4" :value="old('bidang', $user->bidang)" placeholder="Contoh: Kaderisasi" />
+            <x-input-error class="mt-2" :messages="$errors->get('bidang')" />
+        </div>
+
+        <div>
+            <x-input-label for="jabatan" :value="__('Jabatan (Opsional)')" />
+            <x-text-input id="jabatan" name="jabatan" type="text" class="mt-1 block w-full bg-theme-bg border-theme-border text-theme-text focus:border-theme-primary focus:ring-theme-primary rounded-xl shadow-sm transition-colors duration-200 py-2.5 px-4" :value="old('jabatan', $user->jabatan)" placeholder="Contoh: Ketua Bidang" />
+            <x-input-error class="mt-2" :messages="$errors->get('jabatan')" />
+        </div>
+
+        <div>
             <x-input-label :value="__('Foto Profil')" />
             
             <div x-data="{

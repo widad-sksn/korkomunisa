@@ -70,9 +70,19 @@
             <header class="mb-12 text-center">
                 <h1 class="text-3xl md:text-5xl font-extrabold text-theme-text tracking-tight mb-6 leading-tight">{{ $article->title }}</h1>
                 <div class="flex items-center justify-center space-x-4 text-theme-secondary text-sm font-medium">
-                    <span class="flex items-center">
-                        <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        Oleh: {{ optional($article->user)->name ?? 'Anonim' }}
+                    <span class="flex flex-col sm:flex-row items-center">
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                            Oleh: <span class="font-bold ml-1">{{ optional($article->user)->name ?? 'Anonim' }}</span>
+                        </span>
+                        @if($article->user)
+                            <span class="hidden sm:inline mx-2 text-theme-secondary/50">&bull;</span>
+                            <span class="mt-1 sm:mt-0 text-theme-secondary">
+                                {{ $article->user->komisariat }}
+                                @if($article->user->bidang) - Bidang {{ $article->user->bidang }} @endif
+                                @if($article->user->jabatan) ({{ $article->user->jabatan }}) @endif
+                            </span>
+                        @endif
                     </span>
                     <span>&bull;</span>
                     <span class="flex items-center">
