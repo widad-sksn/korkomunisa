@@ -4,8 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $articles = \App\Models\Article::where('status', 'published')->latest()->take(3)->get();
-    $portfolios = \App\Models\Portfolio::where('status', 'published')->latest()->take(4)->get();
+    $articles = \App\Models\Article::where('status', 'published')->latest()->take(20)->get();
+    $portfolios = \App\Models\Portfolio::where('status', 'published')->latest()->take(20)->get();
     
     $userCount = \App\Models\User::count();
     $articleCount = \App\Models\Article::where('status', 'published')->count();
