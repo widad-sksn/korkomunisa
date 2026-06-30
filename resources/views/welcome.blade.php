@@ -110,10 +110,12 @@
                 <p class="text-center text-theme-secondary text-base md:text-lg">{{ __('Belum ada tulisan kader yang dipublikasikan.') }}</p>
             @else
                 <style>
-                    .swiper-pagination-bullet { background: var(--theme-secondary, #9ca3af); opacity: 0.3; width: 8px; height: 8px; transition: all 0.3s; }
-                    .swiper-pagination-bullet:hover { opacity: 0.5; }
-                    .swiper-pagination-bullet-active { background: var(--theme-primary, #3b82f6); opacity: 1; width: 24px; border-radius: 4px; }
-                    .swiper-pagination { bottom: 0 !important; display: flex; justify-content: center; gap: 8px; align-items: center; }
+                    @media (max-width: 767px) {
+                        .swiper-pagination-bullet { background: var(--theme-secondary, #9ca3af); opacity: 0.3; width: 5px !important; height: 5px !important; transition: all 0.3s; margin: 0 3px !important; }
+                        .swiper-pagination-bullet:hover { opacity: 0.5; }
+                        .swiper-pagination-bullet-active { background: var(--theme-primary, #3b82f6); opacity: 1; width: 14px !important; border-radius: 4px; }
+                        .swiper-pagination { display: flex !important; justify-content: center; align-items: center; position: relative !important; bottom: auto !important; margin-top: 8px; }
+                    }
                 </style>
                 <div x-data="{ swiper: null }"
                      x-init="
@@ -139,7 +141,7 @@
                     </button>
 
                     <!-- Carousel Container -->
-                    <div x-ref="swiperContainer" class="swiper w-full pb-10 pt-4 px-4 sm:px-0">
+                    <div x-ref="swiperContainer" class="swiper w-full pb-2 md:pb-10 pt-4 px-4 sm:px-0">
                         <div class="swiper-wrapper flex items-stretch">
                             @foreach($articles as $article)
                                 <div class="swiper-slide h-auto">
@@ -179,7 +181,7 @@
                         </div>
                         
                         <!-- Mobile Dots -->
-                        <div x-ref="pagination" class="swiper-pagination md:!hidden mt-4 relative"></div>
+                        <div x-ref="pagination" class="swiper-pagination md:!hidden"></div>
                     </div>
 
                     <!-- Desktop Next Button -->
@@ -187,7 +189,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
                 </div>
-                <div class="mt-8 md:mt-12 text-center">
+                <div class="mt-4 md:mt-12 text-center">
                     <a href="{{ route('articles.public_index') }}" class="inline-flex items-center px-4 py-2 md:px-6 md:py-3 border border-transparent text-sm md:text-base font-medium rounded-full shadow-sm text-white bg-theme-primary hover:bg-theme-hover transition-colors">
                         {{ __('Lihat Semua Tulisan') }}
                         <svg class="ml-2 -mr-1 w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -232,7 +234,7 @@
                     </button>
 
                     <!-- Carousel Container -->
-                    <div x-ref="swiperContainer" class="swiper w-full pb-10 pt-4 px-4 sm:px-0">
+                    <div x-ref="swiperContainer" class="swiper w-full pb-2 md:pb-10 pt-4 px-4 sm:px-0">
                         <div class="swiper-wrapper flex items-stretch">
                             @foreach($portfolios as $portfolio)
                                 <div class="swiper-slide h-auto">
@@ -266,7 +268,7 @@
                         </div>
                         
                         <!-- Mobile Dots -->
-                        <div x-ref="pagination" class="swiper-pagination md:!hidden mt-4 relative"></div>
+                        <div x-ref="pagination" class="swiper-pagination md:!hidden"></div>
                     </div>
 
                     <!-- Desktop Next Button -->
@@ -274,7 +276,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
                 </div>
-                <div class="mt-8 md:mt-12 text-center">
+                <div class="mt-4 md:mt-12 text-center">
                     <a href="{{ route('portfolios.public_index') }}" class="inline-flex items-center px-4 py-2 md:px-6 md:py-3 border border-transparent text-sm md:text-base font-medium rounded-full shadow-sm text-white bg-theme-primary hover:bg-theme-hover transition-colors">
                         {{ __('Lihat Semua Kegiatan') }}
                         <svg class="ml-2 -mr-1 w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
