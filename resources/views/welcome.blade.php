@@ -1,5 +1,7 @@
 @extends('layouts.public')
 
+@section('title', 'Beranda')
+
 @section('content')
     <!-- Premium Hero Section -->
     <div class="relative py-4 md:py-12 text-center transition-colors duration-300 overflow-hidden flex flex-col items-center justify-center min-h-[25vh] md:min-h-[35vh] bg-theme-bg">

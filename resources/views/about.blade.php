@@ -1,5 +1,7 @@
 @extends('layouts.public')
 
+@section('title', 'Tentang IMM')
+
 @section('content')
     <!-- Sejarah Section -->
     <div id="sejarah" class="py-24 bg-theme-bg transition-colors duration-300 min-h-screen">

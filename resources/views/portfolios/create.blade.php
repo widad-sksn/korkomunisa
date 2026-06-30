@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-app-layout title="Posting Kegiatan">
     <x-slot name="header">
         <div class="max-w-3xl mx-auto">
             <h2 class="font-bold text-2xl text-gray-900 dark:text-gray-100 leading-tight">
