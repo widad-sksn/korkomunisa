@@ -24,6 +24,7 @@
                 <option value="IMM FST" {{ old('komisariat') == 'IMM FST' ? 'selected' : '' }}>IMM FST</option>
                 <option value="IMM Rosyad Sholeh" {{ old('komisariat') == 'IMM Rosyad Sholeh' ? 'selected' : '' }}>IMM Rosyad Sholeh</option>
                 <option value="IMM FIKES" {{ old('komisariat') == 'IMM FIKES' ? 'selected' : '' }}>IMM FIKES</option>
+                <option value="Korkom UNISA" {{ old('komisariat') == 'Korkom UNISA' ? 'selected' : '' }}>Korkom UNISA</option>
             </select>
             <x-input-error :messages="$errors->get('komisariat')" class="mt-2" />
         </div>
