@@ -90,40 +90,121 @@
             @if($articles->isEmpty())
                 <p class="text-center text-theme-secondary text-base md:text-lg">{{ __('Belum ada tulisan kader yang dipublikasikan.') }}</p>
             @else
-                <div class="flex flex-wrap justify-center gap-4 md:gap-8">
-                    @foreach($articles as $article)
-                        <a href="{{ route('articles.show_public', $article) }}" class="w-full max-w-[300px] block group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
-                            @if($article->media_path)
-                                @php
-                                    $ext = pathinfo($article->media_path, PATHINFO_EXTENSION);
-                                @endphp
-                                @if(in_array(strtolower($ext), ['mp4', 'mov', 'avi']))
-                                    <video src="{{ asset('storage/' . $article->media_path) }}" class="w-full h-32 md:h-44 object-cover shrink-0" controls></video>
-                                @else
-                                    <div class="overflow-hidden h-32 md:h-44 shrink-0 relative">
-                                        <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                                        <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
+                <div x-data="{
+                        autoPlay: null,
+                        currentIndex: 0,
+                        totalSlides: {{ $articles->count() }},
+                        init() {
+                            this.startAutoPlay();
+                            this.$refs.container.addEventListener('scroll', () => {
+                                let container = this.$refs.container;
+                                if(container.firstElementChild) {
+                                    let slideWidth = container.firstElementChild.getBoundingClientRect().width;
+                                    let gap = parseFloat(getComputedStyle(container).gap) || 0;
+                                    this.currentIndex = Math.round(container.scrollLeft / (slideWidth + gap));
+                                }
+                            });
+                        },
+                        startAutoPlay() {
+                            this.autoPlay = setInterval(() => { this.next(); }, 4000);
+                        },
+                        stopAutoPlay() {
+                            clearInterval(this.autoPlay);
+                        },
+                        next() {
+                            let container = this.$refs.container;
+                            if(!container.firstElementChild) return;
+                            let slideWidth = container.firstElementChild.getBoundingClientRect().width;
+                            let gap = parseFloat(getComputedStyle(container).gap) || 0;
+                            if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
+                                container.scrollTo({left: 0, behavior: 'smooth'});
+                            } else {
+                                container.scrollBy({left: slideWidth + gap, behavior: 'smooth'});
+                            }
+                        },
+                        prev() {
+                            let container = this.$refs.container;
+                            if(!container.firstElementChild) return;
+                            let slideWidth = container.firstElementChild.getBoundingClientRect().width;
+                            let gap = parseFloat(getComputedStyle(container).gap) || 0;
+                            if (container.scrollLeft <= 0) {
+                                container.scrollTo({left: container.scrollWidth, behavior: 'smooth'});
+                            } else {
+                                container.scrollBy({left: -(slideWidth + gap), behavior: 'smooth'});
+                            }
+                        },
+                        goTo(index) {
+                            let container = this.$refs.container;
+                            if(!container.firstElementChild) return;
+                            let slideWidth = container.firstElementChild.getBoundingClientRect().width;
+                            let gap = parseFloat(getComputedStyle(container).gap) || 0;
+                            container.scrollTo({left: index * (slideWidth + gap), behavior: 'smooth'});
+                        }
+                    }" 
+                    @mouseenter="stopAutoPlay()" 
+                    @mouseleave="startAutoPlay()" 
+                    @touchstart="stopAutoPlay()"
+                    @touchend="startAutoPlay()"
+                    class="relative group/slider w-full">
+                    
+                    <!-- Desktop Prev Button -->
+                    <button @click="prev()" class="hidden md:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-10 bg-theme-surface border border-theme-border shadow-lg rounded-full w-12 h-12 items-center justify-center text-theme-text hover:text-theme-primary hover:scale-110 transition-all opacity-0 group-hover/slider:opacity-100 disabled:opacity-0 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+
+                    <!-- Carousel Container -->
+                    <div x-ref="container" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 pb-8 pt-4 px-4 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                        @foreach($articles as $article)
+                            <div class="snap-center shrink-0 w-[85%] sm:w-[45%] md:w-[30%] lg:w-[23%] flex">
+                                <a href="{{ route('articles.show_public', $article) }}" class="w-full group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
+                                    @if($article->media_path)
+                                        @php
+                                            $ext = pathinfo($article->media_path, PATHINFO_EXTENSION);
+                                        @endphp
+                                        @if(in_array(strtolower($ext), ['mp4', 'mov', 'avi']))
+                                            <video src="{{ asset('storage/' . $article->media_path) }}" class="w-full h-40 object-cover shrink-0" controls></video>
+                                        @else
+                                            <div class="overflow-hidden h-40 shrink-0 relative">
+                                                <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                                <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
+                                            </div>
+                                        @endif
+                                    @else
+                                        <div class="w-full h-40 shrink-0 bg-theme-bg flex items-center justify-center border-b border-theme-border">
+                                            <span class="text-theme-secondary text-sm italic">{{ __('Tanpa Media') }}</span>
+                                        </div>
+                                    @endif
+                                    <div class="p-4 md:p-5 flex-grow flex flex-col">
+                                        <div class="flex items-center text-[10px] md:text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
+                                            <span>{{ __('Opini') }}</span>
+                                            <span class="mx-2 text-theme-secondary">•</span>
+                                            <span class="text-theme-secondary">{{ $article->created_at->format('d M Y') }}</span>
+                                        </div>
+                                        <h3 class="font-extrabold text-base md:text-lg mb-1 md:mb-2 text-theme-text line-clamp-2 group-hover:text-theme-primary transition-colors leading-snug">{{ $article->title }}</h3>
+                                        <p class="text-theme-secondary text-sm mb-4 line-clamp-3 leading-relaxed flex-grow">{{ strip_tags($article->content) }}</p>
+                                        <div class="flex items-center text-[10px] md:text-xs text-theme-secondary mt-auto pt-3 md:pt-4 border-t border-theme-border/50">
+                                            <span class="font-medium text-theme-text">{{ __('Oleh:') }} {{ optional($article->user)->name ?? __('Anonim') }}</span>
+                                        </div>
                                     </div>
-                                @endif
-                            @else
-                                <div class="w-full h-32 md:h-44 shrink-0 bg-theme-bg flex items-center justify-center border-b border-theme-border">
-                                    <span class="text-theme-secondary text-sm italic">{{ __('Tanpa Media') }}</span>
-                                </div>
-                            @endif
-                            <div class="p-4 md:p-5 flex-grow flex flex-col">
-                                <div class="flex items-center text-[10px] md:text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
-                                    <span>{{ __('Opini') }}</span>
-                                    <span class="mx-2 text-theme-secondary">•</span>
-                                    <span class="text-theme-secondary">{{ $article->created_at->format('d M Y') }}</span>
-                                </div>
-                                <h3 class="font-extrabold text-base md:text-lg mb-1 md:mb-2 text-theme-text line-clamp-2 group-hover:text-theme-primary transition-colors leading-snug">{{ $article->title }}</h3>
-                                <p class="text-theme-secondary text-sm mb-4 line-clamp-3 leading-relaxed flex-grow">{{ strip_tags($article->content) }}</p>
-                                <div class="flex items-center text-[10px] md:text-xs text-theme-secondary mt-auto pt-3 md:pt-4 border-t border-theme-border/50">
-                                    <span class="font-medium text-theme-text">{{ __('Oleh:') }} {{ optional($article->user)->name ?? __('Anonim') }}</span>
-                                </div>
+                                </a>
                             </div>
-                        </a>
-                    @endforeach
+                        @endforeach
+                    </div>
+
+                    <!-- Desktop Next Button -->
+                    <button @click="next()" class="hidden md:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-10 bg-theme-surface border border-theme-border shadow-lg rounded-full w-12 h-12 items-center justify-center text-theme-text hover:text-theme-primary hover:scale-110 transition-all opacity-0 group-hover/slider:opacity-100 disabled:opacity-0 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+
+                    <!-- Mobile Dots -->
+                    <div class="flex md:hidden justify-center space-x-2 mt-2 px-4 flex-wrap gap-y-2">
+                        <template x-for="i in totalSlides" :key="i">
+                            <button @click="goTo(i - 1)" 
+                                    :class="currentIndex === (i - 1) ? 'bg-theme-primary w-6' : 'bg-theme-secondary/30 w-2 hover:bg-theme-secondary/50'" 
+                                    class="h-2 rounded-full transition-all duration-300 focus:outline-none"
+                                    aria-label="Go to slide"></button>
+                        </template>
+                    </div>
                 </div>
                 <div class="mt-8 md:mt-12 text-center">
                     <a href="{{ route('articles.public_index') }}" class="inline-flex items-center px-4 py-2 md:px-6 md:py-3 border border-transparent text-sm md:text-base font-medium rounded-full shadow-sm text-white bg-theme-primary hover:bg-theme-hover transition-colors">
@@ -146,34 +227,115 @@
             @if($portfolios->isEmpty())
                 <p class="text-center text-theme-secondary text-base md:text-lg">{{ __('Belum ada kegiatan yang ditampilkan.') }}</p>
             @else
-                <div class="flex flex-wrap justify-center gap-4 md:gap-8">
-                    @foreach($portfolios as $portfolio)
-                        <a href="{{ route('portfolios.show_public', $portfolio) }}" class="w-full max-w-[300px] block group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
-                            @if($portfolio->image_path)
-                                <div class="overflow-hidden h-32 md:h-44 shrink-0 relative">
-                                    <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                                    <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
-                                </div>
-                            @else
-                                <div class="w-full h-32 md:h-44 shrink-0 bg-theme-bg flex items-center justify-center text-theme-secondary text-sm border-b border-theme-border">No Image</div>
-                            @endif
-                            <div class="p-4 md:p-5 flex-grow flex flex-col">
-                                <div class="flex items-center text-[10px] md:text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
-                                    <span>{{ __('Kegiatan') }}</span>
-                                    <span class="mx-2 text-theme-secondary">•</span>
-                                    <span class="text-theme-secondary">{{ $portfolio->created_at ? $portfolio->created_at->format('d M Y') : 'Terbaru' }}</span>
-                                </div>
-                                <h4 class="font-extrabold text-theme-text mb-1 md:mb-2 text-base md:text-lg group-hover:text-theme-primary transition-colors leading-snug">{{ $portfolio->title }}</h4>
-                                <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow">{{ Str::limit($portfolio->description, 80) }}</p>
-                                <div class="mt-auto pt-3 md:pt-4 border-t border-theme-border/50">
-                                    <span class="inline-flex items-center text-theme-primary hover:text-theme-hover text-[10px] md:text-xs font-bold transition-colors">
-                                        {{ __('Baca Selengkapnya') }} 
-                                        <svg class="w-3 h-3 md:w-4 md:h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                    </span>
-                                </div>
+                <div x-data="{
+                        autoPlay: null,
+                        currentIndex: 0,
+                        totalSlides: {{ $portfolios->count() }},
+                        init() {
+                            this.startAutoPlay();
+                            this.$refs.container.addEventListener('scroll', () => {
+                                let container = this.$refs.container;
+                                if(container.firstElementChild) {
+                                    let slideWidth = container.firstElementChild.getBoundingClientRect().width;
+                                    let gap = parseFloat(getComputedStyle(container).gap) || 0;
+                                    this.currentIndex = Math.round(container.scrollLeft / (slideWidth + gap));
+                                }
+                            });
+                        },
+                        startAutoPlay() {
+                            this.autoPlay = setInterval(() => { this.next(); }, 4500);
+                        },
+                        stopAutoPlay() {
+                            clearInterval(this.autoPlay);
+                        },
+                        next() {
+                            let container = this.$refs.container;
+                            if(!container.firstElementChild) return;
+                            let slideWidth = container.firstElementChild.getBoundingClientRect().width;
+                            let gap = parseFloat(getComputedStyle(container).gap) || 0;
+                            if (container.scrollLeft + container.clientWidth >= container.scrollWidth - 10) {
+                                container.scrollTo({left: 0, behavior: 'smooth'});
+                            } else {
+                                container.scrollBy({left: slideWidth + gap, behavior: 'smooth'});
+                            }
+                        },
+                        prev() {
+                            let container = this.$refs.container;
+                            if(!container.firstElementChild) return;
+                            let slideWidth = container.firstElementChild.getBoundingClientRect().width;
+                            let gap = parseFloat(getComputedStyle(container).gap) || 0;
+                            if (container.scrollLeft <= 0) {
+                                container.scrollTo({left: container.scrollWidth, behavior: 'smooth'});
+                            } else {
+                                container.scrollBy({left: -(slideWidth + gap), behavior: 'smooth'});
+                            }
+                        },
+                        goTo(index) {
+                            let container = this.$refs.container;
+                            if(!container.firstElementChild) return;
+                            let slideWidth = container.firstElementChild.getBoundingClientRect().width;
+                            let gap = parseFloat(getComputedStyle(container).gap) || 0;
+                            container.scrollTo({left: index * (slideWidth + gap), behavior: 'smooth'});
+                        }
+                    }" 
+                    @mouseenter="stopAutoPlay()" 
+                    @mouseleave="startAutoPlay()" 
+                    @touchstart="stopAutoPlay()"
+                    @touchend="startAutoPlay()"
+                    class="relative group/slider w-full">
+                    
+                    <!-- Desktop Prev Button -->
+                    <button @click="prev()" class="hidden md:flex absolute -left-4 lg:-left-6 top-1/2 -translate-y-1/2 z-10 bg-theme-surface border border-theme-border shadow-lg rounded-full w-12 h-12 items-center justify-center text-theme-text hover:text-theme-primary hover:scale-110 transition-all opacity-0 group-hover/slider:opacity-100 disabled:opacity-0 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+
+                    <!-- Carousel Container -->
+                    <div x-ref="container" class="flex overflow-x-auto snap-x snap-mandatory gap-4 md:gap-6 pb-8 pt-4 px-4 sm:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                        @foreach($portfolios as $portfolio)
+                            <div class="snap-center shrink-0 w-[85%] sm:w-[45%] md:w-[30%] lg:w-[23%] flex">
+                                <a href="{{ route('portfolios.show_public', $portfolio) }}" class="w-full group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
+                                    @if($portfolio->image_path)
+                                        <div class="overflow-hidden h-40 shrink-0 relative">
+                                            <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                            <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
+                                        </div>
+                                    @else
+                                        <div class="w-full h-40 shrink-0 bg-theme-bg flex items-center justify-center text-theme-secondary text-sm border-b border-theme-border">No Image</div>
+                                    @endif
+                                    <div class="p-4 md:p-5 flex-grow flex flex-col">
+                                        <div class="flex items-center text-[10px] md:text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
+                                            <span>{{ __('Kegiatan') }}</span>
+                                            <span class="mx-2 text-theme-secondary">•</span>
+                                            <span class="text-theme-secondary">{{ $portfolio->created_at ? $portfolio->created_at->format('d M Y') : 'Terbaru' }}</span>
+                                        </div>
+                                        <h4 class="font-extrabold text-theme-text mb-1 md:mb-2 text-base md:text-lg group-hover:text-theme-primary transition-colors leading-snug">{{ $portfolio->title }}</h4>
+                                        <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow">{{ Str::limit($portfolio->description, 80) }}</p>
+                                        <div class="mt-auto pt-3 md:pt-4 border-t border-theme-border/50">
+                                            <span class="inline-flex items-center text-theme-primary hover:text-theme-hover text-[10px] md:text-xs font-bold transition-colors">
+                                                {{ __('Baca Selengkapnya') }} 
+                                                <svg class="w-3 h-3 md:w-4 md:h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    @endforeach
+                        @endforeach
+                    </div>
+
+                    <!-- Desktop Next Button -->
+                    <button @click="next()" class="hidden md:flex absolute -right-4 lg:-right-6 top-1/2 -translate-y-1/2 z-10 bg-theme-surface border border-theme-border shadow-lg rounded-full w-12 h-12 items-center justify-center text-theme-text hover:text-theme-primary hover:scale-110 transition-all opacity-0 group-hover/slider:opacity-100 disabled:opacity-0 focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+
+                    <!-- Mobile Dots -->
+                    <div class="flex md:hidden justify-center space-x-2 mt-2 px-4 flex-wrap gap-y-2">
+                        <template x-for="i in totalSlides" :key="i">
+                            <button @click="goTo(i - 1)" 
+                                    :class="currentIndex === (i - 1) ? 'bg-theme-primary w-6' : 'bg-theme-secondary/30 w-2 hover:bg-theme-secondary/50'" 
+                                    class="h-2 rounded-full transition-all duration-300 focus:outline-none"
+                                    aria-label="Go to slide"></button>
+                        </template>
+                    </div>
                 </div>
                 <div class="mt-8 md:mt-12 text-center">
                     <a href="{{ route('portfolios.public_index') }}" class="inline-flex items-center px-4 py-2 md:px-6 md:py-3 border border-transparent text-sm md:text-base font-medium rounded-full shadow-sm text-white bg-theme-primary hover:bg-theme-hover transition-colors">
