@@ -72,11 +72,34 @@ Route::get('/system-logs', function () {
     if ((auth()->check() && auth()->user()->role === 'admin') || request('token') === 'ai_debug_token_123') {
         $logPath = storage_path('logs/laravel.log');
         if (file_exists($logPath)) {
-            // Return only the last 100000 characters to avoid huge payload
             $content = file_get_contents($logPath);
             return response('<pre style="word-wrap: break-word; white-space: pre-wrap;">' . substr($content, -100000) . '</pre>');
         }
         return 'No logs found.';
     }
     abort(403);
+});
+
+Route::get('/fix-db-ai-123', function() {
+    try {
+        // Try adding bidang
+        try {
+            \Illuminate\Support\Facades\DB::statement('ALTER TABLE users ADD COLUMN bidang VARCHAR(255) DEFAULT NULL');
+        } catch (\Exception $e) {}
+        
+        // Try adding jabatan
+        try {
+            \Illuminate\Support\Facades\DB::statement('ALTER TABLE users ADD COLUMN jabatan VARCHAR(255) DEFAULT NULL');
+        } catch (\Exception $e) {}
+
+        // Mark migration as run
+        \Illuminate\Support\Facades\DB::table('migrations')->updateOrInsert(
+            ['migration' => '2026_06_30_172705_add_bidang_and_jabatan_to_users_table'],
+            ['batch' => \Illuminate\Support\Facades\DB::table('migrations')->max('batch') + 1]
+        );
+
+        return 'Database fixed successfully!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
 });
