@@ -33,6 +33,7 @@ WORKDIR /var/www/html
 
 # Copy application files
 COPY . .
+RUN cp -r database/migrations temp_migrations
 
 # Ensure storage directories exist
 RUN mkdir -p storage/framework/cache/data \

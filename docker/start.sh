@@ -11,6 +11,11 @@ if [ ! -f /var/www/html/database/database.sqlite ]; then
     touch /var/www/html/database/database.sqlite
 fi
 
+# Sync migrations from image to volume
+if [ -d /var/www/html/temp_migrations ]; then
+    cp -r /var/www/html/temp_migrations/* /var/www/html/database/migrations/ 2>/dev/null || true
+fi
+
 # Run migrations
 php artisan migrate --force
 
