@@ -77,7 +77,7 @@
             </a>
 
             <!-- Cloudflare Turnstile Hidden Widget (Explicit Render) -->
-            <div id="cf-turnstile-widget"></div>
+            <div id="cf-turnstile-widget" data-sitekey="{{ config('services.turnstile.site_key') }}"></div>
 
             <!-- Custom Turnstile UI (Text Only) -->
             <div id="custom-turnstile-ui" class="flex items-center text-[11px] font-medium tracking-wide">
@@ -106,8 +106,11 @@
     <script>
         // Explicit rendering callback
         function onloadTurnstileCallback() {
+            const widgetEl = document.getElementById('cf-turnstile-widget');
+            if (!widgetEl) return;
+            const siteKey = widgetEl.getAttribute('data-sitekey');
             turnstile.render('#cf-turnstile-widget', {
-                sitekey: '{{ config('services.turnstile.site_key') }}',
+                sitekey: siteKey,
                 appearance: 'interaction-only',
                 callback: function(token) {
                     const spinner = document.getElementById('custom-turnstile-spinner');
