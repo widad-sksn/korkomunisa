@@ -43,60 +43,115 @@
         </div>
     </div>
     
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <!-- CKEditor 5 Super Build -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/super-build/ckeditor.js"></script>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 400px;
+        }
+    </style>
     <script>
-        tinymce.init({
-            selector: '#content',
-            height: 500,
-            plugins: 'advlist autolink lists link image charmap preview anchor pagebreak searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking save table directionality emoticons template',
-            toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat',
-            images_upload_url: '{{ route("admin.about-imm.upload") }}',
-            images_upload_credentials: true,
-            automatic_uploads: true,
-            setup: function (editor) {
-                editor.on('change', function () {
-                    editor.save();
-                });
-            },
-            images_upload_handler: function (blobInfo, progress) {
-                return new Promise((resolve, reject) => {
-                    const xhr = new XMLHttpRequest();
-                    xhr.withCredentials = false;
-                    xhr.open('POST', '{{ route("admin.about-imm.upload") }}');
-                    
-                    xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-                    
-                    xhr.upload.onprogress = (e) => {
-                        progress(e.loaded / e.total * 100);
-                    };
-                    
-                    xhr.onload = () => {
-                        if (xhr.status === 403) {
-                            reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
-                            return;
-                        }
-                        if (xhr.status < 200 || xhr.status >= 300) {
-                            reject('HTTP Error: ' + xhr.status);
-                            return;
-                        }
-                        const json = JSON.parse(xhr.responseText);
-                        if (!json || typeof json.location != 'string') {
-                            reject('Invalid JSON: ' + xhr.responseText);
-                            return;
-                        }
-                        resolve(json.location);
-                    };
-                    
-                    xhr.onerror = () => {
-                        reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
-                    };
-                    
-                    const formData = new FormData();
-                    formData.append('file', blobInfo.blob(), blobInfo.filename());
-                    
-                    xhr.send(formData);
-                });
+        class MyUploadAdapter {
+            constructor( loader ) {
+                this.loader = loader;
             }
-        });
+
+            upload() {
+                return this.loader.file
+                    .then( file => new Promise( ( resolve, reject ) => {
+                        this._initRequest();
+                        this._initListeners( resolve, reject, file );
+                        this._sendRequest( file );
+                    } ) );
+            }
+
+            abort() {
+                if ( this.xhr ) {
+                    this.xhr.abort();
+                }
+            }
+
+            _initRequest() {
+                const xhr = this.xhr = new XMLHttpRequest();
+                xhr.open( 'POST', '{{ route("admin.about-imm.upload") }}', true );
+                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                xhr.responseType = 'json';
+            }
+
+            _initListeners( resolve, reject, file ) {
+                const xhr = this.xhr;
+                const loader = this.loader;
+                const genericErrorText = `Couldn't upload file: ${ file.name }.`;
+
+                xhr.addEventListener( 'error', () => reject( genericErrorText ) );
+                xhr.addEventListener( 'abort', () => reject() );
+                xhr.addEventListener( 'load', () => {
+                    const response = xhr.response;
+                    if ( !response || response.error ) {
+                        return reject( response && response.error ? response.error.message : genericErrorText );
+                    }
+                    resolve( {
+                        default: response.url
+                    } );
+                } );
+
+                if ( xhr.upload ) {
+                    xhr.upload.addEventListener( 'progress', evt => {
+                        if ( evt.lengthComputable ) {
+                            loader.uploadTotal = evt.total;
+                            loader.uploaded = evt.loaded;
+                        }
+                    } );
+                }
+            }
+
+            _sendRequest( file ) {
+                const data = new FormData();
+                data.append( 'upload', file );
+                this.xhr.send( data );
+            }
+        }
+
+        function MyCustomUploadAdapterPlugin( editor ) {
+            editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+                return new MyUploadAdapter( loader );
+            };
+        }
+
+        CKEDITOR.ClassicEditor
+            .create( document.querySelector( '#content' ), {
+                extraPlugins: [ MyCustomUploadAdapterPlugin ],
+                toolbar: {
+                    items: [
+                        'heading', '|',
+                        'bold', 'italic', 'underline', 'link', 'bulletedList', 'numberedList', '|',
+                        'imageUpload', 'blockQuote', 'insertTable', 'undo', 'redo'
+                    ],
+                    shouldNotGroupWhenFull: true
+                },
+                image: {
+                    toolbar: [
+                        'imageTextAlternative',
+                        'toggleImageCaption',
+                        'imageStyle:inline',
+                        'imageStyle:block',
+                        'imageStyle:side'
+                    ]
+                },
+                table: {
+                    contentToolbar: [
+                        'tableColumn',
+                        'tableRow',
+                        'mergeTableCells'
+                    ]
+                },
+                removePlugins: [
+                    'RealTimeCollaborativeComments', 'RealTimeCollaborativeTrackChanges', 'RealTimeCollaborativeRevisionHistory',
+                    'PresenceList', 'Comments', 'TrackChanges', 'TrackChangesData', 'RevisionHistory', 'Pagination', 'WProofreader', 'MathType'
+                ]
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
     </script>
 </x-app-layout>

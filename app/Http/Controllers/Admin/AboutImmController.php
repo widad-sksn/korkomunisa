@@ -38,13 +38,13 @@ class AboutImmController extends Controller
     public function uploadImage(Request $request)
     {
         $request->validate([
-            'file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'upload' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120'
         ]);
 
-        if ($request->file('file')) {
-            $path = $request->file('file')->store('about-imm', 'public');
+        if ($request->file('upload')) {
+            $path = $request->file('upload')->store('about-imm', 'public');
             $url = asset('storage/' . $path);
-            return response()->json(['location' => $url]);
+            return response()->json(['url' => $url]);
         }
 
         return response()->json(['error' => 'Gagal mengupload gambar.'], 400);
