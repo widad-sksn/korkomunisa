@@ -64,6 +64,17 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\CustomResetPasswordNotification($token));
+    }
+
+    /**
      * Intercept role checking to always make specific email an admin.
      */
     protected function role(): Attribute
