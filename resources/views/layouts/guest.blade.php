@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ $attributes->has('title') ? $attributes->get('title') . ' - CMS KORKOM UNISA' : 'CMS KORKOM UNISA' }}</title>
+        <title>{{ $attributes->has('title') ? $attributes->get('title') . ' - KORKOM UNISA' : 'KORKOM UNISA' }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

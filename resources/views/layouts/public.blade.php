@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         @hasSection('title')
-            @yield('title') - IMM KORKOM UNISA
+            @yield('title') - KORKOM UNISA
         @else
-            IMM KORKOM UNISA
+            KORKOM UNISA
         @endif
     </title>
 
