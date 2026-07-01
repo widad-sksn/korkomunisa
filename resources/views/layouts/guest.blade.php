@@ -50,8 +50,13 @@
                     </div>
 
                     <div class="mb-10 text-center md:text-left">
-                        <h2 class="text-3xl font-extrabold text-theme-text tracking-tight">Selamat Datang 👋</h2>
-                        <p class="text-theme-secondary mt-3">Silakan masuk ke akun Anda untuk melanjutkan ke dasbor.</p>
+                        @if (request()->routeIs('register'))
+                            <h2 class="text-3xl font-extrabold text-theme-text tracking-tight">Daftar Akun Baru</h2>
+                            <p class="text-theme-secondary mt-3">Lengkapi data di bawah ini untuk membuat akun baru.</p>
+                        @else
+                            <h2 class="text-3xl font-extrabold text-theme-text tracking-tight">Masuk ke Akun</h2>
+                            <p class="text-theme-secondary mt-3">Silakan masuk menggunakan email dan password untuk melanjutkan ke dashboard.</p>
+                        @endif
                     </div>
                     
                     <div class="bg-theme-surface p-8 rounded-3xl shadow-lg border border-theme-border/50">
