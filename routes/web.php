@@ -30,7 +30,11 @@ Route::get('/lang/{locale}', function ($locale) {
 })->name('lang.switch');
 
 Route::get('/tentang-imm', function () {
-    return view('about');
+    $about = \App\Models\AboutImm::firstOrCreate(
+        ['id' => 1],
+        ['title' => 'Tentang IMM', 'content' => '<p>Konten tentang IMM belum diisi.</p>']
+    );
+    return view('about', compact('about'));
 })->name('about');
 
 Route::get('/dashboard', function () {
@@ -52,6 +56,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Admin routes
 Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/about-imm', [\App\Http\Controllers\Admin\AboutImmController::class, 'edit'])->name('about-imm.edit');
+    Route::put('/about-imm', [\App\Http\Controllers\Admin\AboutImmController::class, 'update'])->name('about-imm.update');
+    Route::post('/about-imm/upload-image', [\App\Http\Controllers\Admin\AboutImmController::class, 'uploadImage'])->name('about-imm.upload');
     Route::get('/articles', [ArticleController::class, 'adminIndex'])->name('articles.index');
     Route::get('/articles/approved', [ArticleController::class, 'approvedIndex'])->name('articles.approved');
     Route::get('/articles/rejected', [ArticleController::class, 'rejectedIndex'])->name('articles.rejected');
