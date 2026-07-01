@@ -67,3 +67,21 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/fix-db-ai-123', function() {
+    try {
+        try {
+            \Illuminate\Support\Facades\DB::statement('ALTER TABLE users ADD COLUMN bidang VARCHAR(255) DEFAULT NULL');
+        } catch (\Exception $e) {}
+        try {
+            \Illuminate\Support\Facades\DB::statement('ALTER TABLE users ADD COLUMN jabatan VARCHAR(255) DEFAULT NULL');
+        } catch (\Exception $e) {}
+        \Illuminate\Support\Facades\DB::table('migrations')->updateOrInsert(
+            ['migration' => '2026_06_30_172705_add_bidang_and_jabatan_to_users_table'],
+            ['batch' => \Illuminate\Support\Facades\DB::table('migrations')->max('batch') + 1]
+        );
+        return 'Database fixed successfully!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
