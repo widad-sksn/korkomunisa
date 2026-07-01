@@ -41,6 +41,19 @@
             <!-- Main Content Wrapper -->
             <div class="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
                 
+                <!-- Impersonation Banner -->
+                @if(session()->has('impersonate_by'))
+                    <div class="bg-orange-500 dark:bg-orange-600 text-white px-4 py-3 flex justify-between items-center z-50 shadow-md">
+                        <span class="font-semibold text-sm">⚠️ Anda sedang masuk sebagai <strong class="font-bold">{{ auth()->user()->name }}</strong></span>
+                        <form action="{{ route('leave-impersonate') }}" method="POST" class="m-0">
+                            @csrf
+                            <button type="submit" class="bg-red-700 hover:bg-red-800 text-white font-bold py-1.5 px-4 rounded text-sm transition-colors shadow-sm">
+                                Kembali ke Admin
+                            </button>
+                        </form>
+                    </div>
+                @endif
+
                 <!-- Top Header -->
                 @include('layouts.topbar')
 

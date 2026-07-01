@@ -64,6 +64,11 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
 
     Route::get('/users', [\App\Http\Controllers\AdminUserController::class, 'index'])->name('users.index');
     Route::delete('/users/{user}', [\App\Http\Controllers\AdminUserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users/{user}/impersonate', [\App\Http\Controllers\AdminUserController::class, 'impersonate'])->name('users.impersonate');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/leave-impersonate', [\App\Http\Controllers\AdminUserController::class, 'leaveImpersonate'])->name('leave-impersonate');
 });
 
 require __DIR__.'/auth.php';

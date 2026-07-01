@@ -65,8 +65,12 @@
                                                 </span>
                                             </td>
                                             <td class="py-3 px-4">{{ $user->created_at->format('d M Y') }}</td>
-                                            <td class="py-3 px-4">
+                                            <td class="py-3 px-4 flex gap-2">
                                                 @if(auth()->id() !== $user->id)
+                                                    <form action="{{ route('admin.users.impersonate', $user) }}" method="POST" class="inline">
+                                                        @csrf
+                                                        <button type="submit" class="px-3 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 font-medium transition-colors">Masuk sbg User</button>
+                                                    </form>
                                                     <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini? Semua data terkait (artikel, kegiatan) mungkin juga akan terpengaruh atau hilang.');">
                                                         @csrf
                                                         @method('DELETE')

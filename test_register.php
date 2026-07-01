@@ -6,14 +6,18 @@ $kernel = $app->make(Illuminate\Contracts\Console\Kernel::class);
 $kernel->bootstrap();
 
 try {
-    $user = \App\Models\User::create([
-        'name' => 'Test User',
-        'email' => 'test_error_500@gmail.com',
-        'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+    $url = 'https://immkorkom.unisayogya.ac.id/register';
+    $data = [
+        'name' => 'AI Test User',
+        'email' => 'aitest' . time() . '@unisayogya.ac.id',
+        'password' => 'password123',
+        'password_confirmation' => 'password123',
         'komisariat' => 'Korkom UNISA',
-        'bidang' => null,
-        'jabatan' => null,
-    ]);
+        'bidang' => 'Bidang Kaderisasi',
+        'jabatan' => 'Anggota'
+    ];
+
+    $user = \App\Models\User::create($data);
 
     event(new \Illuminate\Auth\Events\Registered($user));
     echo "Success!";
