@@ -24,6 +24,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $request->validate([
+            'cf-turnstile-response' => ['required', new \App\Rules\TurnstileRule],
+        ], [
+            'cf-turnstile-response.required' => 'Silakan selesaikan verifikasi keamanan terlebih dahulu.'
+        ]);
+
         $request->authenticate();
 
         $request->session()->regenerate();

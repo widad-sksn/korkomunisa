@@ -32,6 +32,25 @@
             </label>
         </div>
 
+        <!-- Cloudflare Turnstile -->
+        <div class="mt-4 flex flex-col justify-start">
+            <div class="cf-turnstile" 
+                 data-sitekey="{{ config('services.turnstile.site_key') }}"
+                 data-callback="onTurnstileSuccess"
+                 data-error-callback="onTurnstileError"
+                 data-expired-callback="onTurnstileError">
+            </div>
+            <div id="turnstile-loading" class="mt-2 text-sm text-gray-500 flex items-center">
+                <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-theme-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Menunggu verifikasi keamanan...
+            </div>
+            <p id="turnstile-error" class="text-sm text-red-600 mt-2 hidden">Silakan selesaikan verifikasi keamanan terlebih dahulu.</p>
+            <x-input-error :messages="$errors->get('cf-turnstile-response')" class="mt-2" />
+        </div>
+
         <div class="flex items-center justify-between mt-6">
             @if (Route::has('password.request'))
                 <a class="text-sm text-theme-secondary hover:text-theme-primary transition-colors focus:outline-none" href="{{ route('password.request') }}">
@@ -39,9 +58,30 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3 bg-theme-primary hover:bg-theme-hover text-white transition-colors duration-200 shadow-md">
+            <x-primary-button id="submit-btn" disabled class="ms-3 bg-theme-primary hover:bg-theme-hover text-white opacity-60 cursor-not-allowed transition-all duration-300 shadow-md">
                 {{ __('Masuk') }}
             </x-primary-button>
         </div>
     </form>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <script>
+        function onTurnstileSuccess() {
+            document.getElementById('turnstile-loading').classList.add('hidden');
+            document.getElementById('turnstile-error').classList.add('hidden');
+            
+            const btn = document.getElementById('submit-btn');
+            btn.removeAttribute('disabled');
+            btn.classList.remove('opacity-60', 'cursor-not-allowed');
+        }
+
+        function onTurnstileError() {
+            document.getElementById('turnstile-loading').classList.add('hidden');
+            document.getElementById('turnstile-error').classList.remove('hidden');
+            
+            const btn = document.getElementById('submit-btn');
+            btn.setAttribute('disabled', 'disabled');
+            btn.classList.add('opacity-60', 'cursor-not-allowed');
+        }
+    </script>
 </x-guest-layout>

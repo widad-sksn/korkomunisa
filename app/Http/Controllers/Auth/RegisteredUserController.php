@@ -37,6 +37,9 @@ class RegisteredUserController extends Controller
             'komisariat' => ['required', 'string', 'in:IMM FST,IMM Rosyad Sholeh,IMM FIKES,Korkom UNISA'],
             'bidang' => ['nullable', 'string', 'max:255'],
             'jabatan' => ['nullable', 'string', 'max:255'],
+            'cf-turnstile-response' => ['required', new \App\Rules\TurnstileRule],
+        ], [
+            'cf-turnstile-response.required' => 'Silakan selesaikan verifikasi keamanan terlebih dahulu.'
         ]);
 
         $user = User::create([
