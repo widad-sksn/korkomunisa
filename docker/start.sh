@@ -22,7 +22,13 @@ php artisan migrate --force
 # Create storage symlink
 php artisan storage:link
 
-# Cache configuration
+# Verify critical environment variables
+if ! grep -q "^TURNSTILE_SITE_KEY=.\+" /var/www/html/.env 2>/dev/null; then
+    echo "WARNING: TURNSTILE_SITE_KEY is empty or missing in .env!"
+    echo "Cloudflare Turnstile will NOT work until this is set."
+fi
+
+# Cache configuration (always re-cache to pick up .env changes)
 php artisan config:cache
 php artisan route:cache
 php artisan view:cache
