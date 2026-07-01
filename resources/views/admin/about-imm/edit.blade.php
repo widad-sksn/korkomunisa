@@ -43,8 +43,7 @@
         </div>
     </div>
     
-    <!-- CKEditor 5 Super Build -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/super-build/ckeditor.js"></script>
+    <!-- CKEditor Initialization -->
     <style>
         .ck-editor__editable_inline {
             min-height: 400px;
@@ -118,40 +117,41 @@
             };
         }
 
-        CKEDITOR.ClassicEditor
-            .create( document.querySelector( '#content' ), {
-                extraPlugins: [ MyCustomUploadAdapterPlugin ],
-                toolbar: {
-                    items: [
-                        'heading', '|',
-                        'bold', 'italic', 'underline', 'link', 'bulletedList', 'numberedList', '|',
-                        'imageUpload', 'blockQuote', 'insertTable', 'undo', 'redo'
-                    ],
-                    shouldNotGroupWhenFull: true
-                },
-                image: {
-                    toolbar: [
-                        'imageTextAlternative',
-                        'toggleImageCaption',
-                        'imageStyle:inline',
-                        'imageStyle:block',
-                        'imageStyle:side'
-                    ]
-                },
-                table: {
-                    contentToolbar: [
-                        'tableColumn',
-                        'tableRow',
-                        'mergeTableCells'
-                    ]
-                },
-                removePlugins: [
-                    'RealTimeCollaborativeComments', 'RealTimeCollaborativeTrackChanges', 'RealTimeCollaborativeRevisionHistory',
-                    'PresenceList', 'Comments', 'TrackChanges', 'TrackChangesData', 'RevisionHistory', 'Pagination', 'WProofreader', 'MathType'
-                ]
-            } )
-            .catch( error => {
-                console.error( error );
-            } );
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.ClassicEditor) {
+                ClassicEditor
+                    .create( document.querySelector( '#content' ), {
+                        extraPlugins: [ MyCustomUploadAdapterPlugin ],
+                        toolbar: {
+                            items: [
+                                'heading', '|',
+                                'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                                'imageUpload', 'blockQuote', 'insertTable', 'undo', 'redo'
+                            ]
+                        },
+                        image: {
+                            toolbar: [
+                                'imageTextAlternative',
+                                'toggleImageCaption',
+                                'imageStyle:inline',
+                                'imageStyle:block',
+                                'imageStyle:side'
+                            ]
+                        },
+                        table: {
+                            contentToolbar: [
+                                'tableColumn',
+                                'tableRow',
+                                'mergeTableCells'
+                            ]
+                        }
+                    } )
+                    .catch( error => {
+                        console.error( error );
+                    } );
+            } else {
+                console.error("CKEditor tidak termuat. Pastikan npm run dev / build sudah dijalankan.");
+            }
+        });
     </script>
 </x-app-layout>
