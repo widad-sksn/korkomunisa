@@ -67,3 +67,16 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/system-logs', function () {
+    if (auth()->check() && auth()->user()->role === 'admin') {
+        $logPath = storage_path('logs/laravel.log');
+        if (file_exists($logPath)) {
+            // Return only the last 100000 characters to avoid huge payload
+            $content = file_get_contents($logPath);
+            return response('<pre style="word-wrap: break-word; white-space: pre-wrap;">' . substr($content, -100000) . '</pre>');
+        }
+        return 'No logs found.';
+    }
+    abort(403);
+});
