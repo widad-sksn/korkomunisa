@@ -78,7 +78,7 @@
                  data-callback="onTurnstileSuccess"
                  data-error-callback="onTurnstileError"
                  data-expired-callback="onTurnstileExpired"
-                 data-theme="auto">
+                 data-theme="light">
             </div>
         </div>
 
