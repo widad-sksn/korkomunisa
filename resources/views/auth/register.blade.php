@@ -68,7 +68,6 @@
 
         <!-- Cloudflare Turnstile Error -->
         <div class="mt-2">
-            <p id="turnstile-error" class="text-sm text-red-600 hidden">Silakan selesaikan verifikasi keamanan terlebih dahulu.</p>
             <x-input-error :messages="$errors->get('cf-turnstile-response')" class="mt-2" />
         </div>
 
@@ -77,13 +76,46 @@
                 {{ __('Already registered?') }}
             </a>
 
+            <!-- Cloudflare Turnstile Hidden Widget -->
             <div class="cf-turnstile" 
                  data-sitekey="{{ config('services.turnstile.site_key') }}"
                  data-callback="onTurnstileSuccess"
                  data-error-callback="onTurnstileError"
                  data-expired-callback="onTurnstileError"
-                 data-size="compact"
-                 data-theme="auto">
+                 data-appearance="interaction-only">
+            </div>
+
+            <!-- Custom Turnstile UI -->
+            <div id="custom-turnstile-ui" class="flex items-center bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded px-2.5 py-1.5 shadow-sm">
+                <!-- Cloud Logo -->
+                <svg class="w-4 h-4 mr-1.5 text-[#F38020]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17.5 19c2.48 0 4.5-2.02 4.5-4.5S19.98 10 17.5 10c-.17 0-.34.01-.5.03C16.29 7.15 13.88 5 11 5 7.69 5 5 7.69 5 11c0 .12.01.24.02.36C2.75 11.85 1 13.72 1 16c0 2.76 2.24 5 5 5h11.5z"></path>
+                </svg>
+
+                <!-- Spinner State -->
+                <div id="custom-turnstile-spinner" class="flex items-center">
+                    <svg class="animate-spin -ml-0.5 mr-1.5 h-3 w-3 text-gray-500 dark:text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span class="text-[11px] text-gray-500 dark:text-gray-400 font-medium tracking-wide">Protected by Cloudflare Turnstile</span>
+                </div>
+
+                <!-- Success State -->
+                <div id="custom-turnstile-success" class="hidden items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    <span class="text-[11px] text-green-600 dark:text-green-400 font-medium tracking-wide">Verified by Cloudflare</span>
+                </div>
+
+                <!-- Error State -->
+                <div id="custom-turnstile-error" class="hidden items-center">
+                    <svg class="w-3.5 h-3.5 mr-1 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <span class="text-[11px] text-red-600 dark:text-red-400 font-medium tracking-wide">Verification Failed</span>
+                </div>
             </div>
             
             <x-primary-button id="submit-btn" disabled class="bg-theme-primary hover:bg-theme-hover text-white opacity-60 cursor-not-allowed transition-all duration-300 shadow-md">
@@ -95,8 +127,16 @@
     <script>
         // Define callbacks BEFORE loading the Turnstile script
         function onTurnstileSuccess() {
-            const errEl = document.getElementById('turnstile-error');
-            if(errEl) errEl.classList.add('hidden');
+            const spinner = document.getElementById('custom-turnstile-spinner');
+            const success = document.getElementById('custom-turnstile-success');
+            const error = document.getElementById('custom-turnstile-error');
+            
+            if(spinner) spinner.classList.add('hidden');
+            if(error) error.classList.add('hidden');
+            if(success) {
+                success.classList.remove('hidden');
+                success.classList.add('flex');
+            }
             
             const btn = document.getElementById('submit-btn');
             if(btn) {
@@ -106,8 +146,16 @@
         }
 
         function onTurnstileError() {
-            const errEl = document.getElementById('turnstile-error');
-            if(errEl) errEl.classList.remove('hidden');
+            const spinner = document.getElementById('custom-turnstile-spinner');
+            const success = document.getElementById('custom-turnstile-success');
+            const error = document.getElementById('custom-turnstile-error');
+            
+            if(spinner) spinner.classList.add('hidden');
+            if(success) success.classList.add('hidden');
+            if(error) {
+                error.classList.remove('hidden');
+                error.classList.add('flex');
+            }
             
             const btn = document.getElementById('submit-btn');
             if(btn) {
