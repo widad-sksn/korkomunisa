@@ -1,6 +1,6 @@
 <x-app-layout title="Edit Tulisan">
     <x-slot name="header">
-        <div class="max-w-3xl mx-auto">
+        <div class="max-w-6xl mx-auto">
             <h2 class="font-bold text-2xl text-gray-900 dark:text-gray-100 leading-tight">
                 {{ __('Edit Tulisan') }}
             </h2>
@@ -11,7 +11,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 sm:rounded-2xl overflow-hidden">
                 <div class="p-6 md:p-8">
                     <form action="{{ route('articles.update', $article) }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6" x-data="{ isSubmitting: false }" @submit="isSubmitting = true">
