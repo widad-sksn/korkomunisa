@@ -48,6 +48,7 @@ RUN composer install --no-interaction --no-dev --optimize-autoloader || \
     (sleep 5 && composer install --no-interaction --no-dev --optimize-autoloader --prefer-source)
 
 # Install Node dependencies and build assets
+ENV NODE_OPTIONS="--max-old-space-size=1536"
 RUN npm install && npm run build
 
 # Copy configuration files
