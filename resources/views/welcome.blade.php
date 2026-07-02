@@ -165,8 +165,6 @@
                                         @endif
                                         <div class="p-4 md:p-5 flex-grow flex flex-col">
                                             <div class="flex items-center text-[10px] md:text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
-                                                <span>{{ __('Opini') }}</span>
-                                                <span class="mx-2 text-theme-secondary">•</span>
                                                 <span class="text-theme-secondary">{{ $article->created_at->format('d M Y') }}</span>
                                             </div>
                                             <h3 class="font-extrabold text-base md:text-lg mb-1 md:mb-2 text-theme-text line-clamp-2 group-hover:text-theme-primary transition-colors leading-snug">{{ $article->title }}</h3>
@@ -249,12 +247,10 @@
                                         @endif
                                         <div class="p-4 md:p-5 flex-grow flex flex-col">
                                             <div class="flex items-center text-[10px] md:text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
-                                                <span>{{ __('Kegiatan') }}</span>
-                                                <span class="mx-2 text-theme-secondary">•</span>
                                                 <span class="text-theme-secondary">{{ $portfolio->created_at ? $portfolio->created_at->format('d M Y') : 'Terbaru' }}</span>
                                             </div>
                                             <h4 class="font-extrabold text-theme-text mb-1 md:mb-2 text-base md:text-lg group-hover:text-theme-primary transition-colors leading-snug">{{ $portfolio->title }}</h4>
-                                            <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow">{{ Str::limit($portfolio->description, 80) }}</p>
+                                            <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow">{{ Str::limit(strip_tags($portfolio->description), 80) }}</p>
                                             <div class="mt-auto pt-3 md:pt-4 border-t border-theme-border/50">
                                                 <span class="inline-flex items-center text-theme-primary hover:text-theme-hover text-[10px] md:text-xs font-bold transition-colors">
                                                     {{ __('Baca Selengkapnya') }} 

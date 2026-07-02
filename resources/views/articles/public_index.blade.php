@@ -36,8 +36,6 @@
                         @endif
                         <div class="p-5 flex-grow flex flex-col">
                             <div class="flex items-center text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
-                                <span>{{ __('Opini') }}</span>
-                                <span class="mx-2 text-theme-secondary">•</span>
                                 <span class="text-theme-secondary">{{ $article->created_at->format('d M Y') }}</span>
                             </div>
                             <h3 class="font-extrabold text-lg mb-2 text-theme-text line-clamp-2 group-hover:text-theme-primary transition-colors leading-snug">{{ $article->title }}</h3>

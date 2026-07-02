@@ -61,14 +61,14 @@
                 <!-- Page Heading -->
                 @isset($header)
                     <header class="bg-theme-surface shadow-sm border-b border-theme-border transition-colors duration-300 z-10">
-                        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        <div class="w-full py-6 px-4 sm:px-6 lg:px-8">
                             {{ $header }}
                         </div>
                     </header>
                 @endisset
 
                 <!-- Page Content -->
-                <main class="p-4 sm:p-6 lg:p-8 w-full max-w-7xl mx-auto">
+                <main class="p-4 sm:p-6 lg:p-8 w-full">
                     {{ $slot }}
                 </main>
                 

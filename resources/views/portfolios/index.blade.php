@@ -45,7 +45,7 @@
                                             </td>
                                             <td class="py-3 px-4">
                                                 <div class="font-semibold">{{ $portfolio->title }}</div>
-                                                <div class="text-sm text-gray-500">{{ Str::limit($portfolio->description, 50) }}</div>
+                                                <div class="text-sm text-gray-500">{{ Str::limit(strip_tags($portfolio->description), 50) }}</div>
                                             </td>
                                             <td class="py-3 px-4">
                                                 @if($portfolio->status == 'published')
