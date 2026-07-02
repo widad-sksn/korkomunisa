@@ -122,6 +122,7 @@ function createEditor(textarea) {
     console.log('[CKEditor] Initializing on:', textarea.name || textarea.id);
 
     ClassicEditor.create(textarea, {
+        licenseKey: 'GPL',
         plugins: [
             Essentials, Paragraph, Heading,
             Bold, Italic, Underline, Strikethrough,
