@@ -278,9 +278,129 @@
                                 Batal
                             </a>
                         </div>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- CKEditor Initialization -->
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 400px;
+        }
+    </style>
+    <script>
+        class MyUploadAdapter {
+            constructor( loader ) {
+                this.loader = loader;
+            }
+
+            upload() {
+                return this.loader.file
+                    .then( file => new Promise( ( resolve, reject ) => {
+                        this._initRequest();
+                        this._initListeners( resolve, reject, file );
+                        this._sendRequest( file );
+                    } ) );
+            }
+
+            abort() {
+                if ( this.xhr ) {
+                    this.xhr.abort();
+                }
+            }
+
+            _initRequest() {
+                const xhr = this.xhr = new XMLHttpRequest();
+                xhr.open( 'POST', '{{ route("media.upload") }}', true );
+                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
+                xhr.responseType = 'json';
+            }
+
+            _initListeners( resolve, reject, file ) {
+                const xhr = this.xhr;
+                const loader = this.loader;
+                const genericErrorText = `Couldn't upload file: ${ file.name }.`;
+
+                xhr.addEventListener( 'error', () => reject( genericErrorText ) );
+                xhr.addEventListener( 'abort', () => reject() );
+                xhr.addEventListener( 'load', () => {
+                    const response = xhr.response;
+                    if ( !response || response.error ) {
+                        return reject( response && response.error ? response.error.message : genericErrorText );
+                    }
+                    resolve( {
+                        default: response.url
+                    } );
+                } );
+
+                if ( xhr.upload ) {
+                    xhr.upload.addEventListener( 'progress', evt => {
+                        if ( evt.lengthComputable ) {
+                            loader.uploadTotal = evt.total;
+                            loader.uploaded = evt.loaded;
+                        }
+                    } );
+                }
+            }
+
+            _sendRequest( file ) {
+                const data = new FormData();
+                data.append( 'upload', file );
+                this.xhr.send( data );
+            }
+        }
+
+        function MyCustomUploadAdapterPlugin( editor ) {
+            editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
+                return new MyUploadAdapter( loader );
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.ClassicEditor) {
+                ClassicEditor
+                    .create( document.querySelector( '#content' ), {
+                        plugins: window.CKEditorPlugins || [],
+                        extraPlugins: [ MyCustomUploadAdapterPlugin ],
+                        toolbar: {
+                            items: [
+                                'heading', '|',
+                                'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
+                                'imageUpload', 'blockQuote', 'insertTable', 'undo', 'redo'
+                            ]
+                        },
+                        image: {
+                            resizeOptions: [
+                                { name: 'resizeImage:original', value: null, label: 'Original' },
+                                { name: 'resizeImage:50', value: '50', label: '50%' },
+                                { name: 'resizeImage:75', value: '75', label: '75%' }
+                            ],
+                            toolbar: [
+                                'imageTextAlternative',
+                                'toggleImageCaption',
+                                '|',
+                                'imageStyle:inline',
+                                'imageStyle:block',
+                                'imageStyle:side',
+                                '|',
+                                'resizeImage'
+                            ]
+                        },
+                        table: {
+                            contentToolbar: [
+                                'tableColumn',
+                                'tableRow',
+                                'mergeTableCells'
+                            ]
+                        }
+                    } )
+                    .catch( error => {
+                        console.error( error );
+                    } );
+            }
+        });
+    </script>
 </x-app-layout>

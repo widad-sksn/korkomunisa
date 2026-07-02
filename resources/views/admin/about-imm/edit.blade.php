@@ -121,6 +121,7 @@
             if (window.ClassicEditor) {
                 ClassicEditor
                     .create( document.querySelector( '#content' ), {
+                        plugins: window.CKEditorPlugins || [],
                         extraPlugins: [ MyCustomUploadAdapterPlugin ],
                         toolbar: {
                             items: [
@@ -130,12 +131,20 @@
                             ]
                         },
                         image: {
+                            resizeOptions: [
+                                { name: 'resizeImage:original', value: null, label: 'Original' },
+                                { name: 'resizeImage:50', value: '50', label: '50%' },
+                                { name: 'resizeImage:75', value: '75', label: '75%' }
+                            ],
                             toolbar: [
                                 'imageTextAlternative',
                                 'toggleImageCaption',
+                                '|',
                                 'imageStyle:inline',
                                 'imageStyle:block',
-                                'imageStyle:side'
+                                'imageStyle:side',
+                                '|',
+                                'resizeImage'
                             ]
                         },
                         table: {

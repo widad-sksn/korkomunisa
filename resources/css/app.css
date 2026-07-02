@@ -28,3 +28,12 @@
     @apply bg-theme-bg text-theme-text transition-colors duration-200;
   }
 }
+
+/* Fix for CKEditor 5 Image Resize conflicting with Tailwind preflight */
+.ck-content .image.image_resized img {
+    width: 100%;
+    height: auto;
+}
+.ck-content .image {
+    max-width: 100%;
+}

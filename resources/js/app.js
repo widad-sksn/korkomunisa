@@ -2,10 +2,12 @@ import './bootstrap';
 
 import Alpine from 'alpinejs';
 
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ClassicEditor, Essentials, Bold, Italic, Link, Paragraph, Image, ImageUpload, ImageToolbar, ImageStyle, ImageResize, ImageCaption, List, BlockQuote, Table, Undo } from 'ckeditor5';
+import 'ckeditor5/ckeditor5.css';
 
 window.Alpine = Alpine;
 window.ClassicEditor = ClassicEditor;
+window.CKEditorPlugins = [ Essentials, Bold, Italic, Link, Paragraph, Image, ImageUpload, ImageToolbar, ImageStyle, ImageResize, ImageCaption, List, BlockQuote, Table, Undo ];
 
 // Initialization moved to inline script in head to prevent flicker
 

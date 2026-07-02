@@ -52,6 +52,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Kader/User routes
     Route::resource('articles', ArticleController::class);
     Route::resource('portfolios', PortfolioController::class);
+    
+    // Generic media upload
+    Route::post('/media/upload-image', [\App\Http\Controllers\MediaController::class, 'uploadImage'])->name('media.upload');
 });
 
 // Admin routes
