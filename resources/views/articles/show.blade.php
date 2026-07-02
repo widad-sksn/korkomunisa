@@ -106,7 +106,7 @@
             @endif
 
             <div class="prose prose-lg dark:prose-invert max-w-none text-theme-text leading-relaxed">
-                {!! nl2br(e($article->content)) !!}
+                {!! $article->content !!}
             </div>
             
             <div class="mt-16 pt-8 border-t border-theme-border text-center">

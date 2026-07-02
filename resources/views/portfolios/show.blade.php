@@ -84,7 +84,7 @@
             @endif
 
             <div class="prose prose-lg dark:prose-invert max-w-none text-theme-text leading-relaxed">
-                {!! nl2br(e($portfolio->description)) !!}
+                {!! $portfolio->description !!}
             </div>
             
             @if($portfolio->url)
