@@ -62,7 +62,7 @@
 }
 @media (min-width: 768px) {
     .ck-editor__editable_inline {
-        min-height: 600px !important; /* Desktop */
+        min-height: calc(100vh - 300px) !important; /* Maksimal penuh di Desktop */
     }
 }
 
