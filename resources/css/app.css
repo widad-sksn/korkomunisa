@@ -56,9 +56,14 @@
    CKEditor 5 Overrides
    ============================================= */
 
-/* Editor area min height */
+/* Editor area min height - Responsive */
 .ck-editor__editable_inline {
-    min-height: 350px !important;
+    min-height: 400px !important; /* Mobile */
+}
+@media (min-width: 768px) {
+    .ck-editor__editable_inline {
+        min-height: 600px !important; /* Desktop */
+    }
 }
 
 /* Fix image resize conflict with Tailwind preflight */
