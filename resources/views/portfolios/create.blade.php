@@ -233,18 +233,6 @@
                             @error('image') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
-                        <!-- URL Input -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="url">Link Berita Eksternal / URL (Opsional)</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
-                                </div>
-                                <input type="url" name="url" id="url" class="w-full pl-10 px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 shadow-sm" value="{{ old('url') }}" placeholder="https://contoh.com/berita-kegiatan">
-                            </div>
-                            @error('url') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
-                        </div>
-
                         <!-- Description Textarea -->
                         <div>
                             <x-editor name="description" module="events" :value="old('description')" label="Deskripsi Kegiatan" />
