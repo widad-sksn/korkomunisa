@@ -27,9 +27,7 @@
                         </div>
                         
                         <div class="mb-6">
-                            <x-input-label for="content" :value="__('Konten Halaman')" class="mb-2" />
-                            <textarea id="content" name="content" class="mt-1 block w-full bg-theme-bg border-theme-border text-theme-text">{{ old('content', $about->content) }}</textarea>
-                            <x-input-error class="mt-2" :messages="$errors->get('content')" />
+                            <x-editor name="content" module="about" :value="old('content', $about->content)" />
                         </div>
                         
                         <div class="flex items-center justify-end mt-4">
@@ -43,124 +41,5 @@
         </div>
     </div>
     
-    <!-- CKEditor Initialization -->
-    <style>
-        .ck-editor__editable_inline {
-            min-height: 400px;
-        }
-    </style>
-    <script>
-        class MyUploadAdapter {
-            constructor( loader ) {
-                this.loader = loader;
-            }
 
-            upload() {
-                return this.loader.file
-                    .then( file => new Promise( ( resolve, reject ) => {
-                        this._initRequest();
-                        this._initListeners( resolve, reject, file );
-                        this._sendRequest( file );
-                    } ) );
-            }
-
-            abort() {
-                if ( this.xhr ) {
-                    this.xhr.abort();
-                }
-            }
-
-            _initRequest() {
-                const xhr = this.xhr = new XMLHttpRequest();
-                xhr.open( 'POST', '{{ route("admin.about-imm.upload") }}', true );
-                xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}');
-                xhr.responseType = 'json';
-            }
-
-            _initListeners( resolve, reject, file ) {
-                const xhr = this.xhr;
-                const loader = this.loader;
-                const genericErrorText = `Couldn't upload file: ${ file.name }.`;
-
-                xhr.addEventListener( 'error', () => reject( genericErrorText ) );
-                xhr.addEventListener( 'abort', () => reject() );
-                xhr.addEventListener( 'load', () => {
-                    const response = xhr.response;
-                    if ( !response || response.error ) {
-                        return reject( response && response.error ? response.error.message : genericErrorText );
-                    }
-                    resolve( {
-                        default: response.url
-                    } );
-                } );
-
-                if ( xhr.upload ) {
-                    xhr.upload.addEventListener( 'progress', evt => {
-                        if ( evt.lengthComputable ) {
-                            loader.uploadTotal = evt.total;
-                            loader.uploaded = evt.loaded;
-                        }
-                    } );
-                }
-            }
-
-            _sendRequest( file ) {
-                const data = new FormData();
-                data.append( 'upload', file );
-                this.xhr.send( data );
-            }
-        }
-
-        function MyCustomUploadAdapterPlugin( editor ) {
-            editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
-                return new MyUploadAdapter( loader );
-            };
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.ClassicEditor) {
-                ClassicEditor
-                    .create( document.querySelector( '#content' ), {
-                        plugins: window.CKEditorPlugins || [],
-                        extraPlugins: [ MyCustomUploadAdapterPlugin ],
-                        toolbar: {
-                            items: [
-                                'heading', '|',
-                                'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|',
-                                'imageUpload', 'blockQuote', 'insertTable', 'undo', 'redo'
-                            ]
-                        },
-                        image: {
-                            resizeOptions: [
-                                { name: 'resizeImage:original', value: null, label: 'Original' },
-                                { name: 'resizeImage:50', value: '50', label: '50%' },
-                                { name: 'resizeImage:75', value: '75', label: '75%' }
-                            ],
-                            toolbar: [
-                                'imageTextAlternative',
-                                'toggleImageCaption',
-                                '|',
-                                'imageStyle:inline',
-                                'imageStyle:block',
-                                'imageStyle:side',
-                                '|',
-                                'resizeImage'
-                            ]
-                        },
-                        table: {
-                            contentToolbar: [
-                                'tableColumn',
-                                'tableRow',
-                                'mergeTableCells'
-                            ]
-                        }
-                    } )
-                    .catch( error => {
-                        console.error( error );
-                    } );
-            } else {
-                console.error("CKEditor tidak termuat. Pastikan npm run dev / build sudah dijalankan.");
-            }
-        });
-    </script>
 </x-app-layout>

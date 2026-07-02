@@ -16,12 +16,35 @@
   .dark {
     --color-bg: #111827; /* Navy */
     --color-surface: #1F2937;
-    --color-navbar: rgba(15, 23, 42, 0.8); /* Semi-transparent for blur */
+    --color-navbar: rgba(15, 23, 42, 0.8);
     --color-primary: #BE185D;
     --color-hover: #9F1239;
     --color-text: #F9FAFB;
     --color-text-secondary: #CBD5E1;
     --color-border: rgba(255, 255, 255, 0.08);
+    
+    /* CKEditor 5 Dark Mode Overrides */
+    --ck-color-base-background: var(--color-surface);
+    --ck-color-base-border: var(--color-border);
+    --ck-color-base-text: var(--color-text);
+    --ck-color-toolbar-background: #111827;
+    --ck-color-toolbar-border: var(--color-border);
+    --ck-color-button-default-background: transparent;
+    --ck-color-button-default-hover-background: rgba(255, 255, 255, 0.05);
+    --ck-color-button-default-active-background: rgba(255, 255, 255, 0.1);
+    --ck-color-button-on-background: rgba(190, 24, 93, 0.3);
+    --ck-color-button-on-color: #F43F5E;
+    --ck-color-panel-background: var(--color-surface);
+    --ck-color-panel-border: var(--color-border);
+    --ck-color-input-background: #111827;
+    --ck-color-input-border: var(--color-border);
+    --ck-color-input-text: var(--color-text);
+    --ck-color-list-background: var(--color-surface);
+    --ck-color-list-button-hover-background: rgba(255, 255, 255, 0.05);
+    --ck-color-list-button-on-background: rgba(190, 24, 93, 0.3);
+    --ck-color-list-button-on-text: var(--color-text);
+    --ck-color-image-caption-background: #111827;
+    --ck-color-image-caption-text: var(--color-text-secondary);
   }
   
   body {
