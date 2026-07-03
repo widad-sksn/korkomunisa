@@ -182,7 +182,7 @@
                         immkorkom@unisayogya.ac.id
                     </a>
                 </p>
-                <p class="text-theme-secondary text-sm font-medium">&copy; {{ date('Y') }} IMM KORKOM UNISA. | developed by <a href="https://github.com/widad-sksn" target="_blank" class="font-bold hover:text-theme-primary transition-colors">widad-sksn</a></p>
+                <p class="text-theme-secondary text-sm font-medium">&copy; {{ date('Y') }} IMM KORKOM UNISA. | by <a href="https://github.com/widad-sksn" target="_blank" class="font-bold hover:text-theme-primary transition-colors">widad-sksn</a></p>
             </div>
         </div>
     </footer>
