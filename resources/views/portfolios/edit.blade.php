@@ -21,7 +21,7 @@
                         <!-- Title Input -->
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="title">Judul / Nama Kegiatan</label>
-                            <input type="text" name="title" id="title" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 shadow-sm" value="{{ old('title', $portfolio->title) }}" placeholder="Contoh: Darul Arqam Dasar FST 2024..." required>
+                            <input type="text" name="title" id="title" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 shadow-sm" value="{{ old('title', $portfolio->title) }}" placeholder="Contoh: Kajian Rutin Keislaman 2024..." required>
                             @error('title') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
