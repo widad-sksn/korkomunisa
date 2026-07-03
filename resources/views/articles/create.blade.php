@@ -190,11 +190,6 @@
                                                 Siap Diunggah (<span x-text="fileName"></span>)
                                             </div>
                                         </div>
-
-                        <!-- Content Textarea -->
-                        <div>
-                            <x-editor name="content" module="articles" :value="old('content')" label="Isi Tulisan" />
-                        </div>
                                     </template>
                                     
                                     <!-- State 4: Preview Video / Other -->
@@ -257,6 +252,11 @@
                                 </div>
                             </div>
                             @error('media') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
+                        </div>
+
+                        <!-- Content Textarea -->
+                        <div>
+                            <x-editor name="content" module="articles" :value="old('content')" label="Isi Tulisan" />
                         </div>
 
                         <!-- Action Buttons -->

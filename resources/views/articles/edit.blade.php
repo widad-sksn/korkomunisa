@@ -40,11 +40,6 @@
                                             <a href="{{ asset('storage/' . $article->media_path) }}" target="_blank" class="text-xs text-indigo-500 hover:text-indigo-600 dark:hover:text-indigo-400 hover:underline">Lihat file saat ini &rarr;</a>
                                         </div>
                                     </div>
-
-                        <!-- Content Textarea -->
-                        <div>
-                            <x-editor name="content" module="articles" :value="old('content', $article->content)" label="Isi Tulisan" />
-                        </div>
                                     <div class="text-xs text-gray-500">Abaikan jika tidak ingin mengganti</div>
                                 </div>
                             @endif
@@ -273,6 +268,11 @@
                                 </div>
                             </div>
                             @error('media') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
+                        </div>
+
+                        <!-- Content Textarea -->
+                        <div>
+                            <x-editor name="content" module="articles" :value="old('content', $article->content)" label="Isi Tulisan" />
                         </div>
 
                         <!-- Action Buttons -->
