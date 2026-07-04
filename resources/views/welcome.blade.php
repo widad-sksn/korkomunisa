@@ -26,14 +26,14 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
             <div class="flex justify-evenly items-center">
                 
-                <!-- Anggota Aktif -->
-                <div class="group flex flex-col items-center justify-center text-center w-1/3">
+                <!-- Tentang IMM -->
+                <a href="{{ route('about') }}" class="group flex flex-col items-center justify-center text-center w-1/3 cursor-pointer">
                     <div class="bg-theme-primary/10 text-theme-primary p-1.5 md:p-2 rounded-full mb-1 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-sm transition-all duration-300">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 md:w-4 md:h-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 md:w-4 md:h-4"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                     </div>
-                    <h3 class="text-lg md:text-2xl font-black text-theme-text tracking-tight leading-none mb-0.5">{{ $userCount }}</h3>
-                    <p class="text-theme-secondary text-[10px] md:text-xs font-semibold capitalize tracking-wide">{{ __('Anggota Aktif') }}</p>
-                </div>
+                    <h3 class="text-lg md:text-xl font-black text-theme-text tracking-tight leading-none mb-0.5">Profil</h3>
+                    <p class="text-theme-secondary text-[10px] md:text-xs font-semibold capitalize tracking-wide">{{ __('Tentang IMM') }}</p>
+                </a>
 
                 <div class="h-8 md:h-10 w-px bg-theme-border/50"></div>
 
