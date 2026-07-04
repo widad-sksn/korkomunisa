@@ -144,8 +144,8 @@
                     <div x-ref="swiperContainer" class="swiper w-full pb-2 md:pb-10 pt-4 px-4 sm:px-0">
                         <div class="swiper-wrapper flex items-stretch">
                             @foreach($articles as $article)
-                                <div class="swiper-slide h-auto flex">
-                                    <a href="{{ route('articles.show_public', $article) }}" class="w-full flex-grow group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
+                                <div class="swiper-slide !h-auto">
+                                    <a href="{{ route('articles.show_public', $article) }}" class="w-full h-full group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
                                         @if($article->media_path)
                                             @php
                                                 $ext = pathinfo($article->media_path, PATHINFO_EXTENSION);
@@ -235,8 +235,8 @@
                     <div x-ref="swiperContainer" class="swiper w-full pb-2 md:pb-10 pt-4 px-4 sm:px-0">
                         <div class="swiper-wrapper flex items-stretch">
                             @foreach($portfolios as $portfolio)
-                                <div class="swiper-slide h-auto flex">
-                                    <a href="{{ route('portfolios.show_public', $portfolio) }}" class="w-full flex-grow group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
+                                <div class="swiper-slide !h-auto">
+                                    <a href="{{ route('portfolios.show_public', $portfolio) }}" class="w-full h-full group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
                                         @if($portfolio->image_path)
                                             <div class="overflow-hidden h-40 shrink-0 relative">
                                                 <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
