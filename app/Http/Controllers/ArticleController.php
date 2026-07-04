@@ -186,6 +186,10 @@ class ArticleController extends Controller
             $article->user->notify(new \App\Notifications\ArticleApprovedNotification($article));
         }
 
+        if ($request->status === 'draft' && $oldStatus === 'pending') {
+            $article->user->notify(new \App\Notifications\ArticleRejectedNotification($article));
+        }
+
         return redirect()->route('admin.articles.index')->with('success', 'Status artikel berhasil diperbarui.');
     }
 }
