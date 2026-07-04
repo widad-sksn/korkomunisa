@@ -179,7 +179,12 @@ class ArticleController extends Controller
             'status' => 'required|in:published,draft,pending'
         ]);
 
+        $oldStatus = $article->status;
         $article->update(['status' => $request->status]);
+
+        if ($request->status === 'published' && $oldStatus !== 'published') {
+            $article->user->notify(new \App\Notifications\ArticleApprovedNotification($article));
+        }
 
         return redirect()->route('admin.articles.index')->with('success', 'Status artikel berhasil diperbarui.');
     }
