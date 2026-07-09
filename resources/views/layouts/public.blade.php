@@ -39,7 +39,7 @@
     <!-- Navbar (Floating Pill) -->
     <div class="sticky top-4 z-50 w-full transition-all duration-300" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
         <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300" :class="{ 'px-2 sm:px-4': scrolled, 'px-4 sm:px-6': !scrolled }">
-            <div class="flex justify-between items-center h-14 md:h-16 px-4 md:px-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200/80 dark:border-gray-700/80 rounded-full shadow-lg transition-colors duration-300">
+            <div class="flex justify-between items-center h-14 md:h-16 px-4 md:px-6 bg-theme-navbar/90 backdrop-blur-md border border-theme-border/50 rounded-full shadow-lg transition-colors duration-300">
                 <div class="flex items-center">
                     <a href="{{ url('/') }}" class="flex items-center group">
                         <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo" class="mr-2 md:mr-3 h-8 md:h-10 w-auto group-hover:scale-105 transition-transform">
@@ -64,7 +64,7 @@
                         <button @click="openLang = !openLang" class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-[10px] md:text-xs bg-theme-text text-theme-bg hover:scale-105 transition-transform shadow-sm">
                             {{ strtoupper(app()->getLocale()) }}
                         </button>
-                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-24 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-2 z-50">
+                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-24 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 z-50">
                             <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">ID</a>
                             <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">EN</a>
                             <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">AR</a>
@@ -72,17 +72,17 @@
                     </div>
 
                     <!-- Theme Toggle -->
-                    <button @click="toggleTheme()" class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700 text-theme-text hover:bg-theme-primary/10 hover:scale-105 transition-all focus:outline-none">
+                    <button @click="toggleTheme()" class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border border-theme-border text-theme-text hover:bg-theme-primary/10 hover:scale-105 transition-all focus:outline-none">
                         <svg x-show="!isDark" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                         <svg x-show="isDark" x-cloak class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </button>
 
                     <!-- Akun -->
                     <div class="relative group">
-                        <button class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700 text-theme-text hover:bg-theme-primary/10 hover:scale-105 transition-all">
+                        <button class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border border-theme-border text-theme-text hover:bg-theme-primary/10 hover:scale-105 transition-all">
                             <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </button>
-                        <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="absolute right-0 mt-2 w-48 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                             @if (Route::has('login'))
                                 @auth
                                     <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors font-medium">{{ __('Dashboard') }}</a>
@@ -109,7 +109,7 @@
             </div>
 
             <!-- Mobile Menu -->
-            <div x-show="mobileMenuOpen" x-transition x-cloak class="md:hidden mt-2 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl overflow-hidden">
+            <div x-show="mobileMenuOpen" x-transition x-cloak class="md:hidden mt-2 bg-theme-navbar/95 backdrop-blur-md border border-theme-border rounded-2xl shadow-xl overflow-hidden">
                 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     <a href="{{ url('/') }}" class="block px-3 py-2 rounded-xl text-base font-bold transition-colors {{ request()->is('/') ? 'bg-theme-primary text-white' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Beranda') }}</a>
                     
@@ -130,7 +130,7 @@
                         @endauth
                     @endif
                     
-                    <div class="h-px bg-gray-200 dark:bg-gray-700 my-2 mx-3"></div>
+                    <div class="h-px bg-theme-border my-2 mx-3"></div>
                     
                     <div class="flex items-center justify-between px-3 py-2">
                         <div class="flex space-x-2">
@@ -139,7 +139,7 @@
                             <a href="{{ route('lang.switch', 'ar') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ar' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">AR</a>
                         </div>
                         
-                        <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none p-2 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center transition-colors">
+                        <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none p-2 rounded-xl bg-theme-surface flex items-center justify-center transition-colors">
                             <svg x-show="!isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                             <svg x-show="isDark" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                         </button>
