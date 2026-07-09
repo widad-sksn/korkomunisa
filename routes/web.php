@@ -31,6 +31,14 @@ Route::get('/force-translate-all', function () {
     return "Force translation jobs dispatched for all records! Pengecekan sedang berjalan di latar belakang.";
 });
 
+Route::get('/debug-translations', function () {
+    $article = \App\Models\Article::find(1);
+    return [
+        'title' => $article->getTranslations('title'),
+        'content' => $article->getTranslations('content')
+    ];
+});
+
 // Public portfolio viewing route
 Route::get('/kegiatan/{portfolio}', [\App\Http\Controllers\PortfolioController::class, 'show'])->name('portfolios.show_public');
 Route::get('/kegiatan', [\App\Http\Controllers\PortfolioController::class, 'publicIndex'])->name('portfolios.public_index');
