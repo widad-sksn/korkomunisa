@@ -39,7 +39,7 @@
     <!-- Navbar (Floating Pill) -->
     <div class="sticky top-4 z-50 w-full transition-all duration-300" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
         <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300" :class="{ 'px-2 sm:px-4': scrolled, 'px-4 sm:px-6': !scrolled }">
-            <div class="flex justify-between items-center h-14 md:h-16 px-4 md:px-6 bg-theme-navbar/90 backdrop-blur-md border border-theme-border/50 rounded-full shadow-lg transition-colors duration-300">
+            <div class="flex justify-between items-center h-14 md:h-16 px-4 md:px-6 bg-theme-navbar border border-theme-border rounded-full shadow-md transition-colors duration-300">
                 <div class="flex items-center">
                     <a href="{{ url('/') }}" class="flex items-center group">
                         <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo" class="mr-2 md:mr-3 h-8 md:h-10 w-auto group-hover:scale-105 transition-transform">
@@ -109,7 +109,7 @@
             </div>
 
             <!-- Mobile Menu -->
-            <div x-show="mobileMenuOpen" x-transition x-cloak class="md:hidden mt-2 bg-theme-navbar/95 backdrop-blur-md border border-theme-border rounded-2xl shadow-xl overflow-hidden">
+            <div x-show="mobileMenuOpen" x-transition x-cloak class="md:hidden mt-2 bg-theme-navbar border border-theme-border rounded-2xl shadow-xl overflow-hidden">
                 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                     <a href="{{ url('/') }}" class="block px-3 py-2 rounded-xl text-base font-bold transition-colors {{ request()->is('/') ? 'bg-theme-primary text-white' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Beranda') }}</a>
                     
