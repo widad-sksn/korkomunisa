@@ -64,10 +64,10 @@
                         <button @click="openLang = !openLang" class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-[10px] md:text-xs bg-theme-text text-theme-bg hover:scale-105 transition-transform shadow-sm">
                             {{ strtoupper(app()->getLocale()) }}
                         </button>
-                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-24 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 z-50">
-                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">ID</a>
-                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">EN</a>
-                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">AR</a>
+                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-36 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 z-50">
+                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'id' ? 'font-bold text-theme-primary' : '' }}">ID (Indonesian)</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'en' ? 'font-bold text-theme-primary' : '' }}">EN (English)</a>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'ar' ? 'font-bold text-theme-primary' : '' }}">AR (Arabic)</a>
                         </div>
                     </div>
 
@@ -133,10 +133,10 @@
                     <div class="h-px bg-theme-border my-2 mx-3"></div>
                     
                     <div class="flex items-center justify-between px-3 py-2">
-                        <div class="flex space-x-2">
-                            <a href="{{ route('lang.switch', 'id') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'id' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">ID</a>
-                            <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'en' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">EN</a>
-                            <a href="{{ route('lang.switch', 'ar') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ar' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">AR</a>
+                        <div class="flex flex-col space-y-2">
+                            <a href="{{ route('lang.switch', 'id') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'id' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">ID (Indonesian)</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'en' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">EN (English)</a>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ar' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">AR (Arabic)</a>
                         </div>
                         
                         <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none p-2 rounded-xl bg-theme-surface flex items-center justify-center transition-colors">
