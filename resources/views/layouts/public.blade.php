@@ -25,9 +25,9 @@
     <script>
         // Set dark mode early to prevent flicker
         if (!('theme' in localStorage)) {
-            localStorage.theme = 'dark'; // Default to dark mode
+            localStorage.theme = 'light'; // Default to light mode
         }
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        if (localStorage.theme === 'dark') {
             document.documentElement.classList.add('dark');
         } else {
             document.documentElement.classList.remove('dark');
@@ -36,60 +36,60 @@
 </head>
 <body x-data="themeSwitcher" class="font-sans antialiased text-theme-text bg-theme-bg transition-colors duration-300">
 
-    <!-- Navbar (Solid) -->
-    <nav class="bg-theme-navbar shadow-sm border-b border-theme-border/20 transition-colors duration-300 sticky top-0 z-50" x-data="{ mobileMenuOpen: false }">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
+    <!-- Navbar (Floating Pill) -->
+    <div class="sticky top-4 z-50 w-full transition-all duration-300" x-data="{ mobileMenuOpen: false, scrolled: false }" @scroll.window="scrolled = (window.pageYOffset > 20)">
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 transition-all duration-300" :class="{ 'px-2 sm:px-4': scrolled, 'px-4 sm:px-6': !scrolled }">
+            <div class="flex justify-between items-center h-14 md:h-16 px-4 md:px-6 bg-white/90 dark:bg-gray-900/90 backdrop-blur-md border border-gray-200/80 dark:border-gray-700/80 rounded-full shadow-lg transition-colors duration-300">
                 <div class="flex items-center">
-                    <a href="{{ url('/') }}">
-                        <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo" class="mr-3" style="height: 52px; width: auto;">
+                    <a href="{{ url('/') }}" class="flex items-center group">
+                        <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo" class="mr-2 md:mr-3 h-8 md:h-10 w-auto group-hover:scale-105 transition-transform">
+                        <span class="font-extrabold text-theme-text text-sm md:text-base hidden lg:block tracking-tight">KORKOM UNISA</span>
                     </a>
                 </div>
                 
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="{{ url('/') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Beranda') }}</a>
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <a href="{{ url('/') }}" class="px-4 py-2 rounded-full font-bold transition-all duration-300 text-xs lg:text-sm {{ request()->is('/') ? 'bg-theme-primary text-white shadow-md' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Beranda') }}</a>
                     
-                    <a href="{{ route('about') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Tentang IMM') }}</a>
+                    <a href="{{ route('about') }}" class="px-4 py-2 rounded-full font-bold transition-all duration-300 text-xs lg:text-sm {{ request()->routeIs('about') ? 'bg-theme-primary text-white shadow-md' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Tentang IMM') }}</a>
 
-                    <a href="{{ route('articles.public_index') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Tulisan Kader') }}</a>
-                    <a href="{{ route('portfolios.public_index') }}" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Kegiatan') }}</a>
+                    <a href="{{ route('articles.public_index') }}" class="px-4 py-2 rounded-full font-bold transition-all duration-300 text-xs lg:text-sm {{ request()->routeIs('articles.public_index') || request()->routeIs('articles.show_public') ? 'bg-theme-primary text-white shadow-md' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Tulisan Kader') }}</a>
+                    
+                    <a href="{{ route('portfolios.public_index') }}" class="px-4 py-2 rounded-full font-bold transition-all duration-300 text-xs lg:text-sm {{ request()->routeIs('portfolios.public_index') || request()->routeIs('portfolios.show_public') ? 'bg-theme-primary text-white shadow-md' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Kegiatan') }}</a>
+                </div>
 
-                    <div class="h-6 w-px bg-theme-border mx-2"></div>
-
+                <div class="hidden md:flex items-center space-x-2">
                     <!-- Language Switcher -->
                     <div class="relative" x-data="{ openLang: false }">
-                        <button @click="openLang = !openLang" class="text-theme-text hover:text-theme-primary font-medium flex items-center transition-colors">
+                        <button @click="openLang = !openLang" class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-bold text-[10px] md:text-xs bg-theme-text text-theme-bg hover:scale-105 transition-transform shadow-sm">
                             {{ strtoupper(app()->getLocale()) }}
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-24 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 z-50">
-                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">ID</a>
-                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">EN</a>
-                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">AR</a>
+                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-24 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-2 z-50">
+                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">ID</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">EN</a>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors">AR</a>
                         </div>
                     </div>
 
                     <!-- Theme Toggle -->
-                    <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none transition-colors">
-                        <svg x-show="!isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                        <svg x-show="isDark" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <button @click="toggleTheme()" class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700 text-theme-text hover:bg-theme-primary/10 hover:scale-105 transition-all focus:outline-none">
+                        <svg x-show="!isDark" class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg x-show="isDark" x-cloak class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     </button>
 
-                    <!-- Akun Dropdown -->
+                    <!-- Akun -->
                     <div class="relative group">
-                        <button class="text-theme-text hover:text-theme-primary font-medium flex items-center transition-colors">
-                            {{ __('Akun') }}
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <button class="w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border border-gray-200 dark:border-gray-700 text-theme-text hover:bg-theme-primary/10 hover:scale-105 transition-all">
+                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </button>
-                        <div class="absolute right-0 mt-2 w-48 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                             @if (Route::has('login'))
                                 @auth
-                                    <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">{{ __('Dashboard') }}</a>
+                                    <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors font-medium">{{ __('Dashboard') }}</a>
                                 @else
-                                    <a href="{{ route('login') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">{{ __('Log in') }}</a>
+                                    <a href="{{ route('login') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors font-medium">{{ __('Log in') }}</a>
                                     @if (Route::has('register'))
-                                        <a href="{{ route('register') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">{{ __('Register') }}</a>
+                                        <a href="{{ route('register') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors font-medium">{{ __('Register') }}</a>
                                     @endif
                                 @endauth
                             @endif
@@ -99,7 +99,7 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-theme-text focus:outline-none">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-theme-text hover:text-theme-primary focus:outline-none p-2 rounded-full hover:bg-theme-primary/10 transition-colors">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                             <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -107,43 +107,47 @@
                     </button>
                 </div>
             </div>
-        </div>
 
-        <!-- Mobile Menu -->
-        <div x-show="mobileMenuOpen" x-cloak class="md:hidden bg-theme-surface border-t border-theme-border">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="{{ url('/') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Beranda') }}</a>
-                <a href="{{ route('about') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Tentang IMM') }}</a>
-                <a href="{{ route('articles.public_index') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Tulisan Kader') }}</a>
-                <a href="{{ route('portfolios.public_index') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Kegiatan') }}</a>
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Dashboard') }}</a>
-                    @else
-                        <a href="{{ route('login') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Log in') }}</a>
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="block px-3 py-2 rounded-md text-base font-medium text-theme-text hover:text-theme-primary hover:bg-theme-bg">{{ __('Register') }}</a>
-                        @endif
-                    @endauth
-                @endif
-                
-                <div class="h-px bg-theme-border my-2 mx-3"></div>
-                
-                <div class="flex items-center justify-between px-3 py-2">
-                    <div class="flex space-x-4">
-                        <a href="{{ route('lang.switch', 'id') }}" class="text-sm font-medium {{ app()->getLocale() == 'id' ? 'text-theme-primary' : 'text-theme-text hover:text-theme-primary' }}">ID</a>
-                        <a href="{{ route('lang.switch', 'en') }}" class="text-sm font-medium {{ app()->getLocale() == 'en' ? 'text-theme-primary' : 'text-theme-text hover:text-theme-primary' }}">EN</a>
-                        <a href="{{ route('lang.switch', 'ar') }}" class="text-sm font-medium {{ app()->getLocale() == 'ar' ? 'text-theme-primary' : 'text-theme-text hover:text-theme-primary' }}">AR</a>
-                    </div>
+            <!-- Mobile Menu -->
+            <div x-show="mobileMenuOpen" x-transition x-cloak class="md:hidden mt-2 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border border-gray-200 dark:border-gray-700 rounded-2xl shadow-xl overflow-hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                    <a href="{{ url('/') }}" class="block px-3 py-2 rounded-xl text-base font-bold transition-colors {{ request()->is('/') ? 'bg-theme-primary text-white' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Beranda') }}</a>
                     
-                    <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none p-2 rounded-lg bg-theme-bg flex items-center justify-center transition-colors">
-                        <svg x-show="!isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                        <svg x-show="isDark" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    </button>
+                    <a href="{{ route('about') }}" class="block px-3 py-2 rounded-xl text-base font-bold transition-colors {{ request()->routeIs('about') ? 'bg-theme-primary text-white' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Tentang IMM') }}</a>
+                    
+                    <a href="{{ route('articles.public_index') }}" class="block px-3 py-2 rounded-xl text-base font-bold transition-colors {{ request()->routeIs('articles.public_index') || request()->routeIs('articles.show_public') ? 'bg-theme-primary text-white' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Tulisan Kader') }}</a>
+                    
+                    <a href="{{ route('portfolios.public_index') }}" class="block px-3 py-2 rounded-xl text-base font-bold transition-colors {{ request()->routeIs('portfolios.public_index') || request()->routeIs('portfolios.show_public') ? 'bg-theme-primary text-white' : 'text-theme-text hover:text-theme-primary hover:bg-theme-primary/10' }}">{{ __('Kegiatan') }}</a>
+                    
+                    @if (Route::has('login'))
+                        @auth
+                            <a href="{{ url('/dashboard') }}" class="block px-3 py-2 rounded-xl text-base font-bold text-theme-text hover:text-theme-primary hover:bg-theme-primary/10">{{ __('Dashboard') }}</a>
+                        @else
+                            <a href="{{ route('login') }}" class="block px-3 py-2 rounded-xl text-base font-bold text-theme-text hover:text-theme-primary hover:bg-theme-primary/10">{{ __('Log in') }}</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="block px-3 py-2 rounded-xl text-base font-bold text-theme-text hover:text-theme-primary hover:bg-theme-primary/10">{{ __('Register') }}</a>
+                            @endif
+                        @endauth
+                    @endif
+                    
+                    <div class="h-px bg-gray-200 dark:bg-gray-700 my-2 mx-3"></div>
+                    
+                    <div class="flex items-center justify-between px-3 py-2">
+                        <div class="flex space-x-2">
+                            <a href="{{ route('lang.switch', 'id') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'id' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">ID</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'en' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">EN</a>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ar' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">AR</a>
+                        </div>
+                        
+                        <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none p-2 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center transition-colors">
+                            <svg x-show="!isDark" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                            <svg x-show="isDark" x-cloak class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </div>
 
     <main>
         @yield('content')

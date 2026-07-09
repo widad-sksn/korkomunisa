@@ -24,9 +24,9 @@
         <script>
             // Set dark mode early to prevent flicker
             if (!('theme' in localStorage)) {
-                localStorage.theme = 'dark'; // Default to dark mode
+                localStorage.theme = 'light'; // Default to light mode
             }
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            if (localStorage.theme === 'dark') {
                 document.documentElement.classList.add('dark');
             } else {
                 document.documentElement.classList.remove('dark');
