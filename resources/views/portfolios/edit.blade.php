@@ -18,11 +18,49 @@
                         @csrf
                         @method('PUT')
                         
-                        <!-- Title Input -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="title">Judul / Nama Kegiatan</label>
-                            <input type="text" name="title" id="title" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 shadow-sm" value="{{ old('title', $portfolio->title) }}" placeholder="Contoh: Kajian Rutin Keislaman 2024..." required>
-                            @error('title') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
+                        <!-- Multi-Language Tabs -->
+                        <div x-data="{ langTab: 'id' }" class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                            <div class="flex bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                                <button type="button" @click="langTab = 'id'" :class="langTab == 'id' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">Indonesia</button>
+                                <button type="button" @click="langTab = 'en'" :class="langTab == 'en' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">English</button>
+                                <button type="button" @click="langTab = 'ar'" :class="langTab == 'ar' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">Arabic</button>
+                            </div>
+                            
+                            <div class="p-6 space-y-6">
+                                <!-- Indonesia -->
+                                <div x-show="langTab == 'id'" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Judul / Nama Kegiatan (ID)</label>
+                                        <input type="text" name="title[id]" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm" value="{{ old('title.id', $portfolio->getTranslation('title', 'id', false)) }}" required>
+                                        @error('title.id') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div>
+                                        <x-editor name="description[id]" id="description_id" module="events" :value="old('description.id', $portfolio->getTranslation('description', 'id', false))" label="Deskripsi Kegiatan (ID)" />
+                                    </div>
+                                </div>
+                                
+                                <!-- English -->
+                                <div x-show="langTab == 'en'" style="display: none;" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Title (EN)</label>
+                                        <input type="text" name="title[en]" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm" value="{{ old('title.en', $portfolio->getTranslation('title', 'en', false)) }}">
+                                    </div>
+                                    <div>
+                                        <x-editor name="description[en]" id="description_en" module="events" :value="old('description.en', $portfolio->getTranslation('description', 'en', false))" label="Description (EN)" />
+                                    </div>
+                                </div>
+
+                                <!-- Arabic -->
+                                <div x-show="langTab == 'ar'" style="display: none;" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Title (AR)</label>
+                                        <input type="text" name="title[ar]" dir="rtl" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm text-right" value="{{ old('title.ar', $portfolio->getTranslation('title', 'ar', false)) }}">
+                                    </div>
+                                    <div>
+                                        <x-editor name="description[ar]" id="description_ar" module="events" :value="old('description.ar', $portfolio->getTranslation('description', 'ar', false))" label="Description (AR)" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Image Upload (Alpine Component with Cropper) -->
@@ -249,10 +287,6 @@
                             @error('image') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
                         </div>
 
-                        <!-- Description Textarea -->
-                        <div>
-                            <x-editor name="description" module="events" :value="old('description', $portfolio->description)" label="Deskripsi Kegiatan" />
-                        </div>
 
                         <!-- Action Buttons -->
                         <div class="flex items-center gap-4 mt-4 pt-6 border-t border-gray-100 dark:border-gray-700">

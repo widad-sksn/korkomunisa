@@ -29,8 +29,8 @@
                             <div class="flex items-center text-xs text-theme-primary font-bold uppercase tracking-wider mb-2">
                                 <span class="text-theme-secondary">{{ $portfolio->created_at ? $portfolio->created_at->format('d M Y') : 'Terbaru' }}</span>
                             </div>
-                            <h4 class="font-extrabold text-theme-text mb-2 text-lg group-hover:text-theme-primary transition-colors leading-snug">{{ $portfolio->title }}</h4>
-                            <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow">{{ Str::limit(strip_tags($portfolio->description), 80) }}</p>
+                            <h4 class="font-extrabold text-theme-text mb-2 text-lg group-hover:text-theme-primary transition-colors leading-snug line-clamp-2">{{ $portfolio->title }}</h4>
+                            <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow line-clamp-3">{{ Str::limit(strip_tags($portfolio->description), 120) }}</p>
                             <div class="mt-auto pt-4 border-t border-theme-border/50">
                                 <span class="inline-flex items-center text-theme-primary hover:text-theme-hover text-xs font-bold transition-colors">
                                     {{ __('Baca Selengkapnya') }} 

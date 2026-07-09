@@ -44,8 +44,10 @@ class PortfolioController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'title' => 'required|array',
+            'title.id' => 'required|string|max:255',
+            'description' => 'nullable|array',
+            'description.id' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'url' => 'nullable|url|max:255',
         ]);
@@ -81,8 +83,10 @@ class PortfolioController extends Controller
         }
 
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'title' => 'required|array',
+            'title.id' => 'required|string|max:255',
+            'description' => 'nullable|array',
+            'description.id' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
             'url' => 'nullable|url|max:255',
         ]);

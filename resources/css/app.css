@@ -5,7 +5,7 @@
   :root {
     --color-bg: #F8FAFC;
     --color-surface: #FFFFFF;
-    --color-navbar: rgba(255, 255, 255, 0.8);
+    --color-navbar: #FFFFFF;
     --color-primary: #9F1239; /* Premium Maroon */
     --color-hover: #BE185D;
     --color-text: #1F2937;
@@ -16,7 +16,7 @@
   .dark {
     --color-bg: #111827; /* Navy */
     --color-surface: #1F2937;
-    --color-navbar: rgba(15, 23, 42, 0.8);
+    --color-navbar: #1F2937;
     --color-primary: #BE185D;
     --color-hover: #9F1239;
     --color-text: #F9FAFB;

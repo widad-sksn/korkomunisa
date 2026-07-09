@@ -55,8 +55,10 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
+            'title' => 'required|array',
+            'title.id' => 'required|string|max:255',
+            'content' => 'required|array',
+            'content.id' => 'required|string',
             'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,webp,mp4,mov,avi|max:20480', // Max 20MB
         ]);
 
@@ -97,8 +99,10 @@ class ArticleController extends Controller
         }
 
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required',
+            'title' => 'required|array',
+            'title.id' => 'required|string|max:255',
+            'content' => 'required|array',
+            'content.id' => 'required|string',
             'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,webp,mp4,mov,avi|max:20480',
         ]);
 

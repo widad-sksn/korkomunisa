@@ -17,11 +17,49 @@
                     <form action="{{ route('articles.store') }}" method="POST" enctype="multipart/form-data" class="flex flex-col gap-6" x-data="{ isSubmitting: false }" @submit="isSubmitting = true">
                         @csrf
                         
-                        <!-- Title Input -->
-                        <div>
-                            <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="title">Judul Tulisan</label>
-                            <input type="text" name="title" id="title" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 shadow-sm" value="{{ old('title') }}" placeholder="Contoh: Peran Mahasiswa dalam Era Digital..." required>
-                            @error('title') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
+                        <!-- Multi-Language Tabs -->
+                        <div x-data="{ langTab: 'id' }" class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
+                            <div class="flex bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                                <button type="button" @click="langTab = 'id'" :class="langTab == 'id' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">Indonesia</button>
+                                <button type="button" @click="langTab = 'en'" :class="langTab == 'en' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">English</button>
+                                <button type="button" @click="langTab = 'ar'" :class="langTab == 'ar' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">Arabic</button>
+                            </div>
+                            
+                            <div class="p-6 space-y-6">
+                                <!-- Indonesia -->
+                                <div x-show="langTab == 'id'" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Judul Tulisan (ID)</label>
+                                        <input type="text" name="title[id]" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm" value="{{ old('title.id') }}" required>
+                                        @error('title.id') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div>
+                                        <x-editor name="content[id]" id="content_id" module="articles" :value="old('content.id')" label="Isi Tulisan (ID)" />
+                                    </div>
+                                </div>
+                                
+                                <!-- English -->
+                                <div x-show="langTab == 'en'" style="display: none;" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Title (EN)</label>
+                                        <input type="text" name="title[en]" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm" value="{{ old('title.en') }}">
+                                    </div>
+                                    <div>
+                                        <x-editor name="content[en]" id="content_en" module="articles" :value="old('content.en')" label="Content (EN)" />
+                                    </div>
+                                </div>
+
+                                <!-- Arabic -->
+                                <div x-show="langTab == 'ar'" style="display: none;" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Title (AR)</label>
+                                        <input type="text" name="title[ar]" dir="rtl" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm text-right" value="{{ old('title.ar') }}">
+                                    </div>
+                                    <div>
+                                        <x-editor name="content[ar]" id="content_ar" module="articles" :value="old('content.ar')" label="Content (AR)" />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Media Upload (Alpine Component with Cropper) -->
@@ -252,11 +290,6 @@
                                 </div>
                             </div>
                             @error('media') <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span> @enderror
-                        </div>
-
-                        <!-- Content Textarea -->
-                        <div>
-                            <x-editor name="content" module="articles" :value="old('content')" label="Isi Tulisan" />
                         </div>
 
                         <!-- Action Buttons -->

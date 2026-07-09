@@ -23,8 +23,10 @@ class UpdateAboutImmRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
+            'title' => 'required|array',
+            'title.id' => 'required|string|max:255',
+            'content' => 'required|array',
+            'content.id' => 'required|string',
         ];
     }
 }
