@@ -18,6 +18,19 @@ Route::get('/', function () {
 Route::get('/kabar/{article}', [\App\Http\Controllers\ArticleController::class, 'show'])->name('articles.show_public');
 Route::get('/tulisan-kader', [\App\Http\Controllers\ArticleController::class, 'publicIndex'])->name('articles.public_index');
 
+Route::get('/force-translate-all', function () {
+    foreach (\App\Models\Article::all() as $article) {
+        \App\Jobs\TranslateContentJob::dispatch($article);
+    }
+    foreach (\App\Models\Portfolio::all() as $portfolio) {
+        \App\Jobs\TranslateContentJob::dispatch($portfolio);
+    }
+    $about = \App\Models\AboutImm::find(1);
+    if ($about) \App\Jobs\TranslateContentJob::dispatch($about);
+    
+    return "Force translation jobs dispatched for all records! Pengecekan sedang berjalan di latar belakang.";
+});
+
 // Public portfolio viewing route
 Route::get('/kegiatan/{portfolio}', [\App\Http\Controllers\PortfolioController::class, 'show'])->name('portfolios.show_public');
 Route::get('/kegiatan', [\App\Http\Controllers\PortfolioController::class, 'publicIndex'])->name('portfolios.public_index');
