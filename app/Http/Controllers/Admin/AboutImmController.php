@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AboutImm;
 use App\Http\Requests\UpdateAboutImmRequest;
+use App\Services\AutoTranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,9 +28,12 @@ class AboutImmController extends Controller
     {
         $about = AboutImm::firstOrCreate(['id' => 1]);
         
+        $translatedTitle = AutoTranslationService::translateArray($request->title);
+        $translatedContent = AutoTranslationService::translateArray($request->content);
+
         $about->update([
-            'title' => $request->title,
-            'content' => $request->content,
+            'title' => $translatedTitle,
+            'content' => $translatedContent,
         ]);
 
         return redirect()->route('admin.about-imm.edit')->with('success', 'Data Tentang IMM berhasil diperbarui.');

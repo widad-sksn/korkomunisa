@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Services\AutoTranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -67,9 +68,12 @@ class ArticleController extends Controller
             $mediaPath = $request->file('media')->store('articles_media', 'public');
         }
 
+        $translatedTitle = AutoTranslationService::translateArray($request->title);
+        $translatedContent = AutoTranslationService::translateArray($request->content);
+
         auth()->user()->articles()->create([
-            'title' => $request->title,
-            'content' => $request->content,
+            'title' => $translatedTitle,
+            'content' => $translatedContent,
             'media_path' => $mediaPath,
             'status' => 'pending', // Requires admin approval
         ]);
@@ -119,9 +123,12 @@ class ArticleController extends Controller
             $newStatus = 'pending';
         }
 
+        $translatedTitle = AutoTranslationService::translateArray($request->title);
+        $translatedContent = AutoTranslationService::translateArray($request->content);
+
         $article->update([
-            'title' => $request->title,
-            'content' => $request->content,
+            'title' => $translatedTitle,
+            'content' => $translatedContent,
             'media_path' => $mediaPath,
             'status' => $newStatus,
         ]);

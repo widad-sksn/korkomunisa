@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
+use App\Services\AutoTranslationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -57,9 +58,12 @@ class PortfolioController extends Controller
             $imagePath = $request->file('image')->store('portfolios', 'public');
         }
 
+        $translatedTitle = AutoTranslationService::translateArray($request->title);
+        $translatedDescription = AutoTranslationService::translateArray($request->description ?? []);
+
         auth()->user()->portfolios()->create([
-            'title' => $request->title,
-            'description' => $request->description,
+            'title' => $translatedTitle,
+            'description' => $translatedDescription,
             'image_path' => $imagePath,
             'url' => $request->url,
             'status' => 'pending',
@@ -104,9 +108,12 @@ class PortfolioController extends Controller
             $newStatus = 'pending';
         }
 
+        $translatedTitle = AutoTranslationService::translateArray($request->title);
+        $translatedDescription = AutoTranslationService::translateArray($request->description ?? []);
+
         $portfolio->update([
-            'title' => $request->title,
-            'description' => $request->description,
+            'title' => $translatedTitle,
+            'description' => $translatedDescription,
             'image_path' => $imagePath,
             'url' => $request->url,
             'status' => $newStatus,
