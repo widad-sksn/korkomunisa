@@ -27,14 +27,12 @@ class AboutImmController extends Controller
     public function update(UpdateAboutImmRequest $request)
     {
         $about = AboutImm::firstOrCreate(['id' => 1]);
-        
-        $translatedTitle = AutoTranslationService::translateArray($request->title);
-        $translatedContent = AutoTranslationService::translateArray($request->content);
-
         $about->update([
-            'title' => $translatedTitle,
-            'content' => $translatedContent,
+            'title' => $request->title,
+            'content' => $request->content,
         ]);
+
+        \App\Jobs\TranslateContentJob::dispatch($about);
 
         return redirect()->route('admin.about-imm.edit')->with('success', 'Data Tentang IMM berhasil diperbarui.');
     }

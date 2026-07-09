@@ -9,6 +9,15 @@
             <h1 class="text-4xl md:text-5xl font-extrabold text-theme-text tracking-tight">{{ __('Kegiatan') }}</h1>
             <div class="w-24 h-1 bg-theme-primary mx-auto mt-6 rounded-full"></div>
             <p class="mt-6 text-theme-secondary text-lg">{{ __('Jejak langkah dan dokumentasi kegiatan IMM Korkom UNISA.') }}</p>
+            
+            <form action="{{ route('portfolios.public_index') }}" method="GET" class="mt-8 max-w-md mx-auto relative">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('Cari Kegiatan...') }}" class="w-full px-4 py-3 rounded-full border border-theme-border bg-theme-surface text-theme-text focus:outline-none focus:ring-2 focus:ring-theme-primary transition-all">
+                <button type="submit" class="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-theme-primary text-white rounded-full hover:bg-theme-hover transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                    </svg>
+                </button>
+            </form>
         </div>
 
         @if($portfolios->isEmpty())

@@ -21,9 +21,19 @@ class ArticleController extends Controller
     /**
      * Display public listing of articles.
      */
-    public function publicIndex()
+    public function publicIndex(Request $request)
     {
-        $articles = Article::where('status', 'published')->latest()->paginate(9);
+        $query = Article::where('status', 'published');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('content', 'like', "%{$search}%");
+            });
+        }
+
+        $articles = $query->latest()->paginate(9)->withQueryString();
         return view('articles.public_index', compact('articles'));
     }
 
@@ -68,15 +78,14 @@ class ArticleController extends Controller
             $mediaPath = $request->file('media')->store('articles_media', 'public');
         }
 
-        $translatedTitle = AutoTranslationService::translateArray($request->title);
-        $translatedContent = AutoTranslationService::translateArray($request->content);
-
-        auth()->user()->articles()->create([
-            'title' => $translatedTitle,
-            'content' => $translatedContent,
+        $article = auth()->user()->articles()->create([
+            'title' => $request->title,
+            'content' => $request->content,
             'media_path' => $mediaPath,
             'status' => 'pending', // Requires admin approval
         ]);
+
+        \App\Jobs\TranslateContentJob::dispatch($article);
 
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil dikirim dan menunggu persetujuan admin.');
     }
@@ -123,15 +132,14 @@ class ArticleController extends Controller
             $newStatus = 'pending';
         }
 
-        $translatedTitle = AutoTranslationService::translateArray($request->title);
-        $translatedContent = AutoTranslationService::translateArray($request->content);
-
         $article->update([
-            'title' => $translatedTitle,
-            'content' => $translatedContent,
+            'title' => $request->title,
+            'content' => $request->content,
             'media_path' => $mediaPath,
             'status' => $newStatus,
         ]);
+
+        \App\Jobs\TranslateContentJob::dispatch($article);
 
         if (auth()->user()->role === 'admin') {
             return redirect()->route('dashboard')->with('success', 'Tulisan berhasil diperbarui oleh Admin.');

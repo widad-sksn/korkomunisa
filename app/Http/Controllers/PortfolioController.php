@@ -12,9 +12,19 @@ class PortfolioController extends Controller
     /**
      * Display public listing of portfolios.
      */
-    public function publicIndex()
+    public function publicIndex(Request $request)
     {
-        $portfolios = Portfolio::where('status', 'published')->latest()->paginate(12);
+        $query = Portfolio::where('status', 'published');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+            });
+        }
+
+        $portfolios = $query->latest()->paginate(12)->withQueryString();
         return view('portfolios.public_index', compact('portfolios'));
     }
 
@@ -58,16 +68,15 @@ class PortfolioController extends Controller
             $imagePath = $request->file('image')->store('portfolios', 'public');
         }
 
-        $translatedTitle = AutoTranslationService::translateArray($request->title);
-        $translatedDescription = AutoTranslationService::translateArray($request->description ?? []);
-
-        auth()->user()->portfolios()->create([
-            'title' => $translatedTitle,
-            'description' => $translatedDescription,
+        $portfolio = auth()->user()->portfolios()->create([
+            'title' => $request->title,
+            'description' => $request->description ?? [],
             'image_path' => $imagePath,
             'url' => $request->url,
             'status' => 'pending',
         ]);
+
+        \App\Jobs\TranslateContentJob::dispatch($portfolio);
 
         return redirect()->route('portfolios.index')->with('success', 'Kegiatan berhasil diposting dan menunggu persetujuan admin.');
     }
@@ -108,16 +117,15 @@ class PortfolioController extends Controller
             $newStatus = 'pending';
         }
 
-        $translatedTitle = AutoTranslationService::translateArray($request->title);
-        $translatedDescription = AutoTranslationService::translateArray($request->description ?? []);
-
         $portfolio->update([
-            'title' => $translatedTitle,
-            'description' => $translatedDescription,
+            'title' => $request->title,
+            'description' => $request->description ?? [],
             'image_path' => $imagePath,
             'url' => $request->url,
             'status' => $newStatus,
         ]);
+
+        \App\Jobs\TranslateContentJob::dispatch($portfolio);
 
         if (auth()->user()->role === 'admin') {
             return redirect()->route('dashboard')->with('success', 'Kegiatan berhasil diperbarui oleh Admin.');
