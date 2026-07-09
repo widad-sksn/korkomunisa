@@ -21,6 +21,19 @@ services:
         limits:
           memory: 4G
 
+  queue:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: korkomunisa-app
+    container_name: korkomunisa_queue
+    restart: unless-stopped
+    command: php artisan queue:work --sleep=3 --tries=3 --max-time=3600
+    volumes:
+      - app_storage:/var/www/html/storage
+      - app_database:/var/www/html/database
+      - ./.env:/var/www/html/.env
+
 volumes:
   app_storage:
   app_database:
