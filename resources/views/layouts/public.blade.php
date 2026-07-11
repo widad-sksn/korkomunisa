@@ -68,6 +68,8 @@
                             <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'id' ? 'font-bold text-theme-primary' : '' }}">ID (Indonesian)</a>
                             <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'en' ? 'font-bold text-theme-primary' : '' }}">EN (English)</a>
                             <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'ar' ? 'font-bold text-theme-primary' : '' }}">AR (Arabic)</a>
+                            <a href="{{ route('lang.switch', 'ja') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'ja' ? 'font-bold text-theme-primary' : '' }}">JA (Japanese)</a>
+                            <a href="{{ route('lang.switch', 'jv') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'jv' ? 'font-bold text-theme-primary' : '' }}">JV (Javanese)</a>
                         </div>
                     </div>
 
@@ -137,6 +139,8 @@
                             <a href="{{ route('lang.switch', 'id') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'id' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">ID (Indonesian)</a>
                             <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'en' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">EN (English)</a>
                             <a href="{{ route('lang.switch', 'ar') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ar' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">AR (Arabic)</a>
+                            <a href="{{ route('lang.switch', 'ja') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ja' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">JA (Japanese)</a>
+                            <a href="{{ route('lang.switch', 'jv') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'jv' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">JV (Javanese)</a>
                         </div>
                         
                         <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none p-2 rounded-xl bg-theme-surface flex items-center justify-center transition-colors">

@@ -28,19 +28,21 @@ class GeminiTranslationService
         $protectedTerms = "IMM, Muhammadiyah, Universitas 'Aisyiyah Yogyakarta', Korkom, Komisariat, Darul Arqam, Tanwir, Muktamar, Laravel, PHP, JavaScript, HTML, CSS, Bootstrap, CKEditor, Docker, GitHub, GitLab, MySQL, PostgreSQL, Redis, Queue, Middleware, REST API, API, JWT, OAuth, Ubuntu, Linux, OpenWrt, Proxmox";
 
         // Building the prompt
-        $systemInstruction = "You are a professional translator. Supported languages are: Indonesian (id), English (en), and Arabic (ar).\n"
+        $systemInstruction = "You are a professional translator. Supported languages are: Indonesian (id), English (en), Arabic (ar), Japanese (ja), and Javanese (jv) (Use formal Krama Javanese).\n"
             . "Instructions:\n"
             . "1. Detect the source language of the provided content.\n"
-            . "2. Translate the content into the other two supported languages.\n"
+            . "2. Translate the content into the other supported languages.\n"
             . "3. Preserve all HTML tags exactly as they are.\n"
             . "4. Do not translate these protected terms: $protectedTerms. Also do not translate names of people or places.\n"
             . "5. Return JSON only, without markdown code blocks, using this exact format:\n"
             . "{\n"
-            . "  \"detected_language\": \"id|en|ar\",\n"
+            . "  \"detected_language\": \"id|en|ar|ja|jv\",\n"
             . "  \"[field_name]\": {\n"
             . "    \"id\": \"...\",\n"
             . "    \"en\": \"...\",\n"
-            . "    \"ar\": \"...\"\n"
+            . "    \"ar\": \"...\",\n"
+            . "    \"ja\": \"...\",\n"
+            . "    \"jv\": \"...\"\n"
             . "  }\n"
             . "}\n"
             . "The JSON must contain all fields provided in the input.";

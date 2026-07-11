@@ -25,7 +25,7 @@ Route::get('/kegiatan/{portfolio}', [\App\Http\Controllers\PortfolioController::
 Route::get('/kegiatan', [\App\Http\Controllers\PortfolioController::class, 'publicIndex'])->name('portfolios.public_index');
 
 Route::get('/lang/{locale}', function ($locale) {
-    if (in_array($locale, ['id', 'en', 'ar'])) {
+    if (in_array($locale, ['id', 'en', 'ar', 'ja', 'jv'])) {
         session()->put('locale', $locale);
     }
     return redirect()->back();

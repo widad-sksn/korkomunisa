@@ -67,6 +67,8 @@ class TranslateContentJob implements ShouldQueue
                 'id' => $translations['id'] ?? '',
                 'en' => $translations['en'] ?? '',
                 'ar' => $translations['ar'] ?? '',
+                'ja' => $translations['ja'] ?? '',
+                'jv' => $translations['jv'] ?? '',
             ];
             
             // If they wrote only in one language, they might have saved it as default (which Spatie maps to 'id' by default)
