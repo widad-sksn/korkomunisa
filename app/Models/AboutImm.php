@@ -11,5 +11,11 @@ class AboutImm extends Model
 
     public $translatable = ['title', 'content'];
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = [
+        'title', 
+        'content',
+        'original_language',
+        'translation_status',
+        'translated_at',
+    ];
 }

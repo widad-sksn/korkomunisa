@@ -18,6 +18,9 @@ class Portfolio extends Model
         'image_path',
         'url',
         'status',
+        'original_language',
+        'translation_status',
+        'translated_at',
     ];
 
     public function user()

@@ -76,8 +76,6 @@ class PortfolioController extends Controller
             'status' => 'pending',
         ]);
 
-        \App\Jobs\TranslateContentJob::dispatch($portfolio);
-
         return redirect()->route('portfolios.index')->with('success', 'Kegiatan berhasil diposting dan menunggu persetujuan admin.');
     }
 
@@ -125,10 +123,8 @@ class PortfolioController extends Controller
             'status' => $newStatus,
         ]);
 
-        \App\Jobs\TranslateContentJob::dispatch($portfolio);
-
         if (auth()->user()->role === 'admin') {
-            return redirect()->route('dashboard')->with('success', 'Kegiatan berhasil diperbarui oleh Admin.');
+            return redirect()->route('dashboard')->with('success', 'Kegiatan berhasil diperbarui oleh Admin. Terjemahan otomatis tidak berjalan saat edit, gunakan tombol Perbarui Terjemahan jika perlu.');
         }
 
         return redirect()->route('portfolios.index')->with('success', 'Kegiatan berhasil diperbarui dan kembali menunggu persetujuan.');
@@ -175,8 +171,24 @@ class PortfolioController extends Controller
             'status' => 'required|in:published,draft,pending'
         ]);
 
+        $oldStatus = $portfolio->status;
         $portfolio->update(['status' => $request->status]);
 
+        if ($request->status === 'published' && $oldStatus !== 'published') {
+            \App\Jobs\TranslateContentJob::dispatch($portfolio);
+            \Illuminate\Support\Facades\Mail::to($portfolio->user->email)->queue(new \App\Mail\ContentApproved($portfolio));
+        }
+
+        if ($request->status === 'draft' && $oldStatus === 'pending') {
+            \Illuminate\Support\Facades\Mail::to($portfolio->user->email)->queue(new \App\Mail\ContentRejected($portfolio));
+        }
+
         return redirect()->route('admin.portfolios.index')->with('success', 'Status kegiatan berhasil diperbarui.');
+    }
+
+    public function forceTranslate(Portfolio $portfolio)
+    {
+        \App\Jobs\TranslateContentJob::dispatch($portfolio, true);
+        return redirect()->back()->with('success', 'Permintaan terjemahan sedang diproses di latar belakang.');
     }
 }

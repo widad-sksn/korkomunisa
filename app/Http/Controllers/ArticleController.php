@@ -85,8 +85,6 @@ class ArticleController extends Controller
             'status' => 'pending', // Requires admin approval
         ]);
 
-        \App\Jobs\TranslateContentJob::dispatch($article);
-
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil dikirim dan menunggu persetujuan admin.');
     }
 
@@ -139,10 +137,8 @@ class ArticleController extends Controller
             'status' => $newStatus,
         ]);
 
-        \App\Jobs\TranslateContentJob::dispatch($article);
-
         if (auth()->user()->role === 'admin') {
-            return redirect()->route('dashboard')->with('success', 'Tulisan berhasil diperbarui oleh Admin.');
+            return redirect()->route('dashboard')->with('success', 'Tulisan berhasil diperbarui oleh Admin. Terjemahan otomatis tidak berjalan saat edit, gunakan tombol Perbarui Terjemahan jika perlu.');
         }
 
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil diperbarui dan kembali menunggu persetujuan.');
@@ -202,13 +198,23 @@ class ArticleController extends Controller
         $article->update(['status' => $request->status]);
 
         if ($request->status === 'published' && $oldStatus !== 'published') {
-            $article->user->notify(new \App\Notifications\ArticleApprovedNotification($article));
+            // Translate only when first published
+            \App\Jobs\TranslateContentJob::dispatch($article);
+            // Send Approval Mail
+            \Illuminate\Support\Facades\Mail::to($article->user->email)->queue(new \App\Mail\ContentApproved($article));
         }
 
         if ($request->status === 'draft' && $oldStatus === 'pending') {
-            $article->user->notify(new \App\Notifications\ArticleRejectedNotification($article));
+            // Send Rejection Mail
+            \Illuminate\Support\Facades\Mail::to($article->user->email)->queue(new \App\Mail\ContentRejected($article));
         }
 
         return redirect()->route('admin.articles.index')->with('success', 'Status artikel berhasil diperbarui.');
+    }
+
+    public function forceTranslate(Article $article)
+    {
+        \App\Jobs\TranslateContentJob::dispatch($article, true);
+        return redirect()->back()->with('success', 'Permintaan terjemahan sedang diproses di latar belakang.');
     }
 }

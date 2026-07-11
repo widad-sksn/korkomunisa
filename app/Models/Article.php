@@ -17,6 +17,9 @@ class Article extends Model
         'content',
         'media_path',
         'status',
+        'original_language',
+        'translation_status',
+        'translated_at',
     ];
 
     public function user()

@@ -87,11 +87,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::get('/articles/approved', [ArticleController::class, 'approvedIndex'])->name('articles.approved');
     Route::get('/articles/rejected', [ArticleController::class, 'rejectedIndex'])->name('articles.rejected');
     Route::patch('/articles/{article}/approve', [ArticleController::class, 'approve'])->name('articles.approve');
-    
+    Route::post('/articles/{article}/translate', [ArticleController::class, 'forceTranslate'])->name('articles.translate');
+
     Route::get('/portfolios', [PortfolioController::class, 'adminIndex'])->name('portfolios.index');
     Route::get('/portfolios/approved', [PortfolioController::class, 'approvedIndex'])->name('portfolios.approved');
     Route::get('/portfolios/rejected', [PortfolioController::class, 'rejectedIndex'])->name('portfolios.rejected');
     Route::patch('/portfolios/{portfolio}/approve', [PortfolioController::class, 'approve'])->name('portfolios.approve');
+    Route::post('/portfolios/{portfolio}/translate', [PortfolioController::class, 'forceTranslate'])->name('portfolios.translate');
 
     Route::get('/users', [\App\Http\Controllers\AdminUserController::class, 'index'])->name('users.index');
     Route::delete('/users/{user}', [\App\Http\Controllers\AdminUserController::class, 'destroy'])->name('users.destroy');
