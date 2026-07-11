@@ -31,7 +31,7 @@
                     <div class="bg-theme-primary/10 text-theme-primary p-1.5 md:p-2 rounded-full mb-1 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-sm transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 md:w-4 md:h-4"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
                     </div>
-                    <h3 class="text-lg md:text-xl font-black text-theme-text tracking-tight leading-none mb-0.5">Profil</h3>
+                    <h3 class="text-lg md:text-xl font-black text-theme-text tracking-tight leading-none mb-0.5">{{ __('Profil') }}</h3>
                     <p class="text-theme-secondary text-[10px] md:text-xs font-semibold capitalize tracking-wide">{{ __('Tentang IMM') }}</p>
                 </a>
 
