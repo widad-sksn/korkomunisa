@@ -22,7 +22,7 @@ class GeminiTranslationService
             return null;
         }
 
-        $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=' . $apiKey;
+        $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=' . $apiKey;
 
         // Protected terms mentioned by the user
         $protectedTerms = "IMM, Muhammadiyah, Universitas 'Aisyiyah Yogyakarta', Korkom, Komisariat, Darul Arqam, Tanwir, Muktamar, Laravel, PHP, JavaScript, HTML, CSS, Bootstrap, CKEditor, Docker, GitHub, GitLab, MySQL, PostgreSQL, Redis, Queue, Middleware, REST API, API, JWT, OAuth, Ubuntu, Linux, OpenWrt, Proxmox";
