@@ -18,26 +18,7 @@ Route::get('/', function () {
 Route::get('/kabar/{article}', [\App\Http\Controllers\ArticleController::class, 'show'])->name('articles.show_public');
 Route::get('/tulisan-kader', [\App\Http\Controllers\ArticleController::class, 'publicIndex'])->name('articles.public_index');
 
-Route::get('/force-translate-all', function () {
-    foreach (\App\Models\Article::all() as $article) {
-        \App\Jobs\TranslateContentJob::dispatch($article);
-    }
-    foreach (\App\Models\Portfolio::all() as $portfolio) {
-        \App\Jobs\TranslateContentJob::dispatch($portfolio);
-    }
-    $about = \App\Models\AboutImm::find(1);
-    if ($about) \App\Jobs\TranslateContentJob::dispatch($about);
-    
-    return "Force translation jobs dispatched for all records! Pengecekan sedang berjalan di latar belakang.";
-});
 
-Route::get('/debug-translations', function () {
-    $article = \App\Models\Article::find(1);
-    return [
-        'title' => $article->getTranslations('title'),
-        'content' => $article->getTranslations('content')
-    ];
-});
 
 // Public portfolio viewing route
 Route::get('/kegiatan/{portfolio}', [\App\Http\Controllers\PortfolioController::class, 'show'])->name('portfolios.show_public');
@@ -106,20 +87,4 @@ Route::middleware(['auth'])->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::get('/fix-db-ai-123', function() {
-    try {
-        try {
-            \Illuminate\Support\Facades\DB::statement('ALTER TABLE users ADD COLUMN bidang VARCHAR(255) DEFAULT NULL');
-        } catch (\Exception $e) {}
-        try {
-            \Illuminate\Support\Facades\DB::statement('ALTER TABLE users ADD COLUMN jabatan VARCHAR(255) DEFAULT NULL');
-        } catch (\Exception $e) {}
-        \Illuminate\Support\Facades\DB::table('migrations')->updateOrInsert(
-            ['migration' => '2026_06_30_172705_add_bidang_and_jabatan_to_users_table'],
-            ['batch' => \Illuminate\Support\Facades\DB::table('migrations')->max('batch') + 1]
-        );
-        return 'Database fixed successfully!';
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
-});
+
