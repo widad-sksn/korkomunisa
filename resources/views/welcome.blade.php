@@ -3,6 +3,14 @@
 @section('title', 'Beranda')
 
 @section('content')
+    @php
+        function localizeNumber($num) {
+            if(app()->getLocale() == 'ar') {
+                return str_replace(['0','1','2','3','4','5','6','7','8','9'], ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'], $num);
+            }
+            return $num;
+        }
+    @endphp
     <!-- Premium Hero Section -->
     <div class="relative py-4 md:py-12 text-center transition-colors duration-300 overflow-hidden flex flex-col items-center justify-center min-h-[25vh] md:min-h-[35vh] bg-theme-bg">
         
@@ -42,7 +50,7 @@
                     <div class="bg-theme-primary/10 text-theme-primary p-1.5 md:p-2 rounded-full mb-1 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-sm transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 md:w-4 md:h-4"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
                     </div>
-                    <h3 class="text-lg md:text-2xl font-black text-theme-text tracking-tight leading-none mb-0.5">{{ $articleCount }}</h3>
+                    <h3 class="text-lg md:text-2xl font-black text-theme-text tracking-tight leading-none mb-0.5">{{ localizeNumber($articleCount) }}</h3>
                     <p class="text-theme-secondary text-[10px] md:text-xs font-semibold capitalize tracking-wide">{{ __('Artikel') }}</p>
                 </a>
 
@@ -53,7 +61,7 @@
                     <div class="bg-theme-primary/10 text-theme-primary p-1.5 md:p-2 rounded-full mb-1 group-hover:scale-110 group-hover:bg-theme-primary group-hover:text-white group-hover:shadow-sm transition-all duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-3.5 h-3.5 md:w-4 md:h-4"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg>
                     </div>
-                    <h3 class="text-lg md:text-2xl font-black text-theme-text tracking-tight leading-none mb-0.5">{{ $portfolioCount }}</h3>
+                    <h3 class="text-lg md:text-2xl font-black text-theme-text tracking-tight leading-none mb-0.5">{{ localizeNumber($portfolioCount) }}</h3>
                     <p class="text-theme-secondary text-[10px] md:text-xs font-semibold capitalize tracking-wide">{{ __('Kegiatan') }}</p>
                 </a>
 
