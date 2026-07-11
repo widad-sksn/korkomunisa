@@ -34,8 +34,8 @@
                                     @foreach($pendingArticles as $article)
                                         <tr class="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
                                             <td class="py-3 px-4">{{ Str::limit($article->title, 50) }}</td>
-                                            <td class="py-3 px-4">{{ $article->user->name }}</td>
-                                            <td class="py-3 px-4">{{ $article->created_at->format('d M Y') }}</td>
+                                            <td class="py-3 px-4">{{ optional($article->user)->name ?? 'User Dihapus' }}</td>
+                                            <td class="py-3 px-4">{{ optional($article->created_at)->format('d M Y') ?? '-' }}</td>
                                             <td class="py-3 px-4 flex flex-wrap gap-2 items-center">
                                                 <a href="{{ route('articles.show_public', $article) }}" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 font-medium">Baca Detail</a>
                                                 <a href="{{ route('articles.edit', $article) }}" class="px-2 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 font-medium">Edit</a>
