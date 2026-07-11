@@ -49,14 +49,14 @@
                                                 @if($portfolio->status === 'published')
                                                     @if($portfolio->translation_status === 'failed')
                                                         <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full font-bold">Translation Failed</span>
-                                                        <form action="{{ route('portfolios.translate', $portfolio) }}" method="POST">
+                                                        <form action="{{ route('admin.portfolios.translate', $portfolio) }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="px-2 py-1 bg-indigo-500 text-white text-xs rounded hover:bg-indigo-600 font-medium">🔄 Retry Translation</button>
                                                         </form>
                                                     @elseif($portfolio->translation_status === 'processing')
                                                         <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full font-bold">Translating...</span>
                                                     @else
-                                                        <form action="{{ route('portfolios.translate', $portfolio) }}" method="POST">
+                                                        <form action="{{ route('admin.portfolios.translate', $portfolio) }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="px-2 py-1 bg-indigo-500 text-white text-xs rounded hover:bg-indigo-600 font-medium">🔄 Perbarui Terjemahan</button>
                                                         </form>

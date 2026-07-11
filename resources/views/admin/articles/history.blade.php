@@ -49,14 +49,14 @@
                                                 @if($article->status === 'published')
                                                     @if($article->translation_status === 'failed')
                                                         <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full font-bold">Translation Failed</span>
-                                                        <form action="{{ route('articles.translate', $article) }}" method="POST">
+                                                        <form action="{{ route('admin.articles.translate', $article) }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="px-2 py-1 bg-indigo-500 text-white text-xs rounded hover:bg-indigo-600 font-medium">🔄 Retry Translation</button>
                                                         </form>
                                                     @elseif($article->translation_status === 'processing')
                                                         <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full font-bold">Translating...</span>
                                                     @else
-                                                        <form action="{{ route('articles.translate', $article) }}" method="POST">
+                                                        <form action="{{ route('admin.articles.translate', $article) }}" method="POST">
                                                             @csrf
                                                             <button type="submit" class="px-2 py-1 bg-indigo-500 text-white text-xs rounded hover:bg-indigo-600 font-medium">🔄 Perbarui Terjemahan</button>
                                                         </form>
