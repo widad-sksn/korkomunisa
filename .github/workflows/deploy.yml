@@ -19,6 +19,9 @@ jobs:
             git pull origin main
             docker compose up -d --build --force-recreate
             docker compose exec -T app php artisan migrate --force || true
+            docker compose exec -T app php artisan optimize:clear || true
+            docker compose exec -T app php artisan view:clear || true
+            docker compose exec -T app php artisan cache:clear || true
             docker compose exec -T app php artisan config:cache || true
             docker compose exec -T app php artisan route:cache || true
             docker compose exec -T app php artisan view:cache || true
