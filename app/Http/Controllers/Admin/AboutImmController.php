@@ -30,9 +30,10 @@ class AboutImmController extends Controller
         $about->update([
             'title' => $request->title,
             'content' => $request->content,
+            'translation_status' => 'pending',
         ]);
 
-        \App\Jobs\TranslateContentJob::dispatch($about);
+        \App\Jobs\TranslateContentJob::dispatch($about, true);
 
         return redirect()->route('admin.about-imm.edit')->with('success', 'Data Tentang IMM berhasil diperbarui.');
     }
