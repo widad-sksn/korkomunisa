@@ -49,11 +49,11 @@
                                             </td>
                                             <td class="py-3 px-4">
                                                 @if($portfolio->status == 'published')
-                                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Diterima / Diterbitkan</span>
+                                                    <span class="inline-block whitespace-nowrap px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Diterima / Diterbitkan</span>
                                                 @elseif($portfolio->status == 'pending')
-                                                    <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Menunggu Persetujuan</span>
+                                                    <span class="inline-block whitespace-nowrap px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Menunggu Persetujuan</span>
                                                 @else
-                                                    <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Ditolak / Draft</span>
+                                                    <span class="inline-block whitespace-nowrap px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Ditolak / Draft</span>
                                                 @endif
                                             </td>
                                             <td class="py-3 px-4">

@@ -32,9 +32,9 @@
                                             <td class="py-3 px-4">{{ optional($portfolio->user)->name ?? 'Admin / Anonim' }}</td>
                                             <td class="py-3 px-4">
                                                 @if($portfolio->status == 'published')
-                                                    <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Diterima / Diterbitkan</span>
+                                                    <span class="inline-block whitespace-nowrap px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">Diterima / Diterbitkan</span>
                                                 @else
-                                                    <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Ditolak / Dikembalikan</span>
+                                                    <span class="inline-block whitespace-nowrap px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Ditolak / Dikembalikan</span>
                                                 @endif
                                             </td>
                                             <td class="py-3 px-4">{{ optional($portfolio->created_at)->format('d M Y') ?? '-' }}</td>
