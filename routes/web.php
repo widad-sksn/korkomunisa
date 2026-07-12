@@ -4,12 +4,18 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $articles = \App\Models\Article::where('status', 'published')->latest()->take(20)->get();
-    $portfolios = \App\Models\Portfolio::where('status', 'published')->latest()->take(20)->get();
+    $articles = \App\Models\Article::with('user')->where('status', 'published')->latest()->take(20)->get();
+    $portfolios = \App\Models\Portfolio::with('user')->where('status', 'published')->latest()->take(20)->get();
     
-    $userCount = \App\Models\User::count();
-    $articleCount = \App\Models\Article::where('status', 'published')->count();
-    $portfolioCount = \App\Models\Portfolio::where('status', 'published')->count();
+    $userCount = \Illuminate\Support\Facades\Cache::remember('stat_user_count', 3600, function () {
+        return \App\Models\User::count();
+    });
+    $articleCount = \Illuminate\Support\Facades\Cache::remember('stat_article_count', 3600, function () {
+        return \App\Models\Article::where('status', 'published')->count();
+    });
+    $portfolioCount = \Illuminate\Support\Facades\Cache::remember('stat_portfolio_count', 3600, function () {
+        return \App\Models\Portfolio::where('status', 'published')->count();
+    });
     
     return view('welcome', compact('articles', 'portfolios', 'userCount', 'articleCount', 'portfolioCount'));
 });

@@ -23,7 +23,7 @@ class ArticleController extends Controller
      */
     public function publicIndex(Request $request)
     {
-        $query = Article::where('status', 'published');
+        $query = Article::with('user')->where('status', 'published');
 
         if ($request->filled('search')) {
             $search = $request->search;

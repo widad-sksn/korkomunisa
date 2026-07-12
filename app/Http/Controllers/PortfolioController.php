@@ -14,7 +14,7 @@ class PortfolioController extends Controller
      */
     public function publicIndex(Request $request)
     {
-        $query = Portfolio::where('status', 'published');
+        $query = Portfolio::with('user')->where('status', 'published');
 
         if ($request->filled('search')) {
             $search = $request->search;
