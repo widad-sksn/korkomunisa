@@ -47,6 +47,8 @@
                             <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">ID</a>
                             <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">EN</a>
                             <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">AR</a>
+                            <a href="{{ route('lang.switch', 'ja') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">JA</a>
+                            <a href="{{ route('lang.switch', 'jv') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">JV</a>
                         </div>
                     </div>
 
@@ -67,7 +69,7 @@
                 <div class="flex items-center justify-center space-x-4 text-theme-secondary text-sm font-medium">
                     <span class="flex items-center">
                         <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        Oleh: {{ optional($portfolio->user)->name ?? 'Admin / Anonim' }}
+                        {{ __('Oleh:') }} <span class="font-bold ml-1">{{ optional($portfolio->user)->name ?? 'Admin / ' . __('Anonim') }}</span>
                     </span>
                     <span>&bull;</span>
                     <span class="flex items-center">
@@ -90,7 +92,7 @@
             @if($portfolio->url)
                 <div class="mt-8 text-center md:text-left">
                     <a href="{{ $portfolio->url }}" target="_blank" class="inline-flex items-center px-6 py-3 bg-theme-primary text-white rounded-full font-bold text-sm hover:bg-theme-hover transition-colors shadow-md">
-                        Kunjungi Tautan Terkait
+                        {{ __('Kunjungi Tautan Terkait') }}
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     </a>
                 </div>
@@ -99,7 +101,7 @@
             <div class="mt-16 pt-8 border-t border-theme-border text-center">
                 <a href="/#kegiatan" onclick="if(document.referrer.includes(window.location.hostname)) { history.back(); return false; }" class="inline-flex items-center px-6 py-3 bg-theme-surface border border-theme-border rounded-full font-bold text-sm text-theme-text hover:bg-theme-bg hover:text-theme-primary transition-colors shadow-sm">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                    Kembali
+                    {{ __('Kembali') }}
                 </a>
             </div>
 
