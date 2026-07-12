@@ -38,30 +38,32 @@
                                                 @endif
                                             </td>
                                             <td class="py-3 px-4">{{ optional($article->created_at)->format('d M Y') ?? '-' }}</td>
-                                            <td class="py-3 px-4 flex flex-wrap gap-2 items-center">
-                                                <a href="{{ route('articles.show_public', $article) }}" class="px-2 py-1 bg-blue-500 text-white text-xs rounded hover:bg-blue-600 font-medium">Lihat Halaman</a>
-                                                <a href="{{ route('articles.edit', $article) }}" class="px-2 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 font-medium">Edit</a>
-                                                <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus tulisan ini selamanya?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="px-2 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 font-medium">Hapus</button>
-                                                </form>
-                                                @if($article->status === 'published')
-                                                    @if($article->translation_status === 'failed')
-                                                        <span class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded-full font-bold">Translation Failed</span>
-                                                        <form action="{{ route('admin.articles.translate', $article) }}" method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="px-2 py-1 bg-indigo-500 text-white text-xs rounded hover:bg-indigo-600 font-medium">🔄 Retry Translation</button>
-                                                        </form>
-                                                    @elseif($article->translation_status === 'processing')
-                                                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full font-bold">Translating...</span>
-                                                    @else
-                                                        <form action="{{ route('admin.articles.translate', $article) }}" method="POST">
-                                                            @csrf
-                                                            <button type="submit" class="px-2 py-1 bg-indigo-500 text-white text-xs rounded hover:bg-indigo-600 font-medium">🔄 Perbarui Terjemahan</button>
-                                                        </form>
+                                            <td class="py-3 px-4">
+                                                <div class="flex flex-wrap gap-2 items-center">
+                                                    <a href="{{ route('articles.show_public', $article) }}" class="px-3 py-1.5 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 font-medium whitespace-nowrap">Lihat Halaman</a>
+                                                    <a href="{{ route('articles.edit', $article) }}" class="px-3 py-1.5 bg-yellow-500 text-white text-xs rounded-md hover:bg-yellow-600 font-medium whitespace-nowrap">Edit</a>
+                                                    <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus tulisan ini selamanya?');" class="inline-block m-0">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="px-3 py-1.5 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 font-medium whitespace-nowrap">Hapus</button>
+                                                    </form>
+                                                    @if($article->status === 'published')
+                                                        @if($article->translation_status === 'failed')
+                                                            <span class="px-3 py-1.5 bg-red-100 text-red-800 text-xs rounded-md font-bold whitespace-nowrap">Translation Failed</span>
+                                                            <form action="{{ route('admin.articles.translate', $article) }}" method="POST" class="inline-block m-0">
+                                                                @csrf
+                                                                <button type="submit" class="px-3 py-1.5 bg-indigo-500 text-white text-xs rounded-md hover:bg-indigo-600 font-medium whitespace-nowrap">🔄 Retry</button>
+                                                            </form>
+                                                        @elseif($article->translation_status === 'processing')
+                                                            <span class="px-3 py-1.5 bg-yellow-100 text-yellow-800 text-xs rounded-md font-bold whitespace-nowrap">Translating...</span>
+                                                        @else
+                                                            <form action="{{ route('admin.articles.translate', $article) }}" method="POST" class="inline-block m-0">
+                                                                @csrf
+                                                                <button type="submit" class="px-3 py-1.5 bg-indigo-500 text-white text-xs rounded-md hover:bg-indigo-600 font-medium whitespace-nowrap">🔄 Perbarui Terjemahan</button>
+                                                            </form>
+                                                        @endif
                                                     @endif
-                                                @endif
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

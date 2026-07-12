@@ -64,14 +64,16 @@
                                                     <span class="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">Ditolak / Draft</span>
                                                 @endif
                                             </td>
-                                            <td class="py-3 px-4 flex justify-end space-x-3 items-center">
-                                                <a href="{{ route('articles.show_public', $article) }}" class="text-blue-500 hover:underline">Lihat</a>
-                                                <a href="{{ route('articles.edit', $article) }}" class="text-yellow-500 hover:underline">Edit</a>
-                                                <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-500 hover:underline">Hapus</button>
-                                                </form>
+                                            <td class="py-3 px-4">
+                                                <div class="flex flex-wrap gap-2 justify-end items-center">
+                                                    <a href="{{ route('articles.show_public', $article) }}" class="px-3 py-1.5 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 font-medium whitespace-nowrap">Lihat</a>
+                                                    <a href="{{ route('articles.edit', $article) }}" class="px-3 py-1.5 bg-yellow-500 text-white text-xs rounded-md hover:bg-yellow-600 font-medium whitespace-nowrap">Edit</a>
+                                                    <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus?')" class="inline-block m-0">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="px-3 py-1.5 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 font-medium whitespace-nowrap">Hapus</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
