@@ -10,6 +10,24 @@
             KORKOM UNISA
         @endif
     </title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="@yield('meta_description', 'Ikatan Mahasiswa Muhammadiyah (IMM) Komisariat UNISA Yogyakarta. Temukan gagasan, berita, dan aktivitas kader IMM Korkom UNISA.')">
+    <meta name="keywords" content="IMM, Ikatan Mahasiswa Muhammadiyah, Korkom UNISA, UNISA Yogyakarta, Kader IMM, Mahasiswa Islam">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="@yield('meta_title', 'IMM KORKOM UNISA')">
+    <meta property="og:description" content="@yield('meta_description', 'Ikatan Mahasiswa Muhammadiyah (IMM) Komisariat UNISA Yogyakarta. Temukan gagasan, berita, dan aktivitas kader IMM Korkom UNISA.')">
+    <meta property="og:image" content="@yield('meta_image', asset('images/Logo Korkom Unisa v2 trannsparan.png'))">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="@yield('meta_title', 'IMM KORKOM UNISA')">
+    <meta name="twitter:description" content="@yield('meta_description', 'Ikatan Mahasiswa Muhammadiyah (IMM) Komisariat UNISA Yogyakarta. Temukan gagasan, berita, dan aktivitas kader IMM Korkom UNISA.')">
+    <meta name="twitter:image" content="@yield('meta_image', asset('images/Logo Korkom Unisa v2 trannsparan.png'))">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

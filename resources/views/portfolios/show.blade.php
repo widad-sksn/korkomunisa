@@ -5,6 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $portfolio->title }} - IMM KORKOM UNISA</title>
 
+    <!-- SEO Meta Tags -->
+    @php
+        $metaDescription = Str::limit(strip_tags($portfolio->description), 150);
+        $metaImage = $portfolio->image_path ? asset('storage/' . $portfolio->image_path) : asset('images/Logo Korkom Unisa v2 trannsparan.png');
+    @endphp
+    <meta name="description" content="{{ $metaDescription }}">
+    <meta name="keywords" content="IMM, Ikatan Mahasiswa Muhammadiyah, Korkom UNISA, {{ $portfolio->title }}">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="{{ $portfolio->title }} - IMM KORKOM UNISA">
+    <meta property="og:description" content="{{ $metaDescription }}">
+    <meta property="og:image" content="{{ $metaImage }}">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{ url()->current() }}">
+    <meta name="twitter:title" content="{{ $portfolio->title }} - IMM KORKOM UNISA">
+    <meta name="twitter:description" content="{{ $metaDescription }}">
+    <meta name="twitter:image" content="{{ $metaImage }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">

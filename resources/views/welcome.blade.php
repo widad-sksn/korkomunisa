@@ -1,6 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Beranda')
+@section('meta_title', 'IMM KORKOM UNISA - Beranda')
 
 @section('content')
     @php
