@@ -27,7 +27,7 @@ class ProfileUpdateRequest extends FormRequest
                 Rule::unique(User::class)->ignore($this->user()->id),
                 function ($attribute, $value, $fail) {
                     if (!preg_match('/@(gmail\.com|unisayogya\.ac\.id)$/i', $value)) {
-                        $fail('Email hanya diperbolehkan menggunakan domain @gmail.com atau @unisayogya.ac.id.');
+                        $fail('Email yang Anda gunakan ditolak oleh sistem.');
                     }
                 },
             ],

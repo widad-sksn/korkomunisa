@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
                 'unique:'.User::class,
                 function ($attribute, $value, $fail) {
                     if (!preg_match('/@(gmail\.com|unisayogya\.ac\.id)$/i', $value)) {
-                        $fail('Pendaftaran hanya diperbolehkan menggunakan email @gmail.com atau @unisayogya.ac.id.');
+                        $fail('Email yang Anda gunakan ditolak oleh sistem.');
                     }
                 },
             ],
