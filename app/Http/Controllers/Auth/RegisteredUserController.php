@@ -32,7 +32,19 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => [
+                'required', 
+                'string', 
+                'lowercase', 
+                'email', 
+                'max:255', 
+                'unique:'.User::class,
+                function ($attribute, $value, $fail) {
+                    if (!preg_match('/@(gmail\.com|unisayogya\.ac\.id)$/i', $value)) {
+                        $fail('Pendaftaran hanya diperbolehkan menggunakan email @gmail.com atau @unisayogya.ac.id.');
+                    }
+                },
+            ],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'komisariat' => ['required', 'string', 'in:IMM FST,IMM Rosyad Sholeh,IMM FIKES,Korkom UNISA'],
             'bidang' => ['nullable', 'string', 'max:255'],

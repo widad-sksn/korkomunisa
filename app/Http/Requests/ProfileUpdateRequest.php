@@ -25,11 +25,16 @@ class ProfileUpdateRequest extends FormRequest
                 'email',
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
+                function ($attribute, $value, $fail) {
+                    if (!preg_match('/@(gmail\.com|unisayogya\.ac\.id)$/i', $value)) {
+                        $fail('Email hanya diperbolehkan menggunakan domain @gmail.com atau @unisayogya.ac.id.');
+                    }
+                },
             ],
             'komisariat' => ['required', 'string', 'in:IMM FST,IMM Rosyad Sholeh,IMM FIKES,Korkom UNISA'],
             'bidang' => ['nullable', 'string', 'max:255'],
             'jabatan' => ['nullable', 'string', 'max:255'],
-            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'], // max 2MB
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'extensions:jpeg,png,jpg,gif,webp', 'max:2048'], // max 2MB
             'remove_avatar' => ['nullable', 'boolean'],
         ];
     }

@@ -41,7 +41,7 @@ class AboutImmController extends Controller
     public function uploadImage(Request $request)
     {
         $request->validate([
-            'upload' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120'
+            'upload' => 'required|image|mimes:jpeg,png,jpg,webp|extensions:jpeg,png,jpg,webp|max:5120'
         ]);
 
         if ($request->file('upload')) {

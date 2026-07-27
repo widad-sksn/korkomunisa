@@ -70,7 +70,7 @@ class ArticleController extends Controller
             'title.id' => 'required|string|max:255',
             'content' => 'required|array',
             'content.id' => 'required|string',
-            'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,webp,mp4,mov,avi|max:20480', // Max 20MB
+            'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,webp,mp4,mov,avi|extensions:jpeg,png,jpg,gif,webp,mp4,mov,avi|max:20480', // Max 20MB
         ]);
 
         $mediaPath = null;
@@ -114,7 +114,8 @@ class ArticleController extends Controller
             'title.id' => 'required|string|max:255',
             'content' => 'required|array',
             'content.id' => 'required|string',
-            'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,webp,mp4,mov,avi|max:20480',
+            'media' => 'nullable|file|mimes:jpeg,png,jpg,gif,webp,mp4,mov,avi|extensions:jpeg,png,jpg,gif,webp,mp4,mov,avi|max:20480',
+            'remove_media' => 'nullable|boolean',
         ]);
 
         $mediaPath = $article->media_path;

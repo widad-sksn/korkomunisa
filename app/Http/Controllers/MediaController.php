@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
-    public function uploadImage(Request $request)
+    public function uploadImage(Request $request, $module = 'articles')
     {
         $request->validate([
-            'upload' => 'required|image|mimes:jpeg,png,jpg,webp|max:51200'
+            'upload' => 'required|image|mimes:jpeg,png,jpg,gif,webp|extensions:jpeg,png,jpg,gif,webp|max:5120'
         ]);
 
         if ($request->file('upload')) {
