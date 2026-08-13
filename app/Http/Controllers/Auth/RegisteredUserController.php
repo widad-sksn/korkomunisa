@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
                 'max:255', 
                 'unique:'.User::class,
                 function ($attribute, $value, $fail) {
-                    if (!preg_match('/@(gmail\.com|unisayogya\.ac\.id)$/i', $value)) {
+                    if (!preg_match('/@(gmail\.com|(student\.)?unisayogya\.ac\.id)$/i', $value)) {
                         $fail('Email yang Anda gunakan ditolak oleh sistem.');
                     }
                 },
