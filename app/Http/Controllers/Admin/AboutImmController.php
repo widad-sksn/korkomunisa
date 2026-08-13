@@ -28,8 +28,8 @@ class AboutImmController extends Controller
     {
         $about = AboutImm::firstOrCreate(['id' => 1]);
         $about->update([
-            'title' => $request->title,
-            'content' => $request->content,
+            'title' => is_array($request->title) ? array_filter($request->title, fn($val) => !is_null($val) && $val !== '') : $request->title,
+            'content' => is_array($request->content) ? array_filter($request->content, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== '') : $request->content,
             'translation_status' => 'pending',
         ]);
 

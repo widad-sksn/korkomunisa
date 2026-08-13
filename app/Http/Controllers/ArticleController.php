@@ -79,8 +79,8 @@ class ArticleController extends Controller
         }
 
         $article = auth()->user()->articles()->create([
-            'title' => $request->title,
-            'content' => $request->content,
+            'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
+            'content' => array_filter($request->content, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'media_path' => $mediaPath,
             'status' => 'pending', // Requires admin approval
         ]);
@@ -135,8 +135,8 @@ class ArticleController extends Controller
         }
 
         $article->update([
-            'title' => $request->title,
-            'content' => $request->content,
+            'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
+            'content' => array_filter($request->content, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'media_path' => $mediaPath,
             'status' => $newStatus,
         ]);

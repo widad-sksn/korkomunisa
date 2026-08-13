@@ -69,8 +69,8 @@ class PortfolioController extends Controller
         }
 
         $portfolio = auth()->user()->portfolios()->create([
-            'title' => $request->title,
-            'description' => $request->description ?? [],
+            'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
+            'description' => array_filter($request->description ?? [], fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'image_path' => $imagePath,
             'url' => $request->url,
             'status' => 'pending',
@@ -119,8 +119,8 @@ class PortfolioController extends Controller
         }
 
         $portfolio->update([
-            'title' => $request->title,
-            'description' => $request->description ?? [],
+            'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
+            'description' => array_filter($request->description ?? [], fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'image_path' => $imagePath,
             'url' => $request->url,
             'status' => $newStatus,
