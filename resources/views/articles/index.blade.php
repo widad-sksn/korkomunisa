@@ -52,7 +52,7 @@
                                             </td>
                                             <td class="py-3 px-4">
                                                 <div class="font-semibold">{{ $article->title }}</div>
-                                                <div class="text-sm text-gray-500">{{ Str::limit(strip_tags($article->content), 50) }}</div>
+                                                <div class="text-sm text-gray-500">{{ Str::limit(html_entity_decode(strip_tags($article->content)), 50) }}</div>
                                                 <div class="text-xs text-gray-400 mt-1">{{ $article->created_at->format('d M Y') }}</div>
                                             </td>
                                             <td class="py-3 px-4">

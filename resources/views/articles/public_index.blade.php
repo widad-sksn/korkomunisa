@@ -48,7 +48,7 @@
                                 <span class="text-theme-secondary">{{ $article->created_at->format('d M Y') }}</span>
                             </div>
                             <h3 class="font-extrabold text-lg mb-2 text-theme-text line-clamp-2 group-hover:text-theme-primary transition-colors leading-snug">{{ $article->title }}</h3>
-                            <p class="text-theme-secondary text-sm mb-4 line-clamp-3 leading-relaxed flex-grow">{{ strip_tags($article->content) }}</p>
+                            <p class="text-theme-secondary text-sm mb-4 line-clamp-3 leading-relaxed flex-grow">{{ html_entity_decode(strip_tags($article->content)) }}</p>
                             <div class="flex items-center text-xs text-theme-secondary mt-auto pt-4 border-t border-theme-border/50">
                                 <span class="font-medium text-theme-text">{{ __('Oleh:') }} {{ optional($article->user)->name ?? __('Anonim') }}</span>
                             </div>

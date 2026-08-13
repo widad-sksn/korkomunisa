@@ -7,7 +7,7 @@
 
     <!-- SEO Meta Tags -->
     @php
-        $metaDescription = Str::limit(strip_tags($article->content), 150);
+        $metaDescription = Str::limit(html_entity_decode(strip_tags($article->content)), 150);
         $metaImage = $article->media_path ? asset('storage/' . $article->media_path) : asset('images/Logo Korkom Unisa v2 trannsparan.png');
     @endphp
     <meta name="description" content="{{ $metaDescription }}">
