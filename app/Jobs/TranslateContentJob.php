@@ -17,6 +17,7 @@ class TranslateContentJob implements ShouldQueue
 
     public $model;
     public $force;
+    public $timeout = 300; // Allow up to 5 minutes for long translations
 
     /**
      * Create a new job instance.

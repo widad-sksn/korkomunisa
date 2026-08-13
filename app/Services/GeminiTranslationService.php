@@ -73,7 +73,7 @@ class GeminiTranslationService
         ];
 
         try {
-            $response = Http::timeout(60)->post($url, $payload);
+            $response = Http::timeout(300)->post($url, $payload);
 
             if ($response->successful()) {
                 $result = $response->json();
