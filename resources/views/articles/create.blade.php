@@ -86,6 +86,14 @@
                                     processFiles(files) {
                                         if (files.length > 0) {
                                             const selectedFile = files[0];
+                                            
+                                            // Limit size to 20MB
+                                            if (selectedFile.size > 20 * 1024 * 1024) {
+                                                alert('Maaf, ukuran media (foto/video) melebihi batas maksimal 20 MB!');
+                                                this.$refs.fileInput.value = '';
+                                                return;
+                                            }
+
                                             this.fileType = selectedFile.type;
                                             this.fileName = selectedFile.name;
                                             

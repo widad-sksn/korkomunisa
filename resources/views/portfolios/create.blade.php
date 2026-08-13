@@ -86,6 +86,14 @@
                                     processFiles(files) {
                                         if (files.length > 0) {
                                             const selectedFile = files[0];
+                                            
+                                            // Limit size to 5MB
+                                            if (selectedFile.size > 5 * 1024 * 1024) {
+                                                alert('Maaf, ukuran foto kegiatan melebihi batas maksimal 5 MB!');
+                                                this.$refs.fileInput.value = '';
+                                                return;
+                                            }
+
                                             this.fileType = selectedFile.type;
                                             this.fileName = selectedFile.name;
                                             

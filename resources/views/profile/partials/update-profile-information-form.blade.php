@@ -97,6 +97,14 @@
                     processFiles(files) {
                         if (files.length > 0) {
                             const selectedFile = files[0];
+
+                            // Limit size to 2MB
+                            if (selectedFile.size > 2 * 1024 * 1024) {
+                                alert('Maaf, ukuran foto profil melebihi batas maksimal 2 MB!');
+                                this.$refs.fileInput.value = '';
+                                return;
+                            }
+                            
                             this.fileType = selectedFile.type;
                             this.fileName = selectedFile.name;
                             
