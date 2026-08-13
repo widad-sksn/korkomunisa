@@ -75,6 +75,9 @@ class PortfolioController extends Controller
             'url' => $request->url,
             'status' => 'pending',
         ]);
+        
+        // Mulai proses terjemahan di latar belakang
+        \App\Jobs\TranslateContentJob::dispatch($portfolio);
 
         return redirect()->route('portfolios.index')->with('success', 'Kegiatan berhasil diposting dan menunggu persetujuan admin.');
     }
@@ -122,6 +125,9 @@ class PortfolioController extends Controller
             'url' => $request->url,
             'status' => $newStatus,
         ]);
+        
+        // Mulai proses terjemahan ulang di latar belakang
+        \App\Jobs\TranslateContentJob::dispatch($portfolio, true);
 
         if (auth()->user()->role === 'admin') {
             return redirect()->route('dashboard')->with('success', 'Kegiatan berhasil diperbarui oleh Admin. Terjemahan otomatis tidak berjalan saat edit, gunakan tombol Perbarui Terjemahan jika perlu.');

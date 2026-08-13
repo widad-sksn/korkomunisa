@@ -84,6 +84,9 @@ class ArticleController extends Controller
             'media_path' => $mediaPath,
             'status' => 'pending', // Requires admin approval
         ]);
+        
+        // Mulai proses terjemahan di latar belakang
+        \App\Jobs\TranslateContentJob::dispatch($article);
 
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil dikirim dan menunggu persetujuan admin.');
     }
@@ -137,6 +140,9 @@ class ArticleController extends Controller
             'media_path' => $mediaPath,
             'status' => $newStatus,
         ]);
+        
+        // Mulai proses terjemahan ulang di latar belakang
+        \App\Jobs\TranslateContentJob::dispatch($article, true);
 
         if (auth()->user()->role === 'admin') {
             return redirect()->route('dashboard')->with('success', 'Tulisan berhasil diperbarui oleh Admin. Terjemahan otomatis tidak berjalan saat edit, gunakan tombol Perbarui Terjemahan jika perlu.');
