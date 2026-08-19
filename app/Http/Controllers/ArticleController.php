@@ -78,17 +78,23 @@ class ArticleController extends Controller
             $mediaPath = $request->file('media')->store('articles_media', 'public');
         }
 
+        $isAdmin = auth()->user()->role === 'admin';
         $article = auth()->user()->articles()->create([
             'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
             'content' => array_filter($request->content, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'media_path' => $mediaPath,
-            'status' => 'pending', // Requires admin approval
+            'status' => $isAdmin ? 'published' : 'pending', // Admins bypass approval
         ]);
+        
+        if ($isAdmin) {
+            \Illuminate\Support\Facades\Cache::forget('stat_article_count');
+        }
         
         // Mulai proses terjemahan di latar belakang
         \App\Jobs\TranslateContentJob::dispatch($article);
 
-        return redirect()->route('articles.index')->with('success', 'Artikel berhasil dikirim dan menunggu persetujuan admin.');
+        $message = $isAdmin ? 'Artikel berhasil diterbitkan.' : 'Artikel berhasil dikirim dan menunggu persetujuan admin.';
+        return redirect()->route('articles.index')->with('success', $message);
     }
 
     /**

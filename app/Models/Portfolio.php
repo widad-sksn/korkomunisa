@@ -27,4 +27,14 @@ class Portfolio extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected static function booted()
+    {
+        static::saved(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('stat_portfolio_count');
+        });
+        static::deleted(function ($model) {
+            \Illuminate\Support\Facades\Cache::forget('stat_portfolio_count');
+        });
+    }
 }

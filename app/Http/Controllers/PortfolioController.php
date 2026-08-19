@@ -68,18 +68,24 @@ class PortfolioController extends Controller
             $imagePath = $request->file('image')->store('portfolios', 'public');
         }
 
+        $isAdmin = auth()->user()->role === 'admin';
         $portfolio = auth()->user()->portfolios()->create([
             'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
             'description' => array_filter($request->description ?? [], fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'image_path' => $imagePath,
             'url' => $request->url,
-            'status' => 'pending',
+            'status' => $isAdmin ? 'published' : 'pending',
         ]);
+        
+        if ($isAdmin) {
+            \Illuminate\Support\Facades\Cache::forget('stat_portfolio_count');
+        }
         
         // Mulai proses terjemahan di latar belakang
         \App\Jobs\TranslateContentJob::dispatch($portfolio);
 
-        return redirect()->route('portfolios.index')->with('success', 'Kegiatan berhasil diposting dan menunggu persetujuan admin.');
+        $message = $isAdmin ? 'Kegiatan berhasil diterbitkan.' : 'Kegiatan berhasil diposting dan menunggu persetujuan admin.';
+        return redirect()->route('portfolios.index')->with('success', $message);
     }
 
     public function edit(Portfolio $portfolio)
