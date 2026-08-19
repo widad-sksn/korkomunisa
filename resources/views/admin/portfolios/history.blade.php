@@ -42,10 +42,10 @@
                                                 <div class="flex flex-wrap gap-2 items-center">
                                                     <a href="{{ route('portfolios.show_public', $portfolio) }}" class="px-3 py-1.5 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 font-medium whitespace-nowrap">Lihat Halaman</a>
                                                     <a href="{{ route('portfolios.edit', $portfolio) }}" class="px-3 py-1.5 bg-yellow-500 text-white text-xs rounded-md hover:bg-yellow-600 font-medium whitespace-nowrap">Edit</a>
-                                                    <form action="{{ route('portfolios.destroy', $portfolio) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kegiatan ini selamanya?');" class="inline-block m-0">
+                                                    <form id="delete-form-history-portfolio-{{ $portfolio->id }}" action="{{ route('portfolios.destroy', $portfolio) }}" method="POST" class="inline-block m-0">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="px-3 py-1.5 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 font-medium whitespace-nowrap">Hapus</button>
+                                                        <button type="button" onclick="confirmDelete('delete-form-history-portfolio-{{ $portfolio->id }}', 'Apakah Anda yakin ingin menghapus kegiatan ini selamanya?')" class="px-3 py-1.5 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 font-medium whitespace-nowrap">Hapus</button>
                                                     </form>
                                                     @if($portfolio->status === 'published')
                                                         @if($portfolio->translation_status === 'failed')

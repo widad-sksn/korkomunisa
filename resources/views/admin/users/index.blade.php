@@ -71,10 +71,10 @@
                                                         @csrf
                                                         <button type="submit" class="px-3 py-1 bg-yellow-500 text-white text-xs rounded hover:bg-yellow-600 font-medium transition-colors">Masuk sbg User</button>
                                                     </form>
-                                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengguna ini? Semua data terkait (artikel, kegiatan) mungkin juga akan terpengaruh atau hilang.');">
+                                                    <form id="delete-form-user-{{ $user->id }}" action="{{ route('admin.users.destroy', $user) }}" method="POST" class="inline">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 font-medium transition-colors">Hapus</button>
+                                                        <button type="button" onclick="confirmDelete('delete-form-user-{{ $user->id }}', 'Apakah Anda yakin ingin menghapus pengguna ini? Semua data terkait (artikel, kegiatan) mungkin juga akan ikut terhapus.')" class="px-3 py-1 bg-red-500 text-white text-xs rounded hover:bg-red-600 font-medium transition-colors">Hapus</button>
                                                     </form>
                                                 @else
                                                     <span class="text-xs text-gray-400 italic">Anda</span>

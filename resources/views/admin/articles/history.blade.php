@@ -42,10 +42,10 @@
                                                 <div class="flex flex-wrap gap-2 items-center">
                                                     <a href="{{ route('articles.show_public', $article) }}" class="px-3 py-1.5 bg-blue-500 text-white text-xs rounded-md hover:bg-blue-600 font-medium whitespace-nowrap">Lihat Halaman</a>
                                                     <a href="{{ route('articles.edit', $article) }}" class="px-3 py-1.5 bg-yellow-500 text-white text-xs rounded-md hover:bg-yellow-600 font-medium whitespace-nowrap">Edit</a>
-                                                    <form action="{{ route('articles.destroy', $article) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus tulisan ini selamanya?');" class="inline-block m-0">
+                                                    <form id="delete-form-history-article-{{ $article->id }}" action="{{ route('articles.destroy', $article) }}" method="POST" class="inline-block m-0">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="px-3 py-1.5 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 font-medium whitespace-nowrap">Hapus</button>
+                                                        <button type="button" onclick="confirmDelete('delete-form-history-article-{{ $article->id }}', 'Apakah Anda yakin ingin menghapus tulisan ini selamanya?')" class="px-3 py-1.5 bg-red-500 text-white text-xs rounded-md hover:bg-red-600 font-medium whitespace-nowrap">Hapus</button>
                                                     </form>
                                                     @if($article->status === 'published')
                                                         @if($article->translation_status === 'failed')

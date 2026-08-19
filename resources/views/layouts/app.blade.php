@@ -20,6 +20,27 @@
         <!-- Cropper.js -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.1/cropper.min.js"></script>
+
+        <!-- SweetAlert2 -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            function confirmDelete(formId, message = 'Yakin ingin menghapus data ini?') {
+                Swal.fire({
+                    title: 'Konfirmasi',
+                    text: message,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#ef4444',
+                    cancelButtonColor: '#6b7280',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById(formId).submit();
+                    }
+                });
+            }
+        </script>
         
         <script>
             // Set dark mode early to prevent flicker
