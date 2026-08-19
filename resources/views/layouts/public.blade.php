@@ -34,6 +34,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" type="image/png">
+    
+    <!-- Flag Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -83,11 +86,11 @@
                             {{ strtoupper(app()->getLocale()) }}
                         </button>
                         <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-36 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 z-50">
-                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'id' ? 'font-bold text-theme-primary' : '' }}">🇮🇩 ID</a>
-                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'en' ? 'font-bold text-theme-primary' : '' }}">🇬🇧 EN</a>
-                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'ar' ? 'font-bold text-theme-primary' : '' }}">🇸🇦 AR</a>
-                            <a href="{{ route('lang.switch', 'ja') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'ja' ? 'font-bold text-theme-primary' : '' }}">🇯🇵 JA</a>
-                            <a href="{{ route('lang.switch', 'jv') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'jv' ? 'font-bold text-theme-primary' : '' }}">🇮🇩 JV</a>
+                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'id' ? 'font-bold text-theme-primary' : '' }}"><span class="fi fi-id fis rounded-sm mr-1"></span> ID</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'en' ? 'font-bold text-theme-primary' : '' }}"><span class="fi fi-gb fis rounded-sm mr-1"></span> EN</a>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'ar' ? 'font-bold text-theme-primary' : '' }}"><span class="fi fi-sa fis rounded-sm mr-1"></span> AR</a>
+                            <a href="{{ route('lang.switch', 'ja') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'ja' ? 'font-bold text-theme-primary' : '' }}"><span class="fi fi-jp fis rounded-sm mr-1"></span> JA</a>
+                            <a href="{{ route('lang.switch', 'jv') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-primary/10 transition-colors {{ app()->getLocale() === 'jv' ? 'font-bold text-theme-primary' : '' }}"><span class="fi fi-id fis rounded-sm mr-1"></span> JV</a>
                         </div>
                     </div>
 
@@ -154,11 +157,11 @@
                     
                     <div class="flex items-center justify-between px-3 py-2">
                         <div class="flex flex-col space-y-2">
-                            <a href="{{ route('lang.switch', 'id') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'id' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">🇮🇩 ID</a>
-                            <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'en' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">🇬🇧 EN</a>
-                            <a href="{{ route('lang.switch', 'ar') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ar' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">🇸🇦 AR</a>
-                            <a href="{{ route('lang.switch', 'ja') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ja' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">🇯🇵 JA</a>
-                            <a href="{{ route('lang.switch', 'jv') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'jv' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}">🇮🇩 JV</a>
+                            <a href="{{ route('lang.switch', 'id') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'id' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}"><span class="fi fi-id fis rounded-sm mr-1"></span> ID</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'en' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}"><span class="fi fi-gb fis rounded-sm mr-1"></span> EN</a>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ar' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}"><span class="fi fi-sa fis rounded-sm mr-1"></span> AR</a>
+                            <a href="{{ route('lang.switch', 'ja') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'ja' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}"><span class="fi fi-jp fis rounded-sm mr-1"></span> JA</a>
+                            <a href="{{ route('lang.switch', 'jv') }}" class="px-3 py-1.5 rounded-lg text-sm font-bold {{ app()->getLocale() == 'jv' ? 'bg-theme-text text-theme-bg' : 'text-theme-text hover:bg-theme-primary/10' }}"><span class="fi fi-id fis rounded-sm mr-1"></span> JV</a>
                         </div>
                         
                         <button @click="toggleTheme()" class="text-theme-text hover:text-theme-primary focus:outline-none p-2 rounded-xl bg-theme-surface flex items-center justify-center transition-colors">
