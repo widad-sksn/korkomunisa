@@ -24,8 +24,8 @@
                 <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo IMM" class="relative drop-shadow-lg w-48 md:w-80 lg:w-96 xl:w-[450px] h-auto">
             </div>
             
-            <p class="text-lg md:text-2xl italic font-light mt-2 mb-4 md:mt-6 md:mb-8 text-theme-secondary drop-shadow-sm leading-relaxed relative z-20">
-                {{ __('"Anggun dalam Moral, Unggul dalam Intelektual"') }}
+            <p class="text-lg md:text-2xl font-light mt-2 mb-4 md:mt-6 md:mb-8 text-theme-secondary drop-shadow-sm leading-relaxed relative z-20">
+                {{ __('Anggun dalam Moral, Unggul dalam Intelektual') }}
             </p>
         </div>
     </div>

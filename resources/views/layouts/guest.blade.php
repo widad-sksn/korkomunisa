@@ -30,7 +30,7 @@
                     </a>
                     <div class="mt-8">
                         <h2 class="text-3xl font-extrabold text-white tracking-tight drop-shadow-md">KORKOM UNISA</h2>
-                        <p class="text-white/80 mt-2 text-lg italic font-light">"Anggun dalam Moral, Unggul dalam Intelektual"</p>
+                        <p class="text-white/80 mt-2 text-lg font-light">Anggun dalam Moral, Unggul dalam Intelektual</p>
                     </div>
                 </div>
                 
