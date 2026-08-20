@@ -32,6 +32,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" type="image/png">
 
+    <!-- Flag Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.2.3/css/flag-icons.min.css" />
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script>
@@ -65,12 +68,12 @@
                             {{ strtoupper(app()->getLocale()) }}
                             <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </button>
-                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-24 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 z-50">
-                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">ID</a>
-                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">EN</a>
-                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">AR</a>
-                            <a href="{{ route('lang.switch', 'ja') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">JA</a>
-                            <a href="{{ route('lang.switch', 'jv') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors">JV</a>
+                        <div x-show="openLang" @click.away="openLang = false" x-transition class="absolute right-0 mt-2 w-36 bg-theme-surface border border-theme-border rounded-xl shadow-lg py-2 z-50">
+                            <a href="{{ route('lang.switch', 'id') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors"><span class="fi fi-id fis rounded-sm mr-1"></span> ID</a>
+                            <a href="{{ route('lang.switch', 'en') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors"><span class="fi fi-gb fis rounded-sm mr-1"></span> EN</a>
+                            <a href="{{ route('lang.switch', 'ar') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors"><span class="fi fi-sa fis rounded-sm mr-1"></span> AR</a>
+                            <a href="{{ route('lang.switch', 'ja') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors"><span class="fi fi-jp fis rounded-sm mr-1"></span> JA</a>
+                            <a href="{{ route('lang.switch', 'jv') }}" class="block px-4 py-2 text-sm text-theme-text hover:bg-theme-bg transition-colors"><span class="fi fi-id fis rounded-sm mr-1"></span> JV</a>
                         </div>
                     </div>
 
