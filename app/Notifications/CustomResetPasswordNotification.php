@@ -5,9 +5,43 @@ namespace App\Notifications;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
 use Jenssegers\Agent\Agent;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CustomResetPasswordNotification extends ResetPassword
+class CustomResetPasswordNotification extends ResetPassword implements ShouldQueue
 {
+    use Queueable;
+
+    public $ip;
+    public $browser;
+    public $os;
+    public $time;
+
+    public function __construct($token)
+    {
+        parent::__construct($token);
+        
+        $request = request();
+        $this->ip = $request->ip() ?: 'Unknown';
+        
+        $this->browser = $request->userAgent() ?: 'Tidak diketahui';
+        $this->os = 'Tidak diketahui';
+
+        if (class_exists(Agent::class)) {
+            $agent = new Agent();
+            $agent->setUserAgent($request->userAgent());
+            $this->browser = $agent->browser() ?: 'Tidak diketahui';
+            if ($agent->version($this->browser)) {
+                $this->browser .= ' ' . $agent->version($this->browser);
+            }
+            $this->os = $agent->platform() ?: 'Tidak diketahui';
+            if ($agent->version($this->os)) {
+                $this->os .= ' ' . $agent->version($this->os);
+            }
+        }
+        $this->time = now()->translatedFormat('l, d F Y H:i:s') . ' WIB';
+    }
+
     /**
      * Get the mail representation of the notification.
      *
@@ -21,35 +55,15 @@ class CustomResetPasswordNotification extends ResetPassword
             'email' => $notifiable->getEmailForPasswordReset(),
         ], false));
 
-        // Get request details
-        $request = request();
-        $ip = $request->ip();
-        
-        $browser = $request->userAgent() ?: 'Tidak diketahui';
-        $os = 'Tidak diketahui';
-
-        if (class_exists(Agent::class)) {
-            $agent = new Agent();
-            $agent->setUserAgent($request->userAgent());
-            $browser = $agent->browser() ?: 'Tidak diketahui';
-            if ($agent->version($browser)) {
-                $browser .= ' ' . $agent->version($browser);
-            }
-            $os = $agent->platform() ?: 'Tidak diketahui';
-            if ($agent->version($os)) {
-                $os .= ' ' . $agent->version($os);
-            }
-        }
-
         return (new MailMessage)
             ->subject('Permintaan Reset Password - IMM Korkom UNISA')
             ->view('emails.reset-password-custom', [
                 'url' => $url,
                 'user' => $notifiable,
-                'ip' => $ip,
-                'browser' => $browser,
-                'os' => $os,
-                'time' => now()->translatedFormat('l, d F Y H:i:s') . ' WIB',
+                'ip' => $this->ip,
+                'browser' => $this->browser,
+                'os' => $this->os,
+                'time' => $this->time,
             ]);
     }
 }
