@@ -24,6 +24,17 @@ class AdminUserController extends Controller
         return redirect()->route('admin.users.index')->with('success', 'Pengguna berhasil dihapus.');
     }
 
+    public function verify(User $user)
+    {
+        if ($user->hasVerifiedEmail()) {
+            return redirect()->route('admin.users.index')->with('error', 'Pengguna ini sudah terverifikasi.');
+        }
+
+        $user->markEmailAsVerified();
+
+        return redirect()->route('admin.users.index')->with('success', "Pengguna {$user->name} berhasil diverifikasi secara manual.");
+    }
+
     public function impersonate(User $user)
     {
         // Prevent impersonating oneself or another admin if desired, but we just prevent oneself

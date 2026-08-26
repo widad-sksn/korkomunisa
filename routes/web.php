@@ -85,6 +85,7 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::get('/users', [\App\Http\Controllers\AdminUserController::class, 'index'])->name('users.index');
     Route::delete('/users/{user}', [\App\Http\Controllers\AdminUserController::class, 'destroy'])->name('users.destroy');
     Route::post('/users/{user}/impersonate', [\App\Http\Controllers\AdminUserController::class, 'impersonate'])->name('users.impersonate');
+    Route::patch('/users/{user}/verify', [\App\Http\Controllers\AdminUserController::class, 'verify'])->name('users.verify');
 });
 
 Route::middleware(['auth'])->group(function () {
