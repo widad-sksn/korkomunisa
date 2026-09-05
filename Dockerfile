@@ -5,7 +5,6 @@ ENV TZ=Asia/Jakarta
 
 RUN apt-get update && apt-get install -y \
     software-properties-common \
-    ca-certificates \
     curl \
     zip \
     unzip \
@@ -51,13 +50,6 @@ RUN composer install --no-interaction --no-dev --optimize-autoloader || \
 # Install Node dependencies and build assets
 ENV NODE_OPTIONS="--max-old-space-size=1536"
 RUN npm install && npm run build
-
-# Generate default SSL certificate so Nginx port 443 can start immediately
-RUN mkdir -p /etc/ssl/certs /etc/ssl/private \
-    && openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
-        -keyout /etc/ssl/private/app.key \
-        -out /etc/ssl/certs/app.crt \
-        -subj "/CN=immkorkom.unisayogya.ac.id"
 
 # Copy configuration files
 COPY docker/nginx.conf /etc/nginx/sites-available/default
