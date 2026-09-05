@@ -37,17 +37,16 @@ php artisan view:cache
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
-# Auto-configure SSL only if not already issued (prevents Let's Encrypt rate limiting on restarts)
-if [ ! -f "/etc/letsencrypt/live/immkorkom.unisayogya.ac.id/fullchain.pem" ]; then
-    echo "SSL certificate not found. Requesting via Certbot..."
-    nginx -g "daemon on;"
-    sleep 2
-    certbot --nginx -d immkorkom.unisayogya.ac.id --non-interactive --agree-tos -m immkorkom@unisayogya.ac.id --redirect || echo "Certbot process finished."
-    nginx -s stop
-    sleep 1
-else
-    echo "SSL certificate already exists. Skipping initial Certbot request."
-fi
+# Start Nginx temporarily for Certbot validation & configuration
+nginx -g "daemon on;"
+sleep 2
+
+# Auto-configure SSL (uses --keep-until-expiring to reuse existing cert and configure Nginx for port 443)
+certbot --nginx -d immkorkom.unisayogya.ac.id --non-interactive --agree-tos -m immkorkom@unisayogya.ac.id --redirect --keep-until-expiring || echo "Certbot process finished."
+
+# Stop temporary Nginx so Supervisor can take over
+nginx -s stop
+sleep 1
 
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
