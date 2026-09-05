@@ -37,16 +37,12 @@ php artisan view:cache
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache /var/www/html/database
 
-# Start Nginx temporarily for Certbot validation & configuration
-nginx -g "daemon on;"
-sleep 2
-
-# Auto-configure SSL (uses --keep-until-expiring to reuse existing cert and configure Nginx for port 443)
-certbot --nginx -d immkorkom.unisayogya.ac.id --non-interactive --agree-tos -m immkorkom@unisayogya.ac.id --redirect --keep-until-expiring || echo "Certbot process finished."
-
-# Stop temporary Nginx so Supervisor can take over
-nginx -s stop
-sleep 1
+# Use Let's Encrypt certificate if present in volume, otherwise fallback to build certificate
+if [ -f "/etc/letsencrypt/live/immkorkom.unisayogya.ac.id/fullchain.pem" ]; then
+    echo "Using existing Let's Encrypt certificates..."
+    cp -f /etc/letsencrypt/live/immkorkom.unisayogya.ac.id/fullchain.pem /etc/ssl/certs/app.crt
+    cp -f /etc/letsencrypt/live/immkorkom.unisayogya.ac.id/privkey.pem /etc/ssl/private/app.key
+fi
 
 # Start supervisor
 exec /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
