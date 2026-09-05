@@ -37,9 +37,12 @@ class AdminUserController extends Controller
 
     public function impersonate(User $user)
     {
-        // Prevent impersonating oneself or another admin if desired, but we just prevent oneself
         if (auth()->id() === $user->id) {
             return redirect()->route('admin.users.index')->with('error', 'Anda tidak dapat login sebagai diri sendiri.');
+        }
+
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.users.index')->with('error', 'Tidak dapat masuk sebagai akun Admin lain.');
         }
 
         $adminId = auth()->id();
@@ -61,18 +64,22 @@ class AdminUserController extends Controller
     {
         if (session()->has('impersonate_by')) {
             $adminId = session()->pull('impersonate_by');
-            
-            // Log the action
-            $currentUserId = auth()->id();
-            \Illuminate\Support\Facades\Log::info("Admin (ID: {$adminId}) stopped impersonating user (ID: {$currentUserId}) and returned to admin account");
 
-            // Logout current user (the impersonated one)
+            // Verify original user exists and is still an admin
+            $admin = User::find($adminId);
+            if ($admin && $admin->role === 'admin') {
+                $currentUserId = auth()->id();
+                \Illuminate\Support\Facades\Log::info("Admin (ID: {$adminId}) stopped impersonating user (ID: {$currentUserId}) and returned to admin account");
+
+                auth()->logout();
+                auth()->login($admin);
+
+                return redirect()->route('admin.users.index')->with('success', 'Berhasil kembali ke akun Admin.');
+            }
+
+            // If session was invalid or user is not an admin anymore, logout cleanly
             auth()->logout();
-
-            // Login back as the admin
-            auth()->loginUsingId($adminId);
-
-            return redirect()->route('admin.users.index')->with('success', 'Berhasil kembali ke akun Admin.');
+            return redirect()->route('login')->with('error', 'Sesi admin tidak valid. Silakan login kembali.');
         }
 
         return redirect()->route('dashboard');

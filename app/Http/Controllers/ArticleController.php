@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Services\AutoTranslationService;
+use App\Support\HtmlSanitizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -79,9 +80,10 @@ class ArticleController extends Controller
         }
 
         $isAdmin = auth()->user()->role === 'admin';
+        $sanitizedContent = HtmlSanitizer::cleanInput($request->content);
         $article = auth()->user()->articles()->create([
             'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
-            'content' => array_filter($request->content, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
+            'content' => array_filter($sanitizedContent, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'media_path' => $mediaPath,
             'status' => $isAdmin ? 'published' : 'pending', // Admins bypass approval
         ]);
@@ -140,9 +142,10 @@ class ArticleController extends Controller
             $newStatus = 'pending';
         }
 
+        $sanitizedContent = HtmlSanitizer::cleanInput($request->content);
         $article->update([
             'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
-            'content' => array_filter($request->content, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
+            'content' => array_filter($sanitizedContent, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'media_path' => $mediaPath,
             'status' => $newStatus,
         ]);

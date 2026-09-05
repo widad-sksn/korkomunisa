@@ -5,11 +5,13 @@
 
 @section('content')
     @php
-        function localizeNumber($num) {
-            if(app()->getLocale() == 'ar') {
-                return str_replace(['0','1','2','3','4','5','6','7','8','9'], ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'], $num);
+        if (!function_exists('localizeNumber')) {
+            function localizeNumber($num) {
+                if(app()->getLocale() == 'ar') {
+                    return str_replace(['0','1','2','3','4','5','6','7','8','9'], ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'], $num);
+                }
+                return $num;
             }
-            return $num;
         }
     @endphp
     <!-- Premium Hero Section -->
@@ -260,11 +262,8 @@
                                             </div>
                                             <h4 class="font-extrabold text-theme-text mb-1 md:mb-2 text-base md:text-lg group-hover:text-theme-primary transition-colors leading-snug line-clamp-2">{{ $portfolio->title }}</h4>
                                             <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow line-clamp-3">{{ Str::limit(html_entity_decode(strip_tags($portfolio->description)), 120) }}</p>
-                                            <div class="mt-auto pt-3 md:pt-4 border-t border-theme-border/50">
-                                                <span class="inline-flex items-center text-theme-primary hover:text-theme-hover text-[10px] md:text-xs font-bold transition-colors">
-                                                    {{ __('Baca Selengkapnya') }} 
-                                                    <svg class="w-3 h-3 md:w-4 md:h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                                </span>
+                                            <div class="flex items-center text-[10px] md:text-xs text-theme-secondary mt-auto pt-3 md:pt-4 border-t border-theme-border/50">
+                                                <span class="font-medium text-theme-text">{{ __('Oleh:') }} {{ $portfolio->penulis ?? $portfolio->author ?? optional($portfolio->user)->name ?? __('Anonim') }}</span>
                                             </div>
                                         </div>
                                     </a>

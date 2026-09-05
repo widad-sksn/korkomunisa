@@ -11,7 +11,7 @@
         </label>
     @endif
 
-    <textarea name="{{ $name }}" id="{{ $inputId }}">{!! $value !!}</textarea>
+    <textarea name="{{ $name }}" id="{{ $inputId }}">{{ $value }}</textarea>
 
     {{-- Status bar --}}
     <div class="ck-status-bar flex flex-wrap gap-3 items-center justify-between text-xs font-medium text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800/80 px-4 py-2 rounded-b-lg border border-t-0 border-gray-300 dark:border-gray-600/60">

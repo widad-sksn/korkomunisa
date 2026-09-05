@@ -15,14 +15,15 @@ class GeminiTranslationService
      */
     public static function translate(array $data): ?array
     {
-        $apiKey = env('GEMINI_API_KEY');
+        $apiKey = config('services.gemini.key');
+        $model = config('services.gemini.model', 'gemini-1.5-flash');
         
         if (empty($apiKey)) {
-            Log::error('GeminiTranslationService: GEMINI_API_KEY is not set in .env');
+            Log::error('GeminiTranslationService: GEMINI_API_KEY is not configured in services.gemini.key');
             return null;
         }
 
-        $url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=' . $apiKey;
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/{$model}:generateContent";
 
         // Protected terms mentioned by the user
         $protectedTerms = "IMM, Muhammadiyah, Universitas 'Aisyiyah Yogyakarta', Korkom, Komisariat, Darul Arqam, Tanwir, Muktamar, Laravel, PHP, JavaScript, HTML, CSS, Bootstrap, CKEditor, Docker, GitHub, GitLab, MySQL, PostgreSQL, Redis, Queue, Middleware, REST API, API, JWT, OAuth, Ubuntu, Linux, OpenWrt, Proxmox";
@@ -73,7 +74,9 @@ class GeminiTranslationService
         ];
 
         try {
-            $response = Http::timeout(300)->post($url, $payload);
+            $response = Http::withHeaders([
+                'x-goog-api-key' => $apiKey,
+            ])->timeout(120)->post($url, $payload);
 
             if ($response->successful()) {
                 $result = $response->json();

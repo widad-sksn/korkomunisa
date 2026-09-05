@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AboutImm;
 use App\Http\Requests\UpdateAboutImmRequest;
 use App\Services\AutoTranslationService;
+use App\Support\HtmlSanitizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,9 +28,10 @@ class AboutImmController extends Controller
     public function update(UpdateAboutImmRequest $request)
     {
         $about = AboutImm::firstOrCreate(['id' => 1]);
+        $sanitizedContent = HtmlSanitizer::cleanInput($request->content);
         $about->update([
             'title' => is_array($request->title) ? array_filter($request->title, fn($val) => !is_null($val) && $val !== '') : $request->title,
-            'content' => is_array($request->content) ? array_filter($request->content, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== '') : $request->content,
+            'content' => is_array($sanitizedContent) ? array_filter($sanitizedContent, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== '') : $sanitizedContent,
             'translation_status' => 'pending',
         ]);
 

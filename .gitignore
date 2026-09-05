@@ -24,3 +24,11 @@ Homestead.yaml
 Thumbs.db
 *.py
 *password*.txt
+*.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+/database/*.sqlite
+/database/*.sqlite-journal
+/database/*.sqlite-shm
+/database/*.sqlite-wal

@@ -34,7 +34,7 @@ Route::get('/lang/{locale}', function ($locale) {
     if (in_array($locale, ['id', 'en', 'ar', 'ja', 'jv'])) {
         session()->put('locale', $locale);
     }
-    return redirect()->back();
+    return redirect()->back(fallback: '/');
 })->name('lang.switch');
 
 Route::get('/tentang-imm', function () {

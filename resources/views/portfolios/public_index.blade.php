@@ -40,11 +40,8 @@
                             </div>
                             <h4 class="font-extrabold text-theme-text mb-2 text-lg group-hover:text-theme-primary transition-colors leading-snug line-clamp-2">{{ $portfolio->title }}</h4>
                             <p class="text-sm text-theme-secondary mb-4 leading-relaxed flex-grow line-clamp-3">{{ Str::limit(html_entity_decode(strip_tags($portfolio->description)), 120) }}</p>
-                            <div class="mt-auto pt-4 border-t border-theme-border/50">
-                                <span class="inline-flex items-center text-theme-primary hover:text-theme-hover text-xs font-bold transition-colors">
-                                    {{ __('Baca Selengkapnya') }} 
-                                    <svg class="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </span>
+                            <div class="flex items-center text-xs text-theme-secondary mt-auto pt-4 border-t border-theme-border/50">
+                                <span class="font-medium text-theme-text">{{ __('Oleh:') }} {{ $portfolio->penulis ?? $portfolio->author ?? optional($portfolio->user)->name ?? __('Anonim') }}</span>
                             </div>
                         </div>
                     </a>

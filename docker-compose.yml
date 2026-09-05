@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   app:
     build:
@@ -33,6 +31,10 @@ services:
       - app_storage:/var/www/html/storage
       - app_database:/var/www/html/database
       - ./.env:/var/www/html/.env
+    deploy:
+      resources:
+        limits:
+          memory: 1G
 
 volumes:
   app_storage:

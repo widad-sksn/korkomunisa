@@ -7,7 +7,6 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -23,7 +22,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'role',
         'komisariat',
         'avatar',
         'bidang',
@@ -72,17 +70,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new \App\Notifications\CustomResetPasswordNotification($token));
-    }
-
-    /**
-     * Intercept role checking to always make specific email an admin.
-     */
-    protected function role(): Attribute
-    {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => 
-                ($attributes['email'] ?? '') === 'immkorkom@unisayogya.ac.id' ? 'admin' : $value,
-        );
     }
 
     public function articles()

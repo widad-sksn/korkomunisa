@@ -21,7 +21,7 @@ class TurnstileRule implements ValidationRule
         }
 
         try {
-            $response = Http::withoutVerifying()->timeout(15)->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+            $response = Http::timeout(15)->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
                 'secret' => config('services.turnstile.secret_key'),
                 'response' => $value,
                 'remoteip' => request()->ip(),

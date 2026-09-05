@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Portfolio;
 use App\Services\AutoTranslationService;
+use App\Support\HtmlSanitizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,7 +61,7 @@ class PortfolioController extends Controller
             'description' => 'nullable|array',
             'description.id' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|extensions:jpeg,png,jpg,gif,webp|max:5120',
-            'url' => 'nullable|url|max:255',
+            'url' => 'nullable|url:http,https|max:255',
         ]);
 
         $imagePath = null;
@@ -69,9 +70,10 @@ class PortfolioController extends Controller
         }
 
         $isAdmin = auth()->user()->role === 'admin';
+        $sanitizedDescription = HtmlSanitizer::cleanInput($request->description ?? []);
         $portfolio = auth()->user()->portfolios()->create([
             'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
-            'description' => array_filter($request->description ?? [], fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
+            'description' => array_filter($sanitizedDescription, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'image_path' => $imagePath,
             'url' => $request->url,
             'status' => $isAdmin ? 'published' : 'pending',
@@ -108,7 +110,7 @@ class PortfolioController extends Controller
             'description' => 'nullable|array',
             'description.id' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|extensions:jpeg,png,jpg,gif,webp|max:5120',
-            'url' => 'nullable|url|max:255',
+            'url' => 'nullable|url:http,https|max:255',
         ]);
 
         $imagePath = $portfolio->image_path;
@@ -124,9 +126,10 @@ class PortfolioController extends Controller
             $newStatus = 'pending';
         }
 
+        $sanitizedDescription = HtmlSanitizer::cleanInput($request->description ?? []);
         $portfolio->update([
             'title' => array_filter($request->title, fn($val) => !is_null($val) && $val !== ''),
-            'description' => array_filter($request->description ?? [], fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
+            'description' => array_filter($sanitizedDescription, fn($val) => !is_null($val) && $val !== '<p>&nbsp;</p>' && $val !== ''),
             'image_path' => $imagePath,
             'url' => $request->url,
             'status' => $newStatus,
