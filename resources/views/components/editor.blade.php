@@ -1,5 +1,9 @@
 @props(['name', 'id' => null, 'value' => '', 'module' => 'general', 'label' => ''])
 
+@once
+    @vite(['resources/js/editor.js'])
+@endonce
+
 @php
     $inputId = $id ?? $name;
 @endphp

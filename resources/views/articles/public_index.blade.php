@@ -35,7 +35,7 @@
                                 <video src="{{ asset('storage/' . $article->media_path) }}" class="w-full h-44 object-cover shrink-0" controls></video>
                             @else
                                 <div class="overflow-hidden h-44 shrink-0 relative">
-                                    <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                                     <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                                 </div>
                             @endif
@@ -77,7 +77,7 @@
                                 </div>
                             @else
                                 <div class="relative w-full aspect-[16/9] overflow-hidden bg-theme-bg">
-                                    <img src="{{ asset('storage/' . $headlineArticle->media_path) }}" alt="{{ $headlineArticle->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <img src="{{ asset('storage/' . $headlineArticle->media_path) }}" alt="{{ $headlineArticle->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" decoding="async">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                                     <div class="absolute bottom-3 left-3 right-3 text-white">
                                         <span class="inline-block bg-theme-primary text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow mb-1">
@@ -126,7 +126,7 @@
                                 </div>
                                 @if($article->media_path)
                                     <div class="w-24 h-20 rounded-xl overflow-hidden shrink-0 bg-theme-bg border border-theme-border">
-                                        <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                        <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
                                     </div>
                                 @else
                                     <div class="w-24 h-20 rounded-xl shrink-0 bg-theme-bg border border-theme-border flex items-center justify-center text-[10px] text-theme-secondary">

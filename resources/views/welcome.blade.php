@@ -18,12 +18,12 @@
     <div class="relative py-4 md:py-12 text-center transition-colors duration-300 overflow-hidden flex flex-col items-center justify-center min-h-[25vh] md:min-h-[35vh] bg-theme-bg">
         
         <!-- Abstract Campus Overlay -->
-        <div class="absolute inset-0 z-0 opacity-5 dark:opacity-[0.03] pointer-events-none mix-blend-multiply dark:mix-blend-screen bg-cover bg-center" style="background-image: url('{{ asset('images/campus_bg.png') }}');"></div>
+        <div class="absolute inset-0 z-0 opacity-5 dark:opacity-[0.03] pointer-events-none mix-blend-multiply dark:mix-blend-screen bg-cover bg-center" style="background-image: url('{{ asset('images/campus_bg.webp') }}');"></div>
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center relative z-10">
             <!-- Logo -->
             <div class="relative mb-0 z-10">
-                <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo IMM" class="relative drop-shadow-lg w-48 md:w-80 lg:w-96 xl:w-[450px] h-auto">
+                <img src="{{ asset('images/Logo_v2.webp') }}" alt="Logo IMM" class="relative drop-shadow-lg w-48 md:w-80 lg:w-96 xl:w-[450px] h-auto" fetchpriority="high" decoding="async">
             </div>
             
             <p class="text-lg md:text-2xl font-light mt-2 mb-4 md:mt-6 md:mb-8 text-theme-secondary drop-shadow-sm leading-relaxed relative z-20">
@@ -84,7 +84,7 @@
                 <!-- IMM FST -->
                 <div class="bg-theme-surface border border-theme-border rounded-xl md:rounded-2xl p-2.5 sm:p-4 md:p-8 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group">
                     <div class="h-10 sm:h-14 md:h-20 w-full flex items-center justify-center mb-1.5 sm:mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <img src="{{ asset('images/IMM-FST.png') }}" alt="Logo IMM FST" class="h-full w-auto object-contain drop-shadow-md">
+                        <img src="{{ asset('images/IMM-FST.webp') }}" alt="Logo IMM FST" class="h-full w-auto object-contain drop-shadow-md" loading="lazy" decoding="async">
                     </div>
                     <h3 class="text-xs sm:text-sm md:text-xl font-bold text-theme-text truncate w-full">IMM FST</h3>
                 </div>
@@ -92,7 +92,7 @@
                 <!-- IMM Rosyad Sholeh -->
                 <div class="bg-theme-surface border border-theme-border rounded-xl md:rounded-2xl p-2.5 sm:p-4 md:p-8 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group">
                     <div class="h-10 sm:h-14 md:h-20 w-full flex items-center justify-center mb-1.5 sm:mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <img src="{{ asset('images/rosyad sholeh.png') }}" alt="Logo IMM Rosyad Sholeh" class="h-full w-auto object-contain drop-shadow-md">
+                        <img src="{{ asset('images/rosyad_sholeh.webp') }}" alt="Logo IMM Rosyad Sholeh" class="h-full w-auto object-contain drop-shadow-md" loading="lazy" decoding="async">
                     </div>
                     <h3 class="text-xs sm:text-sm md:text-xl font-bold text-theme-text truncate w-full">IMM Rosyad Sholeh</h3>
                 </div>
@@ -100,7 +100,7 @@
                 <!-- IMM Fikes -->
                 <div class="bg-theme-surface border border-theme-border rounded-xl md:rounded-2xl p-2.5 sm:p-4 md:p-8 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 relative group">
                     <div class="h-10 sm:h-14 md:h-20 w-full flex items-center justify-center mb-1.5 sm:mb-3 md:mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <img src="{{ asset('images/fikes.png') }}" alt="Logo IMM Fikes" class="h-full w-auto object-contain drop-shadow-md">
+                        <img src="{{ asset('images/fikes.webp') }}" alt="Logo IMM Fikes" class="h-full w-auto object-contain drop-shadow-md" loading="lazy" decoding="async">
                     </div>
                     <h3 class="text-xs sm:text-sm md:text-xl font-bold text-theme-text truncate w-full">IMM Fikes</h3>
                 </div>
@@ -124,18 +124,20 @@
                 <div class="hidden md:block">
                     <div x-data="{ swiper: null }"
                          x-init="
-                            swiper = new Swiper($refs.swiperContainer, {
-                                loop: {{ count($articles) > 4 ? 'true' : 'false' }},
-                                autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
-                                slidesPerView: 1,
-                                spaceBetween: 16,
-                                breakpoints: {
-                                    640: { slidesPerView: 2, spaceBetween: 16 },
-                                    768: { slidesPerView: 3, spaceBetween: 24 },
-                                    1024: { slidesPerView: 4, spaceBetween: 24 }
-                                },
-                                navigation: { nextEl: $refs.nextBtn, prevEl: $refs.prevBtn }
-                            });
+                            if (window.innerWidth >= 768) {
+                                swiper = new Swiper($refs.swiperContainer, {
+                                    loop: {{ count($articles) > 4 ? 'true' : 'false' }},
+                                    autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
+                                    slidesPerView: 1,
+                                    spaceBetween: 16,
+                                    breakpoints: {
+                                        640: { slidesPerView: 2, spaceBetween: 16 },
+                                        768: { slidesPerView: 3, spaceBetween: 24 },
+                                        1024: { slidesPerView: 4, spaceBetween: 24 }
+                                    },
+                                    navigation: { nextEl: $refs.nextBtn, prevEl: $refs.prevBtn }
+                                });
+                            }
                          "
                          class="relative group/slider w-full">
                         
@@ -158,7 +160,7 @@
                                                     <video src="{{ asset('storage/' . $article->media_path) }}" class="w-full h-40 object-cover shrink-0" controls></video>
                                                 @else
                                                     <div class="overflow-hidden h-40 shrink-0 relative">
-                                                        <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                                        <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                                                         <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                                                     </div>
                                                 @endif
@@ -210,7 +212,7 @@
                                     </div>
                                 @else
                                     <div class="relative w-full aspect-[16/9] overflow-hidden bg-theme-surface">
-                                        <img src="{{ asset('storage/' . $headlineArticle->media_path) }}" alt="{{ $headlineArticle->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                        <img src="{{ asset('storage/' . $headlineArticle->media_path) }}" alt="{{ $headlineArticle->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" decoding="async">
                                         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                                         <div class="absolute bottom-3 left-3 right-3 text-white">
                                             <span class="inline-block bg-theme-primary text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow mb-1">
@@ -260,7 +262,7 @@
                                     </div>
                                     @if($article->media_path)
                                         <div class="w-24 h-20 rounded-xl overflow-hidden shrink-0 bg-theme-surface border border-theme-border">
-                                            <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                            <img src="{{ asset('storage/' . $article->media_path) }}" alt="{{ $article->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
                                         </div>
                                     @else
                                         <div class="w-24 h-20 rounded-xl shrink-0 bg-theme-surface border border-theme-border flex items-center justify-center text-[10px] text-theme-secondary">
@@ -298,18 +300,20 @@
                 <div class="hidden md:block">
                     <div x-data="{ swiper: null }"
                          x-init="
-                            swiper = new Swiper($refs.swiperContainer, {
-                                loop: {{ count($portfolios) > 4 ? 'true' : 'false' }},
-                                autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
-                                slidesPerView: 1,
-                                spaceBetween: 16,
-                                breakpoints: {
-                                    640: { slidesPerView: 2, spaceBetween: 16 },
-                                    768: { slidesPerView: 3, spaceBetween: 24 },
-                                    1024: { slidesPerView: 4, spaceBetween: 24 }
-                                },
-                                navigation: { nextEl: $refs.nextBtn, prevEl: $refs.prevBtn }
-                            });
+                            if (window.innerWidth >= 768) {
+                                swiper = new Swiper($refs.swiperContainer, {
+                                    loop: {{ count($portfolios) > 4 ? 'true' : 'false' }},
+                                    autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
+                                    slidesPerView: 1,
+                                    spaceBetween: 16,
+                                    breakpoints: {
+                                        640: { slidesPerView: 2, spaceBetween: 16 },
+                                        768: { slidesPerView: 3, spaceBetween: 24 },
+                                        1024: { slidesPerView: 4, spaceBetween: 24 }
+                                    },
+                                    navigation: { nextEl: $refs.nextBtn, prevEl: $refs.prevBtn }
+                                });
+                            }
                          "
                          class="relative group/slider w-full">
                         
@@ -326,7 +330,7 @@
                                         <a href="{{ route('portfolios.show_public', $portfolio) }}" class="w-full h-full group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col">
                                             @if($portfolio->image_path)
                                                 <div class="overflow-hidden h-40 shrink-0 relative">
-                                                    <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                                    <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                                                     <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                                                 </div>
                                             @else
@@ -367,7 +371,7 @@
                         <a href="{{ route('portfolios.show_public', $headlinePortfolio) }}" class="block group bg-theme-surface border border-theme-border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
                             @if($headlinePortfolio->image_path)
                                 <div class="relative w-full aspect-[16/9] overflow-hidden bg-theme-bg">
-                                    <img src="{{ asset('storage/' . $headlinePortfolio->image_path) }}" alt="{{ $headlinePortfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <img src="{{ asset('storage/' . $headlinePortfolio->image_path) }}" alt="{{ $headlinePortfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" decoding="async">
                                     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                                     <div class="absolute bottom-3 left-3 right-3 text-white">
                                         <span class="inline-block bg-red-600 text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow mb-1">
@@ -416,7 +420,7 @@
                                     </div>
                                     @if($portfolio->image_path)
                                         <div class="w-24 h-20 rounded-xl overflow-hidden shrink-0 bg-theme-bg border border-theme-border">
-                                            <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                            <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
                                         </div>
                                     @else
                                         <div class="w-24 h-20 rounded-xl shrink-0 bg-theme-bg border border-theme-border flex items-center justify-center text-[10px] text-theme-secondary">

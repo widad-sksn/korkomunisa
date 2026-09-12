@@ -22,7 +22,7 @@
             <div class="hidden md:flex md:w-1/2 relative flex-col justify-center items-center p-12 overflow-hidden"
                  style="background: radial-gradient(circle at top left, #111827 0%, transparent 50%), linear-gradient(135deg, #111827 0%, #5C1026 50%, #9B1238 100%);">
                 <!-- Abstract Campus Overlay -->
-                <div class="absolute inset-0 z-0 opacity-[0.05] mix-blend-overlay bg-cover bg-center" style="background-image: url('{{ asset('images/campus_bg.png') }}');"></div>
+                <div class="absolute inset-0 z-0 opacity-[0.05] mix-blend-overlay bg-cover bg-center" style="background-image: url('{{ asset('images/campus_bg.webp') }}');"></div>
                 
                 <div class="relative z-10 text-center flex flex-col items-center">
                     <a href="/" class="block hover:scale-105 transition-transform duration-300">

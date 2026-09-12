@@ -41,7 +41,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
         // Set dark mode early to prevent flicker
@@ -63,7 +63,7 @@
             <div class="flex justify-between items-center h-14 md:h-16 px-4 md:px-6 bg-theme-navbar border border-theme-border rounded-full shadow-md transition-colors duration-300">
                 <div class="flex items-center">
                     <a href="{{ url('/') }}" class="flex items-center group">
-                        <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo" class="mr-2 md:mr-3 h-8 md:h-10 w-auto group-hover:scale-105 transition-transform">
+                        <img src="{{ asset('images/Logo_v1.webp') }}" alt="Logo" class="mr-2 md:mr-3 h-8 md:h-10 w-auto group-hover:scale-105 transition-transform" decoding="async">
                         <span class="font-extrabold text-theme-text text-sm md:text-base hidden lg:block tracking-tight">KORKOM UNISA</span>
                     </a>
                 </div>
@@ -206,7 +206,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <div class="flex items-center mb-6 md:mb-0">
-                    <img src="{{ asset('images/Logo Korkom Unisa v2 trannsparan.png') }}" alt="Logo" class="mr-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style="height: 40px; width: auto;">
+                    <img src="{{ asset('images/Logo_v2.webp') }}" alt="Logo" class="mr-4 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300" style="height: 40px; width: auto;" loading="lazy" decoding="async">
                     <span class="font-bold text-theme-secondary text-lg tracking-tight">IMM Korkom UNISA</span>
                 </div>
                 

@@ -29,7 +29,7 @@
                     <a href="{{ route('portfolios.show_public', $portfolio) }}" class="w-full max-w-[300px] block group bg-theme-surface border border-theme-border rounded-xl shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col">
                         @if($portfolio->image_path)
                             <div class="overflow-hidden h-44 shrink-0 relative">
-                                <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" decoding="async">
                                 <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
                             </div>
                         @else
@@ -60,7 +60,7 @@
                     <a href="{{ route('portfolios.show_public', $headlinePortfolio) }}" class="block group bg-theme-surface border border-theme-border rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all">
                         @if($headlinePortfolio->image_path)
                             <div class="relative w-full aspect-[16/9] overflow-hidden bg-theme-bg">
-                                <img src="{{ asset('storage/' . $headlinePortfolio->image_path) }}" alt="{{ $headlinePortfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="{{ asset('storage/' . $headlinePortfolio->image_path) }}" alt="{{ $headlinePortfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" decoding="async">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                                 <div class="absolute bottom-3 left-3 right-3 text-white">
                                     <span class="inline-block bg-red-600 text-white text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow mb-1">
@@ -108,7 +108,7 @@
                                 </div>
                                 @if($portfolio->image_path)
                                     <div class="w-24 h-20 rounded-xl overflow-hidden shrink-0 bg-theme-bg border border-theme-border">
-                                        <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                                        <img src="{{ asset('storage/' . $portfolio->image_path) }}" alt="{{ $portfolio->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async">
                                     </div>
                                 @else
                                     <div class="w-24 h-20 rounded-xl shrink-0 bg-theme-bg border border-theme-border flex items-center justify-center text-[10px] text-theme-secondary">

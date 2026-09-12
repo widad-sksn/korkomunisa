@@ -3,8 +3,6 @@ import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
-import './ckeditor-init';
-
 Alpine.data('themeSwitcher', () => ({
     isDark: localStorage.theme === 'dark',
     toggleTheme() {
