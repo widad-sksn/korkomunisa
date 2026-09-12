@@ -86,12 +86,13 @@
         </div>
 
         <!-- Cloudflare Turnstile Official Widget -->
-        <div class="mt-4 flex justify-center">
+        <div class="mt-4 flex justify-center max-w-full overflow-hidden">
             <div class="cf-turnstile"
                  data-sitekey="{{ config('services.turnstile.site_key') }}"
                  data-callback="onTurnstileSuccess"
                  data-error-callback="onTurnstileError"
                  data-expired-callback="onTurnstileExpired"
+                 data-size="flexible"
                  data-theme="light">
             </div>
         </div>
