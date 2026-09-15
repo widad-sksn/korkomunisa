@@ -40,26 +40,26 @@
             </div>
 
             <!-- Right Side: Form -->
-            <div class="w-full md:w-1/2 min-h-screen flex flex-col justify-center items-center px-6 py-12 md:px-16 bg-theme-bg">
+            <div class="w-full md:w-1/2 min-h-screen flex flex-col justify-center items-center px-3.5 py-6 sm:px-6 md:px-16 bg-theme-bg">
                 <div class="w-full max-w-md">
                     <!-- Mobile Logo (visible only on small screens) -->
-                    <div class="md:hidden flex flex-col items-center mb-8">
+                    <div class="md:hidden flex flex-col items-center mb-6">
                         <a href="/">
-                            <img src="{{ asset('images/Logo Korkom Unisa v1 transparan.png') }}" alt="Logo IMM" style="width: 80px; height: auto;">
+                            <img src="{{ asset('images/Logo_v1.webp') }}" alt="Logo IMM" style="width: 80px; height: auto;" decoding="async">
                         </a>
                     </div>
 
-                    <div class="mb-10 text-center md:text-left">
+                    <div class="mb-8 text-center md:text-left">
                         @if (request()->routeIs('register'))
-                            <h2 class="text-3xl font-extrabold text-theme-text tracking-tight">Daftar Akun Baru</h2>
-                            <p class="text-theme-secondary mt-3">Lengkapi data di bawah ini untuk membuat akun baru.</p>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-theme-text tracking-tight">Daftar Akun Baru</h2>
+                            <p class="text-theme-secondary mt-2 text-sm sm:text-base">Lengkapi data di bawah ini untuk membuat akun baru.</p>
                         @else
-                            <h2 class="text-3xl font-extrabold text-theme-text tracking-tight">Masuk ke Akun</h2>
-                            <p class="text-theme-secondary mt-3">Silakan masuk menggunakan email dan password untuk melanjutkan ke dashboard.</p>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold text-theme-text tracking-tight">Masuk ke Akun</h2>
+                            <p class="text-theme-secondary mt-2 text-sm sm:text-base">Silakan masuk menggunakan email dan password untuk melanjutkan ke dashboard.</p>
                         @endif
                     </div>
                     
-                    <div class="bg-theme-surface p-8 rounded-3xl shadow-lg border border-theme-border/50">
+                    <div class="bg-theme-surface px-4 py-6 sm:p-8 rounded-2xl sm:rounded-3xl shadow-lg border border-theme-border/50">
                         {{ $slot }}
                     </div>
                 </div>

@@ -86,14 +86,16 @@
         </div>
 
         <!-- Cloudflare Turnstile Official Widget -->
-        <div class="mt-4 flex justify-center max-w-full overflow-hidden">
-            <div class="cf-turnstile"
-                 data-sitekey="{{ config('services.turnstile.site_key') }}"
-                 data-callback="onTurnstileSuccess"
-                 data-error-callback="onTurnstileError"
-                 data-expired-callback="onTurnstileExpired"
-                 data-size="flexible"
-                 data-theme="light">
+        <div class="mt-4 flex justify-center w-full overflow-hidden">
+            <div class="cf-turnstile-wrapper flex justify-center items-center w-full min-h-[65px]">
+                <div class="cf-turnstile"
+                     data-sitekey="{{ config('services.turnstile.site_key') }}"
+                     data-callback="onTurnstileSuccess"
+                     data-error-callback="onTurnstileError"
+                     data-expired-callback="onTurnstileExpired"
+                     data-size="flexible"
+                     data-theme="light">
+                </div>
             </div>
         </div>
 
@@ -116,7 +118,33 @@
     </form>
 
     <script>
+        function fitTurnstile() {
+            const wrapper = document.querySelector('.cf-turnstile-wrapper');
+            if (!wrapper) return;
+            const available = wrapper.clientWidth;
+            const target = wrapper.querySelector('.cf-turnstile');
+            if (target && available > 0 && available < 300) {
+                const scale = available / 300;
+                target.style.transform = `scale(${scale})`;
+                target.style.transformOrigin = 'center center';
+                wrapper.style.height = `${Math.ceil(65 * scale)}px`;
+            } else if (target) {
+                target.style.transform = '';
+                target.style.transformOrigin = '';
+                wrapper.style.height = '';
+            }
+        }
+        window.addEventListener('resize', fitTurnstile);
+        window.addEventListener('load', fitTurnstile);
+        if ('ResizeObserver' in window) {
+            const wEl = document.querySelector('.cf-turnstile-wrapper');
+            if (wEl) new ResizeObserver(fitTurnstile).observe(wEl);
+        }
+        setTimeout(fitTurnstile, 400);
+        setTimeout(fitTurnstile, 1200);
+
         function onTurnstileSuccess(token) {
+            fitTurnstile();
             const btn = document.getElementById('submit-btn');
             if (btn) {
                 btn.removeAttribute('disabled');
