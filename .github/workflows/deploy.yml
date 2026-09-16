@@ -18,10 +18,12 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          command_timeout: 30m
           script: |
             cd /var/www/korkomunisa
-            git pull origin main
-            docker compose up -d --build --force-recreate
+            git fetch origin main
+            git reset --hard origin/main
+            docker compose up -d --build
             docker compose exec -T app php artisan migrate --force || true
             docker compose exec -T app php artisan optimize:clear || true
             docker compose exec -T app php artisan view:clear || true
