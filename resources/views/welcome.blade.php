@@ -122,23 +122,31 @@
             @else
                 <!-- Desktop Carousel (md:block) -->
                 <div class="hidden md:block">
-                    <div x-data="{ swiper: null }"
-                         x-init="
-                            if (window.innerWidth >= 768) {
-                                swiper = new Swiper($refs.swiperContainer, {
-                                    loop: {{ count($articles) > 4 ? 'true' : 'false' }},
-                                    autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
-                                    slidesPerView: 1,
-                                    spaceBetween: 16,
-                                    breakpoints: {
-                                        640: { slidesPerView: 2, spaceBetween: 16 },
-                                        768: { slidesPerView: 3, spaceBetween: 24 },
-                                        1024: { slidesPerView: 4, spaceBetween: 24 }
-                                    },
-                                    navigation: { nextEl: $refs.nextBtn, prevEl: $refs.prevBtn }
-                                });
+                    <div x-data="{
+                            swiper: null,
+                            init() {
+                                if (window.innerWidth < 768) return;
+                                const setup = () => {
+                                    if (typeof Swiper !== 'undefined' && this.$refs.swiperContainer) {
+                                        this.swiper = new Swiper(this.$refs.swiperContainer, {
+                                            loop: {{ count($articles) > 4 ? 'true' : 'false' }},
+                                            autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
+                                            slidesPerView: 1,
+                                            spaceBetween: 16,
+                                            breakpoints: {
+                                                640: { slidesPerView: 2, spaceBetween: 16 },
+                                                768: { slidesPerView: 3, spaceBetween: 24 },
+                                                1024: { slidesPerView: 4, spaceBetween: 24 }
+                                            },
+                                            navigation: { nextEl: this.$refs.nextBtn, prevEl: this.$refs.prevBtn }
+                                        });
+                                    } else {
+                                        setTimeout(setup, 50);
+                                    }
+                                };
+                                setup();
                             }
-                         "
+                         }"
                          class="relative group/slider w-full">
                         
                         <!-- Desktop Prev Button -->
@@ -298,23 +306,31 @@
             @else
                 <!-- Desktop Carousel (md:block) -->
                 <div class="hidden md:block">
-                    <div x-data="{ swiper: null }"
-                         x-init="
-                            if (window.innerWidth >= 768) {
-                                swiper = new Swiper($refs.swiperContainer, {
-                                    loop: {{ count($portfolios) > 4 ? 'true' : 'false' }},
-                                    autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
-                                    slidesPerView: 1,
-                                    spaceBetween: 16,
-                                    breakpoints: {
-                                        640: { slidesPerView: 2, spaceBetween: 16 },
-                                        768: { slidesPerView: 3, spaceBetween: 24 },
-                                        1024: { slidesPerView: 4, spaceBetween: 24 }
-                                    },
-                                    navigation: { nextEl: $refs.nextBtn, prevEl: $refs.prevBtn }
-                                });
+                    <div x-data="{
+                            swiper: null,
+                            init() {
+                                if (window.innerWidth < 768) return;
+                                const setup = () => {
+                                    if (typeof Swiper !== 'undefined' && this.$refs.swiperContainer) {
+                                        this.swiper = new Swiper(this.$refs.swiperContainer, {
+                                            loop: {{ count($portfolios) > 4 ? 'true' : 'false' }},
+                                            autoplay: { delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true },
+                                            slidesPerView: 1,
+                                            spaceBetween: 16,
+                                            breakpoints: {
+                                                640: { slidesPerView: 2, spaceBetween: 16 },
+                                                768: { slidesPerView: 3, spaceBetween: 24 },
+                                                1024: { slidesPerView: 4, spaceBetween: 24 }
+                                            },
+                                            navigation: { nextEl: this.$refs.nextBtn, prevEl: this.$refs.prevBtn }
+                                        });
+                                    } else {
+                                        setTimeout(setup, 50);
+                                    }
+                                };
+                                setup();
                             }
-                         "
+                         }"
                          class="relative group/slider w-full">
                         
                         <!-- Desktop Prev Button -->
