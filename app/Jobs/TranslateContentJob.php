@@ -34,14 +34,6 @@ class TranslateContentJob implements ShouldQueue
      */
     public function handle(): void
     {
-        if ($this->model->translation_status === 'completed' && !$this->force) {
-            return;
-        }
-
-        // Set to processing
-        $this->model->translation_status = 'processing';
-        $this->model->saveQuietly();
-
         // Define fields to translate based on model type
         $fields = [];
         if ($this->model instanceof \App\Models\Article) {
@@ -52,18 +44,29 @@ class TranslateContentJob implements ShouldQueue
             $fields = ['title', 'content'];
         }
 
+        $hasMissingTranslations = false;
+        foreach ($fields as $field) {
+            $existing = $this->model->getTranslations($field);
+            foreach (['en', 'ar', 'ja', 'jv'] as $loc) {
+                if (empty(trim(strip_tags($existing[$loc] ?? '')))) {
+                    $hasMissingTranslations = true;
+                    break 2;
+                }
+            }
+        }
+
+        if ($this->model->translation_status === 'completed' && !$this->force && !$hasMissingTranslations) {
+            return;
+        }
+
+        // Set to processing
+        $this->model->translation_status = 'processing';
+        $this->model->saveQuietly();
+
         $dataToTranslate = [];
         foreach ($fields as $field) {
-            // Get raw fallback or default locale content
-            // Assuming the author writes in one language, we take the original or current set value
             $translations = $this->model->getTranslations($field);
             
-            // We just send the first available translation or a combined array to Gemini
-            // Actually, the user asked to send something like:
-            // "title": {"id": "...", "en": "", "ar": ""}
-            // so Gemini can detect the source and fill the rest.
-            
-            // Ensure array has all 3 keys
             $dataToTranslate[$field] = [
                 'id' => $translations['id'] ?? '',
                 'en' => $translations['en'] ?? '',
@@ -71,10 +74,6 @@ class TranslateContentJob implements ShouldQueue
                 'ja' => $translations['ja'] ?? '',
                 'jv' => $translations['jv'] ?? '',
             ];
-            
-            // If they wrote only in one language, they might have saved it as default (which Spatie maps to 'id' by default)
-            // But let's say they wrote in English and their UI was set to 'en', it might be in 'en'.
-            // In either case, we pass whatever we have.
         }
 
         $translatedResponse = GeminiTranslationService::translate($dataToTranslate);
@@ -95,7 +94,7 @@ class TranslateContentJob implements ShouldQueue
             foreach ($fields as $field) {
                 if (isset($translatedResponse[$field]) && is_array($translatedResponse[$field])) {
                     // Update field with all translations
-                    $this->model->$field = $translatedResponse[$field];
+                    $this->model->setTranslations($field, $translatedResponse[$field]);
                 }
             }
             
@@ -109,10 +108,6 @@ class TranslateContentJob implements ShouldQueue
             $this->model->saveQuietly();
             
             Log::error('TranslateContentJob failed for model: ' . get_class($this->model) . ' ID: ' . $this->model->id);
-            
-            // Re-throw so it goes to failed_jobs table and can be retried automatically?
-            // Actually, the user asked "Jika gagal... Tampilkan status: Translation Failed. Sediakan tombol: 🔄 Retry Translation"
-            // So we just mark as failed and don't re-throw to avoid spamming the worker.
         }
     }
 }

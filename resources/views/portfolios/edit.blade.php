@@ -20,10 +20,12 @@
                         
                         <!-- Multi-Language Tabs -->
                         <div x-data="{ langTab: 'id' }" class="border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
-                            <div class="flex bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                                <button type="button" @click="langTab = 'id'" :class="langTab == 'id' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">Indonesia</button>
-                                <button type="button" @click="langTab = 'en'" :class="langTab == 'en' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">English</button>
-                                <button type="button" @click="langTab = 'ar'" :class="langTab == 'ar' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 px-4 py-3 border-b-2 font-medium text-sm transition-colors">Arabic</button>
+                            <div class="flex flex-wrap bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                                <button type="button" @click="langTab = 'id'" :class="langTab == 'id' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 min-w-[70px] px-3 py-3 border-b-2 font-medium text-xs sm:text-sm transition-colors text-center">Indonesia</button>
+                                <button type="button" @click="langTab = 'en'" :class="langTab == 'en' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 min-w-[70px] px-3 py-3 border-b-2 font-medium text-xs sm:text-sm transition-colors text-center">English</button>
+                                <button type="button" @click="langTab = 'ar'" :class="langTab == 'ar' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 min-w-[70px] px-3 py-3 border-b-2 font-medium text-xs sm:text-sm transition-colors text-center">Arabic</button>
+                                <button type="button" @click="langTab = 'ja'" :class="langTab == 'ja' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 min-w-[70px] px-3 py-3 border-b-2 font-medium text-xs sm:text-sm transition-colors text-center">Japanese</button>
+                                <button type="button" @click="langTab = 'jv'" :class="langTab == 'jv' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400 bg-white dark:bg-gray-900' : 'border-transparent text-gray-500 hover:text-gray-700 dark:hover:text-gray-300'" class="flex-1 min-w-[70px] px-3 py-3 border-b-2 font-medium text-xs sm:text-sm transition-colors text-center">Javanese</button>
                             </div>
                             
                             <div class="p-6 space-y-6">
@@ -58,6 +60,28 @@
                                     </div>
                                     <div>
                                         <x-editor name="description[ar]" id="description_ar" module="events" :value="old('description.ar', $portfolio->getTranslation('description', 'ar', false))" label="Description (AR)" />
+                                    </div>
+                                </div>
+
+                                <!-- Japanese -->
+                                <div x-show="langTab == 'ja'" style="display: none;" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Title (JA)</label>
+                                        <input type="text" name="title[ja]" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm" value="{{ old('title.ja', $portfolio->getTranslation('title', 'ja', false)) }}">
+                                    </div>
+                                    <div>
+                                        <x-editor name="description[ja]" id="description_ja" module="events" :value="old('description.ja', $portfolio->getTranslation('description', 'ja', false))" label="Description (JA)" />
+                                    </div>
+                                </div>
+
+                                <!-- Javanese -->
+                                <div x-show="langTab == 'jv'" style="display: none;" class="space-y-6">
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Title (JV)</label>
+                                        <input type="text" name="title[jv]" class="w-full px-4 py-2.5 rounded-lg border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50 text-gray-900 dark:text-gray-100 focus:bg-white dark:focus:bg-gray-800 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 shadow-sm" value="{{ old('title.jv', $portfolio->getTranslation('title', 'jv', false)) }}">
+                                    </div>
+                                    <div>
+                                        <x-editor name="description[jv]" id="description_jv" module="events" :value="old('description.jv', $portfolio->getTranslation('description', 'jv', false))" label="Description (JV)" />
                                     </div>
                                 </div>
                             </div>
