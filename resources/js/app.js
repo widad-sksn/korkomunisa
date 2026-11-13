@@ -18,3 +18,12 @@ Alpine.data('themeSwitcher', () => ({
 }));
 
 Alpine.start();
+
+// Replace history entry on language switch so back button returns immediately to previous page
+document.addEventListener('click', (e) => {
+    const langLink = e.target.closest('a[href*="/lang/"]');
+    if (langLink) {
+        e.preventDefault();
+        window.location.replace(langLink.href);
+    }
+});

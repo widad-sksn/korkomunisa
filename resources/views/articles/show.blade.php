@@ -63,7 +63,7 @@
                 </div>
                 
                 <div class="flex items-center space-x-6">
-                    <a href="/#tulisan-kader" onclick="if(document.referrer.includes(window.location.hostname)) { history.back(); return false; }" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Kembali') }}</a>
+                    <a href="/#tulisan-kader" onclick="if(document.referrer.includes(window.location.hostname) && !document.referrer.includes(window.location.pathname) && !document.referrer.includes('/lang/')) { history.back(); return false; }" class="text-theme-text hover:text-theme-primary font-medium transition-colors">{{ __('Kembali') }}</a>
                     
                     <!-- Language Switcher -->
                     <div class="relative" x-data="{ openLang: false }">
@@ -137,7 +137,7 @@
             </div>
             
             <div class="mt-16 pt-8 border-t border-theme-border text-center">
-                <a href="/#tulisan-kader" onclick="if(document.referrer.includes(window.location.hostname)) { history.back(); return false; }" class="inline-flex items-center px-6 py-3 bg-theme-surface border border-theme-border rounded-full font-bold text-sm text-theme-text hover:bg-theme-bg hover:text-theme-primary transition-colors shadow-sm">
+                <a href="/#tulisan-kader" onclick="if(document.referrer.includes(window.location.hostname) && !document.referrer.includes(window.location.pathname) && !document.referrer.includes('/lang/')) { history.back(); return false; }" class="inline-flex items-center px-6 py-3 bg-theme-surface border border-theme-border rounded-full font-bold text-sm text-theme-text hover:bg-theme-bg hover:text-theme-primary transition-colors shadow-sm">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     {{ __('Kembali') }}
                 </a>
