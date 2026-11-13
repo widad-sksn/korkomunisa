@@ -22,5 +22,10 @@ class AppServiceProvider extends ServiceProvider
         if (app()->environment('production')) {
             \Illuminate\Support\Facades\URL::forceScheme('https');
         }
+
+        \Spatie\Translatable\Facades\Translatable::fallback(
+            fallbackLocale: 'id',
+            fallbackAny: true,
+        );
     }
 }
