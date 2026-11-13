@@ -41,6 +41,8 @@
                             <x-dropdown-link :href="route('lang.switch', 'id')">ID (Indonesian)</x-dropdown-link>
                             <x-dropdown-link :href="route('lang.switch', 'en')">EN (English)</x-dropdown-link>
                             <x-dropdown-link :href="route('lang.switch', 'ar')">AR (Arabic)</x-dropdown-link>
+                            <x-dropdown-link :href="route('lang.switch', 'ja')">JA (Japanese)</x-dropdown-link>
+                            <x-dropdown-link :href="route('lang.switch', 'jv')">JV (Javanese)</x-dropdown-link>
                         </x-slot>
                     </x-dropdown>
                 </div>
@@ -103,6 +105,12 @@
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('lang.switch', 'ar')" class="pl-6 flex justify-between items-center">
                                 <span>Arabic</span> <span class="text-xs text-theme-secondary font-mono">AR</span>
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('lang.switch', 'ja')" class="pl-6 flex justify-between items-center">
+                                <span>Japanese</span> <span class="text-xs text-theme-secondary font-mono">JA</span>
+                            </x-dropdown-link>
+                            <x-dropdown-link :href="route('lang.switch', 'jv')" class="pl-6 flex justify-between items-center">
+                                <span>Javanese</span> <span class="text-xs text-theme-secondary font-mono">JV</span>
                             </x-dropdown-link>
                         </div>
                         <x-dropdown-link :href="route('profile.edit')" class="flex items-center">

@@ -154,7 +154,7 @@ class ArticleController extends Controller
         \App\Jobs\TranslateContentJob::dispatch($article, true);
 
         if (auth()->user()->role === 'admin') {
-            return redirect()->route('dashboard')->with('success', 'Tulisan berhasil diperbarui oleh Admin. Terjemahan otomatis tidak berjalan saat edit, gunakan tombol Perbarui Terjemahan jika perlu.');
+            return redirect()->route('dashboard')->with('success', 'Tulisan berhasil diperbarui dan terjemahan sedang diproses di latar belakang.');
         }
 
         return redirect()->route('articles.index')->with('success', 'Artikel berhasil diperbarui dan kembali menunggu persetujuan.');

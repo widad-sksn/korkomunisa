@@ -139,7 +139,7 @@ class PortfolioController extends Controller
         \App\Jobs\TranslateContentJob::dispatch($portfolio, true);
 
         if (auth()->user()->role === 'admin') {
-            return redirect()->route('dashboard')->with('success', 'Kegiatan berhasil diperbarui oleh Admin. Terjemahan otomatis tidak berjalan saat edit, gunakan tombol Perbarui Terjemahan jika perlu.');
+            return redirect()->route('dashboard')->with('success', 'Kegiatan berhasil diperbarui dan terjemahan sedang diproses di latar belakang.');
         }
 
         return redirect()->route('portfolios.index')->with('success', 'Kegiatan berhasil diperbarui dan kembali menunggu persetujuan.');

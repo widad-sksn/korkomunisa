@@ -7,38 +7,38 @@ use Stichoza\GoogleTranslate\GoogleTranslate;
 class AutoTranslationService
 {
     /**
-     * Automatically translates missing 'en' and 'ar' keys based on the 'id' key.
-     *
-     * @param array $data The translation array (e.g., ['id' => '...', 'en' => '...', 'ar' => '...'])
-     * @return array
+     * Translates missing keys (id, en, ar, ja, jv) using available source text.
      */
     public static function translateArray(array $data): array
     {
-        $idText = $data['id'] ?? '';
-        
-        // If Indonesian text is empty, nothing to translate
-        if (empty(trim(strip_tags($idText)))) {
-            return $data;
-        }
+        $supported = ['id', 'en', 'ar', 'ja', 'jv'];
 
-        // Translate to English if empty
-        if (empty(trim(strip_tags($data['en'] ?? '')))) {
-            try {
-                $tr = new GoogleTranslate('en', 'id');
-                // preserve html tags if any
-                $data['en'] = $tr->translate($idText);
-            } catch (\Exception $e) {
-                // Ignore errors (fallback to empty or whatever was there)
+        // Find primary non-empty source
+        $sourceLang = 'id';
+        $sourceText = '';
+        foreach ($supported as $lang) {
+            $val = $data[$lang] ?? '';
+            if (!empty(trim(strip_tags($val)))) {
+                $sourceLang = $lang;
+                $sourceText = $val;
+                break;
             }
         }
 
-        // Translate to Arabic if empty
-        if (empty(trim(strip_tags($data['ar'] ?? '')))) {
+        if (empty(trim(strip_tags($sourceText)))) {
+            return $data;
+        }
+
+        // ponytail: free google translate lacks custom glossary/terms protection. Use Gemini for nuanced translations.
+        foreach ($supported as $lang) {
+            if ($lang === $sourceLang || !empty(trim(strip_tags($data[$lang] ?? '')))) {
+                continue;
+            }
             try {
-                $tr = new GoogleTranslate('ar', 'id');
-                $data['ar'] = $tr->translate($idText);
-            } catch (\Exception $e) {
-                // Ignore errors
+                $tr = new GoogleTranslate($lang, $sourceLang);
+                $data[$lang] = $tr->translate($sourceText);
+            } catch (\Throwable $e) {
+                // Ignore failure on single locale
             }
         }
 

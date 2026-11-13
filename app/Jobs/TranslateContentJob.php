@@ -79,6 +79,15 @@ class TranslateContentJob implements ShouldQueue
 
         $translatedResponse = GeminiTranslationService::translate($dataToTranslate);
 
+        // Fallback to free Google Translate if Gemini fails or quota exceeded
+        if (!$translatedResponse) {
+            Log::warning('TranslateContentJob: Gemini failed, fallback to AutoTranslationService for model: ' . get_class($this->model) . ' ID: ' . $this->model->id);
+            $translatedResponse = ['detected_language' => $this->model->original_language ?? 'id'];
+            foreach ($fields as $field) {
+                $translatedResponse[$field] = \App\Services\AutoTranslationService::translateArray($dataToTranslate[$field] ?? []);
+            }
+        }
+
         if ($translatedResponse) {
             // Success
             $this->model->original_language = $translatedResponse['detected_language'] ?? 'id';

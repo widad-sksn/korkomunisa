@@ -16,7 +16,7 @@ class GeminiTranslationService
     public static function translate(array $data): ?array
     {
         $apiKey = config('services.gemini.key');
-        $model = config('services.gemini.model', 'gemini-1.5-flash');
+        $model = config('services.gemini.model', 'gemini-2.5-flash');
         
         if (empty($apiKey)) {
             Log::error('GeminiTranslationService: GEMINI_API_KEY is not configured in services.gemini.key');
